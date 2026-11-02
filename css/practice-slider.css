@@ -149,29 +149,27 @@
 
     /* Плавне альфа-згасання карток без різких обрізань */
     -webkit-mask-image: linear-gradient(to right,
-        transparent 0%,
-        rgba(0, 0, 0, 0.08) 40px,
-        rgba(0, 0, 0, 0.5) 120px,
-        rgba(0, 0, 0, 0.9) 200px,
-        black 260px,
-        black calc(100% - 260px),
-        rgba(0, 0, 0, 0.9) calc(100% - 200px),
-        rgba(0, 0, 0, 0.5) calc(100% - 120px),
-        rgba(0, 0, 0, 0.08) calc(100% - 40px),
-        transparent 100%
-    );
+            transparent 0%,
+            rgba(0, 0, 0, 0.08) 40px,
+            rgba(0, 0, 0, 0.5) 120px,
+            rgba(0, 0, 0, 0.9) 200px,
+            black 260px,
+            black calc(100% - 260px),
+            rgba(0, 0, 0, 0.9) calc(100% - 200px),
+            rgba(0, 0, 0, 0.5) calc(100% - 120px),
+            rgba(0, 0, 0, 0.08) calc(100% - 40px),
+            transparent 100%);
     mask-image: linear-gradient(to right,
-        transparent 0%,
-        rgba(0, 0, 0, 0.08) 40px,
-        rgba(0, 0, 0, 0.5) 120px,
-        rgba(0, 0, 0, 0.9) 200px,
-        black 260px,
-        black calc(100% - 260px),
-        rgba(0, 0, 0, 0.9) calc(100% - 200px),
-        rgba(0, 0, 0, 0.5) calc(100% - 120px),
-        rgba(0, 0, 0, 0.08) calc(100% - 40px),
-        transparent 100%
-    );
+            transparent 0%,
+            rgba(0, 0, 0, 0.08) 40px,
+            rgba(0, 0, 0, 0.5) 120px,
+            rgba(0, 0, 0, 0.9) 200px,
+            black 260px,
+            black calc(100% - 260px),
+            rgba(0, 0, 0, 0.9) calc(100% - 200px),
+            rgba(0, 0, 0, 0.5) calc(100% - 120px),
+            rgba(0, 0, 0, 0.08) calc(100% - 40px),
+            transparent 100%);
 }
 
 .wave-slider-container.is-dragging {
@@ -191,21 +189,19 @@
 .wave-vignette--left {
     left: 0;
     background: linear-gradient(to right,
-        #FFFFFF 0%,
-        rgba(255, 255, 255, 0.95) 25%,
-        rgba(255, 255, 255, 0.5) 65%,
-        rgba(255, 255, 255, 0) 100%
-    );
+            #FFFFFF 0%,
+            rgba(255, 255, 255, 0.95) 25%,
+            rgba(255, 255, 255, 0.5) 65%,
+            rgba(255, 255, 255, 0) 100%);
 }
 
 .wave-vignette--right {
     right: 0;
     background: linear-gradient(to left,
-        #FFFFFF 0%,
-        rgba(255, 255, 255, 0.95) 25%,
-        rgba(255, 255, 255, 0.5) 65%,
-        rgba(255, 255, 255, 0) 100%
-    );
+            #FFFFFF 0%,
+            rgba(255, 255, 255, 0.95) 25%,
+            rgba(255, 255, 255, 0.5) 65%,
+            rgba(255, 255, 255, 0) 100%);
 }
 
 /* В’юпорт для карток */
@@ -224,7 +220,8 @@
 .wave-card {
     position: absolute;
     top: 10px;
-    left: -220px; /* Центрування картки шириною 440px */
+    left: -220px;
+    /* Центрування картки шириною 440px */
     width: 440px;
     height: 610px;
     background: #FFFFFF;
@@ -244,7 +241,8 @@
 .wave-card:hover {
     box-shadow: 0 22px 52px rgba(100, 83, 163, 0.18), 0 6px 18px rgba(0, 0, 0, 0.06);
     border-color: var(--color-design);
-    transform: translate3d(0, -6px, 0); /* Легке підняття при наведенні */
+    transform: translate3d(0, -6px, 0);
+    /* Легке підняття при наведенні */
 }
 
 .wave-card--software:hover {
@@ -399,6 +397,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     height: 56px;
+    text-align: justify;
 }
 
 .wave-card__desc {
@@ -536,6 +535,7 @@
         opacity: 0;
         transform: scale(0.96) translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: scale(1) translateY(0);
@@ -749,6 +749,7 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
+    text-align: justify;
 }
 
 .practice-modal__title-block {
@@ -829,7 +830,6 @@
 
 .practice-tasks-list {
     margin: 0;
-    padding-left: 20px;
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -840,5 +840,3 @@
     line-height: 1.45;
     color: #334155;
 }
-
-

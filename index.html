@@ -16,30 +16,96 @@
 <body>
 
     <!-- ==========================================================================
-         СЕКЦІЯ 01: ГОЛОВНИЙ ЕКРАН (HERO)
+         ЄДИНА ЗАКРІПЛЕНА ШАПКА САЙТУ (НАВІГАЦІЯ 01-10 ДЛЯ ВСІХ РОЗДІЛІВ)
          ========================================================================== -->
-    <section id="section-1" class="screen-section screen-section--hero screen-section--cream">
-        <!-- Шапка сайту -->
-        <header class="main-header">
-            <a href="#section-1" class="header-brand">
-                <div class="header-brand__logo" title="Дніпровський політехнічний фаховий коледж">
-                    <img src="img/logo.svg" alt="Логотип коледжу" width="54" height="54">
+    <header id="site-header" class="site-header" aria-label="Головна навігація сайту">
+        <div class="site-header__container">
+            <!-- Ліва частина: Бренд і логотип -->
+            <a href="#section-1" class="site-header__brand"
+                title="Дніпровський політехнічний фаховий коледж — на початок">
+                <div class="site-header__logo-wrap">
+                    <img src="img/logo.svg" alt="Логотип коледжу" width="32" height="32" class="site-header__logo">
                 </div>
-                <div class="header-brand__title">Дніпровський політехнічний фаховий коледж</div>
+                <div class="site-header__brand-text">
+                    <span class="site-header__title">Дніпровський політехнічний фаховий коледж</span>
+                    <span class="site-header__subtitle">122 Комп’ютерні науки</span>
+                </div>
             </a>
-            <nav class="header-nav" aria-label="Головна навігація">
-                <a href="#section-2" class="header-nav__link">Програми</a>
-                <a href="#section-4" class="header-nav__link">Навчання</a>
-                <a href="#section-5" class="header-nav__link">Практика</a>
-                <a href="#section-7" class="header-nav__link">Роботи</a>
-                <a href="#section-8" class="header-nav__link">Кар’єра</a>
-                <a href="#section-10" class="btn-header-cta">
+
+            <!-- Центральна частина: Панель пігулок 01-10 -->
+            <nav class="site-header__nav" aria-label="Навігація по розділах">
+                <div class="site-header__pills-bar">
+                    <a href="#section-1" class="site-header__pill site-header__pill--active" data-section="section-1"
+                        title="01 / Головна">
+                        <span>01</span>
+                        <span class="site-header__pill-tooltip">01 Головна</span>
+                    </a>
+                    <a href="#section-2" class="site-header__pill" data-section="section-2"
+                        title="02 / Знайомство з програмами">
+                        <span>02</span>
+                        <span class="site-header__pill-tooltip">02 Програми</span>
+                    </a>
+                    <a href="#section-3" class="site-header__pill" data-section="section-3" title="03 / Дизайн і веб">
+                        <span>03</span>
+                        <span class="site-header__pill-tooltip">03 Дизайн і веб</span>
+                    </a>
+                    <a href="#section-4" class="site-header__pill" data-section="section-4" title="04 / Код і системи">
+                        <span>04</span>
+                        <span class="site-header__pill-tooltip">04 Код і системи</span>
+                    </a>
+                    <a href="#section-5" class="site-header__pill" data-section="section-5"
+                        title="05 / Практика й портфоліо">
+                        <span>05</span>
+                        <span class="site-header__pill-tooltip">05 Практика</span>
+                    </a>
+                    <a href="#section-6" class="site-header__pill" data-section="section-6" title="06 / Фотогалерея">
+                        <span>06</span>
+                        <span class="site-header__pill-tooltip">06 Галерея</span>
+                    </a>
+                    <a href="#section-7" class="site-header__pill" data-section="section-7" title="07 / 3D-моделювання">
+                        <span>07</span>
+                        <span class="site-header__pill-tooltip">07 3D-моделі</span>
+                    </a>
+                    <a href="#section-8" class="site-header__pill" data-section="section-8" title="08 / Професії">
+                        <span>08</span>
+                        <span class="site-header__pill-tooltip">08 Професії</span>
+                    </a>
+                    <a href="#section-9" class="site-header__pill" data-section="section-9" title="09 / Де працювати">
+                        <span>09</span>
+                        <span class="site-header__pill-tooltip">09 Кар’єра</span>
+                    </a>
+                    <a href="#section-10" class="site-header__pill" data-section="section-10"
+                        title="10 / Освіта та вступ">
+                        <span>10</span>
+                        <span class="site-header__pill-tooltip">10 Вступ</span>
+                    </a>
+                </div>
+            </nav>
+
+            <!-- Права частина: Поточний розділ + кнопка переходу + кнопка Вступ -->
+            <div class="site-header__actions">
+                <div class="site-header__current">
+                    <span class="site-header__current-dot"></span>
+                    <span id="hdr-current-title" class="site-header__current-title">01 · Головна</span>
+                </div>
+                <a id="hdr-next-btn" href="#section-2" class="site-header__next-btn"
+                    title="Перейти до наступного розділу">
+                    <span id="hdr-next-label">02 Знайомство з програмами</span>
+                    <span id="hdr-next-arrow" class="site-header__next-arrow">↓</span>
+                </a>
+                <a href="#section-10" class="btn-header-cta-fixed" title="Умови вступу та контакти">
                     <span>Про вступ</span>
                     <span class="arrow">↗</span>
                 </a>
-            </nav>
-        </header>
+            </div>
+        </div>
+    </header>
 
+
+    <!-- ==========================================================================
+         СЕКЦІЯ 01: ГОЛОВНИЙ ЕКРАН (HERO)
+         ========================================================================== -->
+    <section id="section-1" class="screen-section screen-section--hero screen-section--cream">
         <!-- Головний блок -->
         <div class="hero-body">
             <div class="hero-main-col">
@@ -127,14 +193,6 @@
          СЕКЦІЯ 02: ЗНАЙОМСТВО
          ========================================================================== -->
     <section id="section-2" class="screen-section screen-section--cream">
-        <div class="screen-subheader">
-            <a href="#section-1" class="screen-subheader__brand">Дніпровський політехнічний фаховий коледж</a>
-            <div class="screen-subheader__meta">
-                <span class="screen-subheader__number">02 / 10</span>
-                <span class="screen-subheader__section-name">Знайомство з програмами</span>
-            </div>
-        </div>
-
         <div class="screen-title-block">
             <h2 class="screen-title">Два фокуси. Спільна цифрова основа.</h2>
             <p class="screen-subtitle">Обирай акцент, який ближчий тобі: візуальний дизайн, інтерфейси та 3D — або
@@ -321,21 +379,6 @@
             </div>
         </div>
 
-        <footer class="screen-pagination">
-            <nav class="pagination-pills" aria-label="Навігація по розділах">
-                <a href="#section-1" class="pagination-pill">01</a>
-                <a href="#section-2" class="pagination-pill pagination-pill--active">02</a>
-                <a href="#section-3" class="pagination-pill">03</a>
-                <a href="#section-4" class="pagination-pill">04</a>
-                <a href="#section-5" class="pagination-pill">05</a>
-                <a href="#section-6" class="pagination-pill">06</a>
-                <a href="#section-7" class="pagination-pill">07</a>
-                <a href="#section-8" class="pagination-pill">08</a>
-                <a href="#section-9" class="pagination-pill">09</a>
-                <a href="#section-10" class="pagination-pill">10</a>
-            </nav>
-            <a href="#section-3" class="screen-next-link">03 Дизайн, веб і цифрові продукти ↓</a>
-        </footer>
     </section>
 
 
@@ -343,14 +386,6 @@
          СЕКЦІЯ 03: ДИЗАЙН І ВЕБ (ШОУРУМ ВЕБ-ПРОЄКТІВ ТА FIGMA)
          ========================================================================== -->
     <section id="section-3" class="screen-section screen-section--white">
-        <div class="screen-subheader">
-            <a href="#section-1" class="screen-subheader__brand">Дніпровський політехнічний фаховий коледж</a>
-            <div class="screen-subheader__meta">
-                <span class="screen-subheader__number">03 / 10</span>
-                <span class="screen-subheader__section-name">Дизайн і веб · Студентські проєкти</span>
-            </div>
-        </div>
-
         <div class="screen-title-block">
             <h2 class="screen-title">Від візуальної мови до інтерфейсу.</h2>
             <p class="screen-subtitle">Справжні студентські сайти та UI/UX макети у Figma.</p>
@@ -370,9 +405,11 @@
                             <button id="showcase-zoom-out" class="btn-mockup-icon" title="Зменшити">−</button>
                             <span id="showcase-zoom-val" class="zoom-val">100%</span>
                             <button id="showcase-zoom-in" class="btn-mockup-icon" title="Збільшити">+</button>
-                            <button id="showcase-zoom-reset" class="btn-mockup-icon" title="Скинути масштаб">1:1</button>
+                            <button id="showcase-zoom-reset" class="btn-mockup-icon"
+                                title="Скинути масштаб">1:1</button>
                         </div>
-                        <button id="showcase-fullscreen-btn" class="btn-mockup-fullscreen" title="Розгорнути на весь екран">
+                        <button id="showcase-fullscreen-btn" class="btn-mockup-fullscreen"
+                            title="Розгорнути на весь екран">
                             <span>На весь екран</span>
                             <span class="fs-icon">⛶</span>
                         </button>
@@ -381,7 +418,8 @@
 
                 <!-- Робоча область зі знімком сайту та плавним скролом -->
                 <div id="showcase-viewport" class="web-showcase-viewport">
-                    <img id="showcase-screen-img" src="img/Figma/1.png" alt="Знімок студентського макета" class="web-showcase-image">
+                    <img id="showcase-screen-img" src="img/Figma/1.png" alt="Знімок студентського макета"
+                        class="web-showcase-image">
                     <div class="mockup-scroll-hint">
                         <span>Прокручуйте для огляду макета ↓</span>
                     </div>
@@ -394,7 +432,9 @@
                 <div class="showcase-info-card">
                     <div class="showcase-info-meta">ВЕБ-ПРОЄКТ · UI/UX ДИЗАЙН</div>
                     <h3 id="showcase-title" class="showcase-active-title">Strawberry — Промо-сайт бренду</h3>
-                    <p id="showcase-desc" class="showcase-active-desc">Яскравий концептуальний промо-сайт полуничних десертів та напоїв. Соковита коралово-градієнтна палітра, виразна заголовкова типографіка, картки смаків та інтерактивні елементи замовлення.</p>
+                    <p id="showcase-desc" class="showcase-active-desc">Яскравий концептуальний промо-сайт полуничних
+                        десертів та напоїв. Соковита коралово-градієнтна палітра, виразна заголовкова типографіка,
+                        картки смаків та інтерактивні елементи замовлення.</p>
                     <div class="showcase-tags-block">
                         <div id="showcase-tags" class="showcase-tags-list">
                             <span class="showcase-tech-tag">Figma</span>
@@ -448,24 +488,10 @@
 
         <div class="section3-shared-result">
             <div class="shared-result-label">СПІЛЬНИЙ РЕЗУЛЬТАТ</div>
-            <div class="shared-result-text">Розуміти, як цифровий продукт виглядає у Figma, взаємодіє з людиною та бездоганно верстається у сучасному вебі.</div>
+            <div class="shared-result-text">Розуміти, як цифровий продукт виглядає у Figma, взаємодіє з людиною та
+                бездоганно верстається у сучасному вебі.</div>
         </div>
 
-        <footer class="screen-pagination">
-            <nav class="pagination-pills" aria-label="Навігація по розділах">
-                <a href="#section-1" class="pagination-pill">01</a>
-                <a href="#section-2" class="pagination-pill">02</a>
-                <a href="#section-3" class="pagination-pill pagination-pill--active">03</a>
-                <a href="#section-4" class="pagination-pill">04</a>
-                <a href="#section-5" class="pagination-pill">05</a>
-                <a href="#section-6" class="pagination-pill">06</a>
-                <a href="#section-7" class="pagination-pill">07</a>
-                <a href="#section-8" class="pagination-pill">08</a>
-                <a href="#section-9" class="pagination-pill">09</a>
-                <a href="#section-10" class="pagination-pill">10</a>
-            </nav>
-            <a href="#section-4" class="screen-next-link">04 Програмування, дані та системи ↓</a>
-        </footer>
     </section>
 
     <!-- Повноекранне модальне вікно (Lightbox Zoom Modal) -->
@@ -475,7 +501,8 @@
             <div class="showcase-modal__header">
                 <div class="showcase-modal__info">
                     <h3 id="showcase-modal-title" class="showcase-modal__title">Strawberry — Промо-сайт бренду</h3>
-                    <span id="showcase-modal-author" class="showcase-modal__subtitle">Повноекранний перегляд макета</span>
+                    <span id="showcase-modal-author" class="showcase-modal__subtitle">Повноекранний перегляд
+                        макета</span>
                 </div>
                 <div class="showcase-modal__controls">
                     <button id="modal-zoom-out" class="btn-modal-action" title="Зменшити">−</button>
@@ -486,7 +513,8 @@
                 </div>
             </div>
             <div class="showcase-modal__body">
-                <img id="showcase-modal-img" src="img/Figma/1.png" alt="Повний знімок макета" class="showcase-modal__img">
+                <img id="showcase-modal-img" src="img/Figma/1.png" alt="Повний знімок макета"
+                    class="showcase-modal__img">
             </div>
         </div>
     </div>
@@ -496,14 +524,6 @@
          СЕКЦІЯ 04: КОД І СИСТЕМИ
          ========================================================================== -->
     <section id="section-4" class="screen-section screen-section--cream">
-        <div class="screen-subheader">
-            <a href="#section-1" class="screen-subheader__brand">Дніпровський політехнічний фаховий коледж</a>
-            <div class="screen-subheader__meta">
-                <span class="screen-subheader__number">04 / 10</span>
-                <span class="screen-subheader__section-name">Код і системи</span>
-            </div>
-        </div>
-
         <div class="screen-title-block">
             <h2 class="screen-title">Розуміти не лише «як», а й «чому».</h2>
             <p class="screen-subtitle">Програмування, дані, мережі та якість — технологічна опора обох освітніх програм.
@@ -586,37 +606,14 @@
             </div>
         </div>
 
-        <footer class="screen-pagination">
-            <nav class="pagination-pills" aria-label="Навігація по розділах">
-                <a href="#section-1" class="pagination-pill">01</a>
-                <a href="#section-2" class="pagination-pill">02</a>
-                <a href="#section-3" class="pagination-pill">03</a>
-                <a href="#section-4" class="pagination-pill pagination-pill--active">04</a>
-                <a href="#section-5" class="pagination-pill">05</a>
-                <a href="#section-6" class="pagination-pill">06</a>
-                <a href="#section-7" class="pagination-pill">07</a>
-                <a href="#section-8" class="pagination-pill">08</a>
-                <a href="#section-9" class="pagination-pill">09</a>
-                <a href="#section-10" class="pagination-pill">10</a>
-            </nav>
-            <a href="#section-5" class="screen-next-link">05 Практика й портфоліо ↓</a>
-        </footer>
     </section>
 
 
-        <!-- ==========================================================================
+    <!-- ==========================================================================
          СЕКЦІЯ 05: ПРАКТИКА ТА ПОРТФОЛІО (WAVE SLIDER 20 КЕЙСІВ)
          ========================================================================== -->
     <section id="section-5" class="screen-section screen-section--white">
         <!-- Верхня панель сайту з номером розділу -->
-        <div class="screen-subheader">
-            <a href="#section-1" class="screen-subheader__brand">Дніпровський політехнічний фаховий коледж</a>
-            <div class="screen-subheader__meta">
-                <span class="screen-subheader__number">05 / 10</span>
-                <span class="screen-subheader__section-name">Практика й портфоліо</span>
-            </div>
-        </div>
-
         <!-- Верхній блок секції (Заголовок, підзаголовок та лічильник з кнопками навігації) -->
         <div class="practice-top-row">
             <div class="practice-title-col">
@@ -627,18 +624,22 @@
                 <h2 class="practice-heading">Знання, які стають досвідом.</h2>
             </div>
             <div class="practice-nav-col">
-                <p class="practice-subheading">Від навчального завдання до реального продукту: 20 студентських кейсів, що формують професійне портфоліо.</p>
+                <p class="practice-subheading">Від навчального завдання до реального продукту: 20 студентських кейсів,
+                    що формують професійне портфоліо.</p>
                 <!-- Навігація слайдера: Попередня / Лічильник / Наступна -->
                 <div class="wave-nav-controls">
-                    <button id="btn-wave-prev" class="btn-wave-nav" title="Попередній кейс (←)" aria-label="Попередній кейс">←</button>
+                    <button id="btn-wave-prev" class="btn-wave-nav" title="Попередній кейс (←)"
+                        aria-label="Попередній кейс">←</button>
                     <span id="wave-counter-val" class="wave-counter-badge">01 / 20</span>
-                    <button id="btn-wave-next" class="btn-wave-nav" title="Наступний кейс (→)" aria-label="Наступний кейс">→</button>
+                    <button id="btn-wave-next" class="btn-wave-nav" title="Наступний кейс (→)"
+                        aria-label="Наступний кейс">→</button>
                 </div>
             </div>
         </div>
 
         <!-- Контейнер вигнутої хвилі-слайдера (Wave Slider) -->
-        <div class="wave-slider-container" id="practice-wave-container" title="Прокручуйте коліщатко миші або перетягуйте картки">
+        <div class="wave-slider-container" id="practice-wave-container"
+            title="Прокручуйте коліщатко миші або перетягуйте картки">
             <!-- М’які віньєтки згасання по краях екрану -->
             <div class="wave-vignette wave-vignette--left"></div>
             <div class="wave-vignette wave-vignette--right"></div>
@@ -663,27 +664,13 @@
         </div>
 
         <!-- Пагінація слайдів сайту (01 - 10) -->
-        <footer class="screen-pagination">
-            <nav class="pagination-pills" aria-label="Навігація по розділах">
-                <a href="#section-1" class="pagination-pill">01</a>
-                <a href="#section-2" class="pagination-pill">02</a>
-                <a href="#section-3" class="pagination-pill">03</a>
-                <a href="#section-4" class="pagination-pill">04</a>
-                <a href="#section-5" class="pagination-pill pagination-pill--active">05</a>
-                <a href="#section-6" class="pagination-pill">06</a>
-                <a href="#section-7" class="pagination-pill">07</a>
-                <a href="#section-8" class="pagination-pill">08</a>
-                <a href="#section-9" class="pagination-pill">09</a>
-                <a href="#section-10" class="pagination-pill">10</a>
-            </nav>
-            <a href="#section-6" class="screen-next-link">06 Навчання, команда, простір ↓</a>
-        </footer>
     </section>
 
     <!-- ==========================================================================
          МОДАЛЬНЕ ВІКНО КЕЙСУ ПРАКТИКИ (СЕКЦІЯ 05)
          ========================================================================== -->
-    <div id="practice-detail-modal" class="practice-modal" role="dialog" aria-modal="true" aria-labelledby="modal-item-title">
+    <div id="practice-detail-modal" class="practice-modal" role="dialog" aria-modal="true"
+        aria-labelledby="modal-item-title">
         <div class="practice-modal__backdrop"></div>
         <div class="practice-modal__container">
             <header class="practice-modal__header">
@@ -694,7 +681,8 @@
                     </span>
                 </div>
                 <div class="practice-modal__header-controls">
-                    <button id="btn-modal-close" class="btn-modal-close" title="Закрити (Esc)" aria-label="Закрити вікно">✕</button>
+                    <button id="btn-modal-close" class="btn-modal-close" title="Закрити (Esc)"
+                        aria-label="Закрити вікно">✕</button>
                 </div>
             </header>
 
@@ -702,64 +690,66 @@
                 <!-- Ліва колонка: фото та параметри -->
                 <div class="practice-modal__left">
                     <div class="practice-modal__image-wrap">
-                        <img id="modal-item-img" src="img/practice/1.svg" alt="Кейс практики" class="practice-modal__img">
+                        <img id="modal-item-img" src="img/practice/1.svg" alt="Кейс практики"
+                            class="practice-modal__img">
                     </div>
-                    <div class="practice-modal__specs-grid">
-                        <div class="practice-spec-item">
-                            <div class="practice-spec-label">Спеціальність</div>
+                    <div id="modal-specs-grid" class="practice-modal__specs-grid">
+                        <div id="modal-spec-item-speciality" class="practice-spec-item">
+                            <div id="modal-spec-label-speciality" class="practice-spec-label">Спеціальність</div>
                             <div id="modal-spec-speciality" class="practice-spec-value">122 Комп’ютерні науки</div>
                         </div>
-                        <div class="practice-spec-item">
-                            <div class="practice-spec-label">Вид практики</div>
+                        <div id="modal-spec-item-type" class="practice-spec-item">
+                            <div id="modal-spec-label-type" class="practice-spec-label">Вид практики</div>
                             <div id="modal-spec-type" class="practice-spec-value">Технологічна практика</div>
                         </div>
-                        <div class="practice-spec-item">
-                            <div class="practice-spec-label">Курс навчання</div>
+                        <div id="modal-spec-item-course" class="practice-spec-item">
+                            <div id="modal-spec-label-course" class="practice-spec-label">Курс навчання</div>
                             <div id="modal-spec-course" class="practice-spec-value">3 курс</div>
                         </div>
-                        <div class="practice-spec-item">
-                            <div class="practice-spec-label">Тривалість</div>
+                        <div id="modal-spec-item-duration" class="practice-spec-item">
+                            <div id="modal-spec-label-duration" class="practice-spec-label">Тривалість</div>
                             <div id="modal-spec-duration" class="practice-spec-value">4 тижні</div>
                         </div>
                     </div>
-                    <div class="practice-modal__edit-tip">
-                        💡 <strong>Для редагування:</strong> Тексти та шлях до фотографії цього кейсу можна змінити у файлі <code>js/practice-slider.js</code> (об'єкт №<span id="modal-tip-num">1</span>).
-                    </div>
+
                 </div>
 
                 <!-- Права колонка: детальні описи -->
                 <div class="practice-modal__right">
                     <div class="practice-modal__title-block">
                         <span id="modal-item-tag" class="practice-modal__tag">ВЕБ-ДИЗАЙН ТА РОЗРОБКА</span>
-                        <h2 id="modal-item-title" class="practice-modal__title">Створення адаптивного промо-сайту бренду</h2>
-                        <p id="modal-item-subtitle" class="practice-modal__subtitle">Технологічна практика · 3 курс · 122 «Комп’ютерні науки»</p>
+                        <h2 id="modal-item-title" class="practice-modal__title">Створення адаптивного промо-сайту бренду
+                        </h2>
+                        <p id="modal-item-subtitle" class="practice-modal__subtitle">Технологічна практика · 3 курс ·
+                            122 «Комп’ютерні науки»</p>
                     </div>
 
                     <!-- Інструменти та технології -->
-                    <div class="practice-detail-section">
-                        <div class="practice-detail-heading">Використаний стек та інструменти:</div>
+                    <div id="modal-section-tools" class="practice-detail-section">
+                        <div id="modal-heading-tools" class="practice-detail-heading">Використаний стек та інструменти:
+                        </div>
                         <div id="modal-item-tools" class="practice-modal__tools-list">
                             <!-- Рендериться динамічно -->
                         </div>
                     </div>
 
                     <!-- Мета та завдання -->
-                    <div class="practice-detail-section">
-                        <div class="practice-detail-heading">Мета та цілі практики:</div>
+                    <div id="modal-section-goal" class="practice-detail-section">
+                        <div id="modal-heading-goal" class="practice-detail-heading">Мета та цілі практики:</div>
                         <p id="modal-item-goal" class="practice-detail-text"></p>
                     </div>
 
                     <!-- Що виконав студент -->
-                    <div class="practice-detail-section">
-                        <div class="practice-detail-heading">Що було виконано студентом:</div>
+                    <div id="modal-section-tasks" class="practice-detail-section">
+                        <div id="modal-heading-tasks" class="practice-detail-heading">Що було виконано студентом:</div>
                         <ul id="modal-item-tasks" class="practice-tasks-list">
                             <!-- Список пунктів -->
                         </ul>
                     </div>
 
                     <!-- Результат для портфоліо -->
-                    <div class="practice-detail-section">
-                        <div class="practice-detail-heading">Результат для портфоліо:</div>
+                    <div id="modal-section-result" class="practice-detail-section">
+                        <div id="modal-heading-result" class="practice-detail-heading">Результат для портфоліо:</div>
                         <p id="modal-item-result" class="practice-detail-text"></p>
                     </div>
                 </div>
@@ -775,14 +765,6 @@
          СЕКЦІЯ 06: ФОТОГАЛЕРЕЯ
          ========================================================================== -->
     <section id="section-6" class="screen-section screen-section--cream">
-        <div class="screen-subheader">
-            <a href="#section-1" class="screen-subheader__brand">Дніпровський політехнічний фаховий коледж</a>
-            <div class="screen-subheader__meta">
-                <span class="screen-subheader__number">06 / 10</span>
-                <span class="screen-subheader__section-name">Фотогалерея</span>
-            </div>
-        </div>
-
         <div class="screen-title-block">
             <h2 class="screen-title">Навчання. Команда. Простір.</h2>
             <p class="screen-subtitle">Спільна галерея двох програм — місце для майбутніх фотографій життя коледжу.</p>
@@ -861,21 +843,6 @@
             </div>
         </div>
 
-        <footer class="screen-pagination">
-            <nav class="pagination-pills" aria-label="Навігація по розділах">
-                <a href="#section-1" class="pagination-pill">01</a>
-                <a href="#section-2" class="pagination-pill">02</a>
-                <a href="#section-3" class="pagination-pill">03</a>
-                <a href="#section-4" class="pagination-pill">04</a>
-                <a href="#section-5" class="pagination-pill">05</a>
-                <a href="#section-6" class="pagination-pill pagination-pill--active">06</a>
-                <a href="#section-7" class="pagination-pill">07</a>
-                <a href="#section-8" class="pagination-pill">08</a>
-                <a href="#section-9" class="pagination-pill">09</a>
-                <a href="#section-10" class="pagination-pill">10</a>
-            </nav>
-            <a href="#section-7" class="screen-next-link">07 3D-моделювання ↓</a>
-        </footer>
     </section>
 
 
@@ -883,14 +850,6 @@
          СЕКЦІЯ 07: 3D-МОДЕЛЮВАННЯ ТА ВІЗУАЛІЗАЦІЯ
          ========================================================================== -->
     <section id="section-7" class="screen-section screen-section--white screen-section--cad">
-        <div class="screen-subheader">
-            <a href="#section-1" class="screen-subheader__brand">Дніпровський політехнічний фаховий коледж</a>
-            <div class="screen-subheader__meta">
-                <span class="screen-subheader__number">07 / 10</span>
-                <span class="screen-subheader__section-name">3D-моделювання</span>
-            </div>
-        </div>
-
         <div class="screen-title-block screen-title-block--cad">
             <h2 class="screen-title">3D-моделювання: від креслення до твердотільної моделі.</h2>
             <p class="screen-subtitle">Справжні студентські 3D-роботи.</p>
@@ -957,21 +916,6 @@
             </div>
         </div>
 
-        <footer class="screen-pagination">
-            <nav class="pagination-pills" aria-label="Навігація по розділах">
-                <a href="#section-1" class="pagination-pill">01</a>
-                <a href="#section-2" class="pagination-pill">02</a>
-                <a href="#section-3" class="pagination-pill">03</a>
-                <a href="#section-4" class="pagination-pill">04</a>
-                <a href="#section-5" class="pagination-pill">05</a>
-                <a href="#section-6" class="pagination-pill">06</a>
-                <a href="#section-7" class="pagination-pill pagination-pill--active">07</a>
-                <a href="#section-8" class="pagination-pill">08</a>
-                <a href="#section-9" class="pagination-pill">09</a>
-                <a href="#section-10" class="pagination-pill">10</a>
-            </nav>
-            <a href="#section-8" class="screen-next-link">08 Професії випускників ↓</a>
-        </footer>
     </section>
 
 
@@ -979,14 +923,6 @@
          СЕКЦІЯ 08: ПРОФЕСІЇ
          ========================================================================== -->
     <section id="section-8" class="screen-section screen-section--cream">
-        <div class="screen-subheader">
-            <a href="#section-1" class="screen-subheader__brand">Дніпровський політехнічний фаховий коледж</a>
-            <div class="screen-subheader__meta">
-                <span class="screen-subheader__number">08 / 10</span>
-                <span class="screen-subheader__section-name">Професії</span>
-            </div>
-        </div>
-
         <div class="screen-title-block">
             <h2 class="screen-title">Ким можна стати після коледжу.</h2>
             <p class="screen-subtitle">Професійні орієнтири обох програм: від візуальних рішень до розробки й підтримки
@@ -1067,21 +1003,6 @@
             </div>
         </div>
 
-        <footer class="screen-pagination">
-            <nav class="pagination-pills" aria-label="Навігація по розділах">
-                <a href="#section-1" class="pagination-pill">01</a>
-                <a href="#section-2" class="pagination-pill">02</a>
-                <a href="#section-3" class="pagination-pill">03</a>
-                <a href="#section-4" class="pagination-pill">04</a>
-                <a href="#section-5" class="pagination-pill">05</a>
-                <a href="#section-6" class="pagination-pill">06</a>
-                <a href="#section-7" class="pagination-pill">07</a>
-                <a href="#section-8" class="pagination-pill pagination-pill--active">08</a>
-                <a href="#section-9" class="pagination-pill">09</a>
-                <a href="#section-10" class="pagination-pill">10</a>
-            </nav>
-            <a href="#section-9" class="screen-next-link">09 Де застосувати свої навички ↓</a>
-        </footer>
     </section>
 
 
@@ -1089,14 +1010,6 @@
          СЕКЦІЯ 09: ДЕ ПРАЦЮВАТИ
          ========================================================================== -->
     <section id="section-9" class="screen-section screen-section--white">
-        <div class="screen-subheader">
-            <a href="#section-1" class="screen-subheader__brand">Дніпровський політехнічний фаховий коледж</a>
-            <div class="screen-subheader__meta">
-                <span class="screen-subheader__number">09 / 10</span>
-                <span class="screen-subheader__section-name">Де працювати</span>
-            </div>
-        </div>
-
         <div class="screen-title-block">
             <h2 class="screen-title">Цифрові навички потрібні всюди.</h2>
             <p class="screen-subtitle">Сфери роботи за двома програмами — без прив’язки до конкретних роботодавців чи
@@ -1158,21 +1071,6 @@
             </div>
         </div>
 
-        <footer class="screen-pagination">
-            <nav class="pagination-pills" aria-label="Навігація по розділах">
-                <a href="#section-1" class="pagination-pill">01</a>
-                <a href="#section-2" class="pagination-pill">02</a>
-                <a href="#section-3" class="pagination-pill">03</a>
-                <a href="#section-4" class="pagination-pill">04</a>
-                <a href="#section-5" class="pagination-pill">05</a>
-                <a href="#section-6" class="pagination-pill">06</a>
-                <a href="#section-7" class="pagination-pill">07</a>
-                <a href="#section-8" class="pagination-pill">08</a>
-                <a href="#section-9" class="pagination-pill pagination-pill--active">09</a>
-                <a href="#section-10" class="pagination-pill">10</a>
-            </nav>
-            <a href="#section-10" class="screen-next-link">10 Продовження освіти та вступ ↓</a>
-        </footer>
     </section>
 
 
@@ -1180,14 +1078,6 @@
          СЕКЦІЯ 10: ОСВІТА ТА ВСТУП
          ========================================================================== -->
     <section id="section-10" class="screen-section screen-section--cream">
-        <div class="screen-subheader">
-            <a href="#section-1" class="screen-subheader__brand">Дніпровський політехнічний фаховий коледж</a>
-            <div class="screen-subheader__meta">
-                <span class="screen-subheader__number">10 / 10</span>
-                <span class="screen-subheader__section-name">Освіта та вступ</span>
-            </div>
-        </div>
-
         <div class="screen-title-block">
             <h2 class="screen-title">Коледж — початок наступного кроку.</h2>
             <p class="screen-subtitle">Продовжуй навчання за спорідненим напрямом або розвивай нову професійну
@@ -1246,21 +1136,6 @@
                 освіти.</div>
         </div>
 
-        <footer class="screen-pagination">
-            <nav class="pagination-pills" aria-label="Навігація по розділах">
-                <a href="#section-1" class="pagination-pill">01</a>
-                <a href="#section-2" class="pagination-pill">02</a>
-                <a href="#section-3" class="pagination-pill">03</a>
-                <a href="#section-4" class="pagination-pill">04</a>
-                <a href="#section-5" class="pagination-pill">05</a>
-                <a href="#section-6" class="pagination-pill">06</a>
-                <a href="#section-7" class="pagination-pill">07</a>
-                <a href="#section-8" class="pagination-pill">08</a>
-                <a href="#section-9" class="pagination-pill">09</a>
-                <a href="#section-10" class="pagination-pill pagination-pill--active">10</a>
-            </nav>
-            <a href="#section-1" class="screen-back-top">До початку сайту ↑</a>
-        </footer>
     </section>
 
     <!-- Three.js & 3D Loaders для 3D-моделей -->
@@ -1272,6 +1147,7 @@
     <script src="js/cad-viewer.js"></script>
     <script src="js/web-showcase.js"></script>
     <script src="js/practice-slider.js"></script>
+    <script src="js/site-header.js"></script>
 </body>
 
 </html>

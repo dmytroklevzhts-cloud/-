@@ -21,29 +21,42 @@
         {
             id: 1,
             num: "01",
-            tag: "ВЕБ-ДИЗАЙН ТА РОЗРОБКА",
+            tag: "КУРСИ ПОЗА КОЛЕДЖОМ",
             program: "design",
             programName: "Комп’ютерний дизайн",
-            title: "Створення адаптивного промо-сайту бренду",
-            excerpt: "Розробка концепту у Figma, адаптивна верстка веб-інтерфейсу з анімаціями та підключення інтерактивних компонентів.",
-            image: "img/practice/1.svg",
+            title: "Неформальна освіта як джерело додаткових знань",
+            excerpt: "Курси з електроніки та Arduino у межах проєкту «STEM з GURTOM».",
+            image: "img/practice/1.jpg",
             modal: {
-                subtitle: "Технологічна практика · 3 курс · 122 «Комп’ютерні науки»",
-                practiceType: "Технологічна практика",
-                course: "3 курс",
-                duration: "4 тижні",
+                subtitle: "Неформальна освіта · 2 курс · 122 «Комп’ютерні науки»",
+
+                // Індивідуальні назви полів ліворуч (можна вказувати свої або не писати взагалі):
+                practiceTypeLabel: "Напрям навчання",
+                practiceType: "Курси з електроніки та Arduino",
+                courseLabel: "Учасники",
+                course: "2–3 курси",
+                durationLabel: "Тривалість",
+                duration: "8 тижнів",
+                specialityLabel: "Спеціальність",
                 speciality: "122 «Комп’ютерні науки»",
-                tools: ["Figma", "HTML5", "CSS3 / Sass", "JavaScript", "Git / GitHub"],
-                goal: "Опанувати повний цикл створення сучасного веб-продукту: від проєктування інтерактивного UI/UX прототипу у Figma до чистої адаптивної верстки, оптимізованої для швидкого завантаження.",
+
+                // Індивідуальні назви блоків праворуч:
+                toolsHeading: "Використаний стек та інструменти:",
+                tools: ["Arduino", "Схемотехніка", "C / C++", "Wi-Fi & Bluetooth", "Сенсори та IoT"],
+
+                goalHeading: "Про курси та проєкт «STEM з GURTOM»:",
+                goal: "Здобувачі освіти Дніпровського політехнічного фахового коледжу розпочали курси з електроніки та Arduino у межах проєкту «STEM з GURTOM». На першому занятті студенти 2–3 курсів разом із викладачами занурилися у світ електроніки: знайомилися з електронними схемами, збирали власні пристрої та навіть створили девайс, який може “бачити” невидимі сигнали — Wi - Fi, Bluetooth і радіохвилі.",
+
+                tasksHeading: "Що опановували студенти на заняттях:",
                 tasks: [
-                    "Аналіз цільової аудиторії та проєктування користувацького шляху (User Journey)",
-                    "Створення компонентної дизайн-системи, UI-kit та вайрфреймів у середовищі Figma",
-                    "Семантична верстка за методологією BEM з повною адаптивністю під планшети й смартфони",
-                    "Підключення мікро-анімацій, плавного скролу та валідації форм на чистому JS"
+                    "Цілих два місяці навчання, під час яких учасники опановували робототехніку, програмування на платформі Arduino та створення власних технічних проєктів. Це чудова можливість розвивати інженерне мислення та відкривати для себе нові технологічні горизонти.",
                 ],
-                result: "Завершений адаптивний промо-сайт бренду, розміщений на GitHub Pages. Кейс оформлено у персональне студентське портфоліо та презентовано роботодавцям."
+
+                resultHeading: "Подяка партнерам та результат:",
+                result: "Дякуємо ГО «ГУРТОМ» @hub_gurtom та БФ NOVA UKRAINE за підтримку молоді та можливість нашим студентам розкривати свій потенціал у STEM-напрямку!"
             }
         },
+
         {
             id: 2,
             num: "02",
@@ -955,12 +968,31 @@
     }
 
     /**
-     * Заповнення модального вікна даними конкретної картки
+     * Стандартні назви блоків та характеристик модального вікна за замовчуванням
+     * (якщо в окремому об'єкті картки вони не переозначені користувачем)
+     */
+    const DEFAULT_HEADINGS = {
+        // Параметричні лейбли характеристик ліворуч:
+        specialityLabel: 'Спеціальність',
+        practiceTypeLabel: 'Вид практики',
+        courseLabel: 'Курс навчання',
+        durationLabel: 'Тривалість',
+
+        // Параметричні заголовки 4-х блоків праворуч:
+        toolsHeading: 'Використаний стек та інструменти:',
+        goalHeading: 'Мета та цілі практики:',
+        tasksHeading: 'Що було виконано студентом:',
+        resultHeading: 'Результат для портфоліо:'
+    };
+
+    /**
+     * Заповнення модального вікна даними конкретної картки (повністю параметричне)
      */
     function populateModal(index) {
         currentModalIndex = index;
         const item = PRACTICE_ITEMS[index];
         if (!item || !modalEl) return;
+        const m = item.modal || {};
 
         // Елементи шапки
         const badgeEl = modalEl.querySelector('#modal-program-badge');
@@ -971,24 +1003,53 @@
         if (badgeText) badgeText.textContent = item.programName;
         if (caseNumber) caseNumber.textContent = `КЕЙС ${item.num} / ${TOTAL_CARDS}`;
 
-        // Зображення та характеристики лівої колонки
+        // Зображення лівої колонки
         const imgEl = modalEl.querySelector('#modal-item-img');
         if (imgEl) {
             imgEl.src = item.image;
             imgEl.alt = item.title;
         }
 
-        const specSpec = modalEl.querySelector('#modal-spec-speciality');
-        if (specSpec) specSpec.textContent = item.modal.speciality;
+        // 1. ПАРАМЕТРИЧНІ ХАРАКТЕРИСТИКИ ЛІВОЇ КОЛОНКИ
+        const specsGridEl = modalEl.querySelector('#modal-specs-grid');
+        if (specsGridEl) {
+            if (Array.isArray(m.specs) && m.specs.length > 0) {
+                // Якщо користувач надав довільний масив specs: [ { label: "...", value: "..." } ]
+                specsGridEl.innerHTML = '';
+                m.specs.forEach(spec => {
+                    if (!spec) return;
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'practice-spec-item';
+                    itemDiv.innerHTML = `
+                        <div class="practice-spec-label">${spec.label || ''}</div>
+                        <div class="practice-spec-value">${spec.value || ''}</div>
+                    `;
+                    specsGridEl.appendChild(itemDiv);
+                });
+            } else {
+                // Стандартні 4 поля з підтримкою кастомних назв (specialityLabel, practiceTypeLabel тощо)
+                const specSpecialityLabel = modalEl.querySelector('#modal-spec-label-speciality');
+                const specSpeciality = modalEl.querySelector('#modal-spec-speciality');
+                const specTypeLabel = modalEl.querySelector('#modal-spec-label-type');
+                const specType = modalEl.querySelector('#modal-spec-type');
+                const specCourseLabel = modalEl.querySelector('#modal-spec-label-course');
+                const specCourse = modalEl.querySelector('#modal-spec-course');
+                const specDurationLabel = modalEl.querySelector('#modal-spec-label-duration');
+                const specDuration = modalEl.querySelector('#modal-spec-duration');
 
-        const specType = modalEl.querySelector('#modal-spec-type');
-        if (specType) specType.textContent = item.modal.practiceType;
+                if (specSpecialityLabel) specSpecialityLabel.textContent = m.specialityLabel || DEFAULT_HEADINGS.specialityLabel;
+                if (specSpeciality) specSpeciality.textContent = m.speciality || '—';
 
-        const specCourse = modalEl.querySelector('#modal-spec-course');
-        if (specCourse) specCourse.textContent = item.modal.course;
+                if (specTypeLabel) specTypeLabel.textContent = m.practiceTypeLabel || DEFAULT_HEADINGS.practiceTypeLabel;
+                if (specType) specType.textContent = m.practiceType || '—';
 
-        const specDur = modalEl.querySelector('#modal-spec-duration');
-        if (specDur) specDur.textContent = item.modal.duration;
+                if (specCourseLabel) specCourseLabel.textContent = m.courseLabel || DEFAULT_HEADINGS.courseLabel;
+                if (specCourse) specCourse.textContent = m.course || '—';
+
+                if (specDurationLabel) specDurationLabel.textContent = m.durationLabel || DEFAULT_HEADINGS.durationLabel;
+                if (specDuration) specDuration.textContent = m.duration || '—';
+            }
+        }
 
         const tipNum = modalEl.querySelector('#modal-tip-num');
         if (tipNum) tipNum.textContent = item.id;
@@ -1004,35 +1065,83 @@
         if (titleEl) titleEl.textContent = item.title;
 
         const subEl = modalEl.querySelector('#modal-item-subtitle');
-        if (subEl) subEl.textContent = item.modal.subtitle;
+        if (subEl) subEl.textContent = m.subtitle || '';
 
-        const goalEl = modalEl.querySelector('#modal-item-goal');
-        if (goalEl) goalEl.textContent = item.modal.goal;
-
-        const resultEl = modalEl.querySelector('#modal-item-result');
-        if (resultEl) resultEl.textContent = item.modal.result;
-
-        // Список технологій (tools)
+        // 2. БЛОК: СТЕК ТА ІНСТРУМЕНТИ
+        const secTools = modalEl.querySelector('#modal-section-tools');
+        const headingTools = modalEl.querySelector('#modal-heading-tools');
         const toolsWrap = modalEl.querySelector('#modal-item-tools');
-        if (toolsWrap) {
-            toolsWrap.innerHTML = '';
-            item.modal.tools.forEach(tool => {
-                const span = document.createElement('span');
-                span.className = 'practice-tool-pill';
-                span.textContent = tool;
-                toolsWrap.appendChild(span);
-            });
+        const toolsList = Array.isArray(m.tools) ? m.tools : [];
+
+        if (secTools) {
+            if (m.tools === false || m.tools === null || (toolsList.length === 0 && !m.toolsHeading)) {
+                secTools.style.display = 'none';
+            } else {
+                secTools.style.display = '';
+                if (headingTools) headingTools.textContent = m.toolsHeading || DEFAULT_HEADINGS.toolsHeading;
+                if (toolsWrap) {
+                    toolsWrap.innerHTML = '';
+                    toolsList.forEach(tool => {
+                        const span = document.createElement('span');
+                        span.className = 'practice-tool-pill';
+                        span.textContent = tool;
+                        toolsWrap.appendChild(span);
+                    });
+                }
+            }
         }
 
-        // Список завдань (tasks)
+        // 3. БЛОК: МЕТА ТА ЦІЛІ
+        const secGoal = modalEl.querySelector('#modal-section-goal');
+        const headingGoal = modalEl.querySelector('#modal-heading-goal');
+        const goalEl = modalEl.querySelector('#modal-item-goal');
+
+        if (secGoal) {
+            if (m.goal === false || m.goal === null || (!m.goal && !m.goalHeading)) {
+                secGoal.style.display = 'none';
+            } else {
+                secGoal.style.display = '';
+                if (headingGoal) headingGoal.textContent = m.goalHeading || DEFAULT_HEADINGS.goalHeading;
+                if (goalEl) goalEl.textContent = m.goal || '';
+            }
+        }
+
+        // 4. БЛОК: ЩО БУЛО ВИКОНАНО
+        const secTasks = modalEl.querySelector('#modal-section-tasks');
+        const headingTasks = modalEl.querySelector('#modal-heading-tasks');
         const tasksWrap = modalEl.querySelector('#modal-item-tasks');
-        if (tasksWrap) {
-            tasksWrap.innerHTML = '';
-            item.modal.tasks.forEach(task => {
-                const li = document.createElement('li');
-                li.textContent = task;
-                tasksWrap.appendChild(li);
-            });
+        const tasksList = Array.isArray(m.tasks) ? m.tasks : [];
+
+        if (secTasks) {
+            if (m.tasks === false || m.tasks === null || (tasksList.length === 0 && !m.tasksHeading)) {
+                secTasks.style.display = 'none';
+            } else {
+                secTasks.style.display = '';
+                if (headingTasks) headingTasks.textContent = m.tasksHeading || DEFAULT_HEADINGS.tasksHeading;
+                if (tasksWrap) {
+                    tasksWrap.innerHTML = '';
+                    tasksList.forEach(task => {
+                        const li = document.createElement('li');
+                        li.textContent = task;
+                        tasksWrap.appendChild(li);
+                    });
+                }
+            }
+        }
+
+        // 5. БЛОК: РЕЗУЛЬТАТ ДЛЯ ПОРТФОЛІО
+        const secResult = modalEl.querySelector('#modal-section-result');
+        const headingResult = modalEl.querySelector('#modal-heading-result');
+        const resultEl = modalEl.querySelector('#modal-item-result');
+
+        if (secResult) {
+            if (m.result === false || m.result === null || (!m.result && !m.resultHeading)) {
+                secResult.style.display = 'none';
+            } else {
+                secResult.style.display = '';
+                if (headingResult) headingResult.textContent = m.resultHeading || DEFAULT_HEADINGS.resultHeading;
+                if (resultEl) resultEl.textContent = m.result || '';
+            }
         }
     }
 
