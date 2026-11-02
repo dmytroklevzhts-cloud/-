@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 530" width="800" height="530">
+    <defs>
+        <linearGradient id="bg-06" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#132A24" />
+            <stop offset="100%" stop-color="#0B1713" />
+        </linearGradient>
+    </defs>
+
+    <!-- Background -->
+    <rect width="800" height="530" fill="url(#bg-06)" />
+
+    
+    <!-- Grid pattern -->
+    <pattern id="grid-06" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(74, 222, 128, 0.08)" stroke-width="1"/>
+    </pattern>
+    <rect width="800" height="530" fill="url(#grid-06)" />
+
+    <!-- Abstract glowing circles -->
+    <circle cx="620" cy="160" r="140" fill="rgba(74, 222, 128, 0.15)" filter="blur(40px)"/>
+    <circle cx="180" cy="380" r="100" fill="rgba(74, 222, 128, 0.15)" filter="blur(30px)"/>
+
+    <!-- Central Tech/Design Illustration Card -->
+    <rect x="220" y="80" width="360" height="230" rx="16" fill="rgba(255,255,255,0.03)" stroke="rgba(74, 222, 128, 0.5)" stroke-width="1.5" stroke-dasharray="6 4"/>
+    
+    <!-- Camera/Photo Placeholder Icon inside central card -->
+    <g transform="translate(360, 150)">
+        <rect x="0" y="8" width="80" height="58" rx="8" fill="none" stroke="#4ADE80" stroke-width="2.5"/>
+        <path d="M 22 8 L 30 -2 L 50 -2 L 58 8 Z" fill="none" stroke="#4ADE80" stroke-width="2.5"/>
+        <circle cx="40" cy="37" r="16" fill="none" stroke="#4ADE80" stroke-width="2.5"/>
+        <circle cx="62" cy="22" r="3.5" fill="#4ADE80"/>
+    </g>
+
+    <text x="400" y="255" fill="rgba(255,255,255,0.6)" font-family="Inter, sans-serif" font-size="13" font-weight="500" text-anchor="middle" letter-spacing="1.5">МІСЦЕ ДЛЯ ФОТОГРАФІЇ РОБОТИ</text>
+    <text x="400" y="278" fill="rgba(255,255,255,0.35)" font-family="Inter, sans-serif" font-size="11" text-anchor="middle">Замініть цей файл або вкажіть шлях до власного фото</text>
+    
+
+    <!-- Top Badge Bar -->
+    <rect x="40" y="36" width="720" height="1" fill="rgba(255,255,255,0.08)"/>
+    
+    <g transform="translate(40, 32)">
+        <rect x="0" y="16" width="160" height="28" rx="14" fill="rgba(74, 222, 128, 0.2)" stroke="rgba(74, 222, 128, 0.5)" stroke-width="1"/>
+        <circle cx="16" cy="30" r="4" fill="#4ADE80"/>
+        <text x="28" y="35" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1">КЕЙС 06 / 20</text>
+    </g>
+
+    <text x="760" y="58" fill="#4ADE80" font-family="Inter, sans-serif" font-size="12" font-weight="600" text-anchor="end" letter-spacing="1.5">BACKEND & REST API</text>
+
+    <!-- Bottom Info Panel -->
+    <rect x="40" y="340" width="720" height="150" rx="12" fill="rgba(0,0,0,0.3)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+    
+    <text x="70" y="390" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="22" font-weight="600">Серверні мікросервіси на Python</text>
+    <text x="70" y="424" fill="rgba(255,255,255,0.65)" font-family="Inter, sans-serif" font-size="14" font-weight="400">Студентська практика · Дніпровський політехнічний фаховий коледж</text>
+    
+    <!-- Spec pills -->
+    <g transform="translate(70, 442)">
+        <rect x="0" y="0" width="90" height="24" rx="4" fill="rgba(255,255,255,0.08)"/>
+        <text x="45" y="16" fill="rgba(255,255,255,0.8)" font-family="Inter, sans-serif" font-size="11" text-anchor="middle">122 КН</text>
+        
+        <rect x="100" y="0" width="130" height="24" rx="4" fill="rgba(255,255,255,0.08)"/>
+        <text x="165" y="16" fill="rgba(255,255,255,0.8)" font-family="Inter, sans-serif" font-size="11" text-anchor="middle">Портфоліо</text>
+        
+        <rect x="240" y="0" width="130" height="24" rx="4" fill="rgba(255,255,255,0.08)"/>
+        <text x="305" y="16" fill="rgba(255,255,255,0.8)" font-family="Inter, sans-serif" font-size="11" text-anchor="middle">Практика</text>
+    </g>
+
+    <text x="730" y="458" fill="#4ADE80" font-family="Inter, sans-serif" font-size="13" font-weight="500" text-anchor="end">Переглянути деталі ↗</text>
+</svg>

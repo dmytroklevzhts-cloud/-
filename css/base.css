@@ -1,0 +1,76 @@
+/**
+ * Base Layout & Canvas System (1920x1080)
+ */
+
+body {
+    width: var(--frame-width);
+    margin: 0 auto;
+    position: relative;
+    background-color: var(--color-bg-page);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+    overflow-x: hidden;
+}
+
+/* Base fixed section 1920x1080 */
+.screen-section {
+    width: var(--frame-width);
+    height: var(--frame-height);
+    min-height: var(--frame-height);
+    max-height: var(--frame-height);
+    position: relative;
+    padding: 48px var(--container-padding-x) 40px var(--container-padding-x);
+    background-color: var(--color-bg-page);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 32px;
+    overflow: hidden;
+}
+
+/* Background alternates */
+.screen-section--cream {
+    background-color: var(--color-bg-page);
+}
+
+.screen-section--white {
+    background-color: var(--color-bg-white);
+}
+
+/* Section 1 Hero specific padding */
+.screen-section--hero {
+    padding: 40px var(--container-padding-x) 36px var(--container-padding-x);
+    gap: 48px;
+    border-top: none;
+}
+
+/* Standard Section Title Block (Sections 2 to 10) */
+.screen-title-block {
+    align-self: stretch;
+    height: auto;
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.screen-title {
+    align-self: stretch;
+    font-size: var(--font-size-h1);
+    font-weight: 500;
+    line-height: 1.1;
+    color: var(--color-text-main);
+    letter-spacing: -0.02em;
+}
+
+.screen-subtitle {
+    align-self: stretch;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--color-text-muted);
+}
+

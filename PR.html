@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ОПП «Обслуговування програмних систем і комплексів» — Навчальний план ПР</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #f8fafc;
+            --bg-card: #ffffff;
+            --border-light: #e2e8f0;
+            --border-hover: #cbd5e1;
+            
+            --text-heading: #0f172a;
+            --text-body: #334155;
+            --text-muted: #64748b;
+            --text-dim: #94a3b8;
+            
+            --primary: #0284c7;
+            --primary-rgb: 2, 132, 199;
+            --primary-gradient: linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #1d4ed8 100%);
+            
+            --practice-bg: #fff5f7;
+            --practice-border: #fecdd3;
+            --practice-text: #be123c;
+            --practice-accent: #f43f5e;
+            
+            --elective-bg: #f4fbf7;
+            --elective-border: #a7f3d0;
+            --elective-text: #065f46;
+            --elective-accent: #10b981;
+            
+            --badge-exam-bg: #fef3c7;
+            --badge-exam-text: #b45309;
+            --badge-exam-border: #fde68a;
+            
+            --badge-zalik-bg: #e0f2fe;
+            --badge-zalik-text: #0369a1;
+            --badge-zalik-border: #bae6fd;
+            
+            --badge-cw-bg: #ede9fe;
+            --badge-cw-text: #6d28d9;
+            --badge-cw-border: #ddd6fe;
+            
+            --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+            --shadow-card: 0 4px 16px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+            --shadow-hover: 0 12px 24px -4px rgba(var(--primary-rgb), 0.16);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            overflow-x: hidden; /* ZERO HORIZONTAL SCROLLBAR */
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-base);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(var(--primary-rgb), 0.07) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(244, 63, 94, 0.05) 0px, transparent 45%),
+                radial-gradient(at 50% 100%, rgba(14, 165, 233, 0.05) 0px, transparent 50%),
+                radial-gradient(#cbd5e1 0.75px, transparent 0.75px);
+            background-size: auto, auto, auto, 24px 24px;
+            background-attachment: fixed;
+            color: var(--text-body);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.45;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* MINIMALIST HEADER */
+        .page-header {
+            text-align: center;
+            padding: 2.2rem 1.5rem 1.6rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        h1.program-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.35rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.45rem;
+            line-height: 1.25;
+        }
+
+        p.program-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* MAIN CONTENT: ROWS OF SEMESTERS */
+        .curriculum-layout {
+            width: 100%;
+            max-width: 1680px;
+            margin: 0 auto;
+            padding: 0 1.5rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        /* SEMESTER ROW SECTION */
+        .semester-row-section {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-light);
+            border-radius: 18px;
+            padding: 1.2rem;
+            box-shadow: var(--shadow-card);
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 1.25rem;
+            align-items: center;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+            width: 100%;
+        }
+
+        .semester-row-section:hover {
+            border-color: rgba(var(--primary-rgb), 0.35);
+            box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.08);
+        }
+
+        /* SEMESTER SIDEBAR */
+        .semester-sidebar {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.9rem;
+            padding-right: 1rem;
+            border-right: 1px solid var(--border-light);
+        }
+
+        .sem-badge-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.35);
+            flex-shrink: 0;
+            margin-top: 0.15rem;
+        }
+
+        .sem-sidebar-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+            min-width: 0;
+        }
+
+        .sem-sidebar-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.18rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            line-height: 1.2;
+        }
+
+        .sem-sidebar-sub {
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        /* SEMESTER COUNT: SIMPLE TEXT AS REQUESTED */
+        .sem-sidebar-count {
+            font-size: 0.77rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 0.25rem;
+            line-height: 1.35;
+        }
+
+        /* RESPONSIVE AUTO-REBUILDING GRID (NO SCROLLBARS AT ALL) */
+        .semester-disciplines-area {
+            display: grid;
+            gap: 0.65rem;
+            width: 100%;
+        }
+
+        /* DESKTOP (WIDESCREEN >= 1200px): FORM 2 ROWS ACCORDING TO DISCIPLINE COUNT */
+        @media (min-width: 1200px) {
+            .sem-grid-2cols {
+                grid-template-columns: repeat(2, minmax(220px, 380px));
+            }
+            .sem-grid-3cols {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .sem-grid-4cols {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .sem-grid-5cols {
+                grid-template-columns: repeat(5, 1fr);
+            }
+            .sem-grid-6cols {
+                grid-template-columns: repeat(6, 1fr);
+            }
+            .sem-grid-7cols {
+                grid-template-columns: repeat(7, 1fr);
+            }
+        }
+
+        /* LAPTOPS (960px - 1199px): REBUILDS AUTOMATICALLY INTO 4-5 COLUMNS */
+        @media (min-width: 960px) and (max-width: 1199px) {
+            .semester-disciplines-area {
+                grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)) !important;
+            }
+            .semester-row-section {
+                grid-template-columns: 200px 1fr;
+            }
+        }
+
+        /* TABLETS (680px - 959px): SIDEBAR ON TOP, REBUILDS INTO 3-4 COLUMNS */
+        @media (min-width: 680px) and (max-width: 959px) {
+            .semester-row-section {
+                grid-template-columns: 1fr;
+                gap: 0.9rem;
+            }
+            .semester-sidebar {
+                border-right: none;
+                border-bottom: 1px solid var(--border-light);
+                padding-right: 0;
+                padding-bottom: 0.85rem;
+                display: flex;
+                align-items: center;
+                gap: 1.2rem;
+            }
+            .semester-disciplines-area {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+            }
+        }
+
+        /* MOBILE PHONES (380px - 679px): REBUILDS INTO 2 COLUMNS */
+        @media (min-width: 380px) and (max-width: 679px) {
+            .semester-row-section {
+                grid-template-columns: 1fr;
+                gap: 0.85rem;
+                padding: 1rem;
+            }
+            .semester-sidebar {
+                border-right: none;
+                border-bottom: 1px solid var(--border-light);
+                padding-right: 0;
+                padding-bottom: 0.75rem;
+                gap: 0.75rem;
+            }
+            .semester-disciplines-area {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 0.5rem;
+            }
+            h1.program-title {
+                font-size: 1.7rem;
+            }
+            .discipline-card {
+                padding: 0.6rem 0.65rem;
+            }
+        }
+
+        /* ULTRA NARROW MOBILE (< 380px): 1 COLUMN */
+        @media (max-width: 379px) {
+            .semester-row-section {
+                grid-template-columns: 1fr;
+                padding: 0.85rem;
+            }
+            .semester-sidebar {
+                border-right: none;
+                border-bottom: 1px solid var(--border-light);
+                padding-bottom: 0.75rem;
+            }
+            .semester-disciplines-area {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* DISCIPLINE CARD */
+        .discipline-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(226, 232, 240, 0.95);
+            border-radius: 11px;
+            padding: 0.65rem 0.75rem;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 0.4rem;
+            box-shadow: var(--shadow-subtle);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+            min-height: 86px;
+        }
+
+        .discipline-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3.5px;
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.2s ease;
+        }
+
+        .discipline-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(var(--primary-rgb), 0.5);
+            box-shadow: var(--shadow-hover);
+            z-index: 5;
+        }
+
+        .discipline-card:hover::before {
+            width: 4.5px;
+        }
+
+        /* MULTI-SEMESTER SYNCHRONOUS HIGHLIGHT */
+        .discipline-card.linked-highlight {
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.35), 0 8px 20px rgba(var(--primary-rgb), 0.2) !important;
+            background: #ffffff !important;
+            transform: scale(1.02) translateY(-2px);
+            z-index: 10;
+        }
+
+        /* ELECTIVE BLOCK HOVER PAIR HIGHLIGHT */
+        .discipline-card.block-paired-highlight {
+            border-color: #10b981 !important;
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3), 0 8px 18px rgba(16, 185, 129, 0.15) !important;
+            background: #f0fdf4 !important;
+        }
+
+        /* PRACTICE CARD */
+        .discipline-card.practice-card {
+            background: var(--practice-bg);
+            border-color: var(--practice-border);
+        }
+        .discipline-card.practice-card::before {
+            background: var(--practice-accent);
+        }
+        .discipline-card.practice-card .code-pill {
+            background: #ffe4e6;
+            color: var(--practice-text);
+            border-color: #fecdd3;
+        }
+        .discipline-card.practice-card:hover {
+            border-color: var(--practice-accent);
+            box-shadow: 0 10px 20px -4px rgba(244, 63, 94, 0.25);
+        }
+
+        /* ELECTIVE CARD */
+        .discipline-card.elective-card {
+            background: var(--elective-bg);
+            border-color: var(--elective-border);
+        }
+        .discipline-card.elective-card::before {
+            background: var(--elective-accent);
+        }
+        .discipline-card.elective-card .code-pill {
+            background: #dcfce7;
+            color: var(--elective-text);
+            border-color: #a7f3d0;
+        }
+        .discipline-card.elective-card:hover {
+            border-color: var(--elective-accent);
+            box-shadow: 0 10px 20px -4px rgba(16, 185, 129, 0.25);
+        }
+
+        /* CARD HEADER LINE */
+        .card-header-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.35rem;
+        }
+
+        .card-code-block {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            flex-wrap: wrap;
+        }
+
+        .code-pill {
+            font-size: 0.68rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            background: rgba(var(--primary-rgb), 0.08);
+            color: var(--primary);
+            border: 1px solid rgba(var(--primary-rgb), 0.2);
+            padding: 0.12rem 0.42rem;
+            border-radius: 6px;
+            letter-spacing: 0.3px;
+            flex-shrink: 0;
+        }
+
+        /* ELECTIVE BLOCK PILL ON CARD */
+        .elective-block-pill {
+            font-size: 0.62rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            background: #ecfdf5;
+            color: #047857;
+            border: 1px dashed #6ee7b7;
+            padding: 0.1rem 0.38rem;
+            border-radius: 5px;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
+        }
+
+        .control-badges-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        /* CONTROL BADGES: FULL WORDS WITHOUT ABBREVIATIONS */
+        .control-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.12rem 0.42rem;
+            border-radius: 5px;
+            line-height: 1.25;
+            white-space: nowrap;
+        }
+
+        .badge-exam {
+            background: var(--badge-exam-bg);
+            color: var(--badge-exam-text);
+            border: 1px solid var(--badge-exam-border);
+        }
+
+        .badge-zalik {
+            background: var(--badge-zalik-bg);
+            color: var(--badge-zalik-text);
+            border: 1px solid var(--badge-zalik-border);
+        }
+
+        .badge-coursework {
+            background: var(--badge-cw-bg);
+            color: var(--badge-cw-text);
+            border: 1px solid var(--badge-cw-border);
+        }
+
+        .badge-diploma {
+            background: #fff1f2;
+            color: #be123c;
+            border: 1px solid #fecdd3;
+        }
+
+        /* CARD TITLE */
+        .card-title-text {
+            font-size: 0.83rem;
+            font-weight: 600;
+            color: var(--text-heading);
+            line-height: 1.35;
+        }
+
+        /* CARD FOOTER */
+        .card-footer-line {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .load-full-text {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* SLIDE-OVER DRAWER */
+        .drawer-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(15, 23, 42, 0.38);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .drawer-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .slide-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 500px;
+            max-width: 92vw;
+            height: 100vh;
+            background: #ffffff;
+            box-shadow: -10px 0 35px rgba(15, 23, 42, 0.15);
+            z-index: 1000;
+            padding: 2.2rem 2rem;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.3rem;
+        }
+
+        .slide-drawer.active {
+            transform: translateX(0);
+        }
+
+        .close-drawer-btn {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: #f1f5f9;
+            border: none;
+            color: var(--text-muted);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .close-drawer-btn:hover {
+            background: #e2e8f0;
+            color: var(--text-heading);
+        }
+
+        .close-drawer-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            fill: none;
+        }
+
+        .drawer-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .drawer-code-chip {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--primary);
+            background: rgba(var(--primary-rgb), 0.1);
+            width: fit-content;
+            padding: 0.2rem 0.65rem;
+            border-radius: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .drawer-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            line-height: 1.25;
+        }
+
+        .drawer-raw-title {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .drawer-category {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-dim);
+            margin-top: 0.15rem;
+        }
+
+        /* DRAWER ELECTIVE BLOCK ALERT BOX */
+        .drawer-elective-box {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+        }
+
+        .drawer-elective-title {
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: #065f46;
+            margin-bottom: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .drawer-elective-desc {
+            font-size: 0.8rem;
+            color: #047857;
+            line-height: 1.4;
+            margin-bottom: 0.75rem;
+        }
+
+        .elective-pair-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            background: #ffffff;
+            border: 1px solid #d1fae5;
+            border-radius: 8px;
+            padding: 0.65rem 0.85rem;
+        }
+
+        .pair-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.82rem;
+        }
+
+        .pair-row.is-current {
+            font-weight: 700;
+            color: #065f46;
+        }
+
+        .pair-row.is-alt {
+            color: var(--text-muted);
+        }
+
+        .pair-tag {
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+        }
+
+        .pair-tag.tag-current {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .pair-tag.tag-alt {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .pair-or-line {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #10b981;
+            padding-left: 2rem;
+            line-height: 1;
+        }
+
+        .drawer-stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+        }
+
+        .drawer-stat-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 0.9rem;
+            text-align: center;
+        }
+
+        .drawer-stat-num {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.1;
+        }
+
+        .drawer-stat-txt {
+            font-size: 0.73rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-top: 0.1rem;
+        }
+
+        .drawer-card-box {
+            background: #f8fafc;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+        }
+
+        .drawer-card-label {
+            font-size: 0.74rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-dim);
+            margin-bottom: 0.55rem;
+        }
+
+        .drawer-sem-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .sem-pill {
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            padding: 0.35rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-dim);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .sem-pill-active {
+            background: rgba(var(--primary-rgb), 0.1);
+            border-color: rgba(var(--primary-rgb), 0.3);
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .control-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .control-table th {
+            text-align: left;
+            color: var(--text-dim);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            padding-bottom: 0.4rem;
+            font-weight: 700;
+        }
+
+        .control-table td {
+            padding: 0.45rem 0;
+            border-top: 1px solid rgba(226, 232, 240, 0.8);
+            color: var(--text-heading);
+            font-weight: 500;
+        }
+
+        .control-table td.val-cell {
+            text-align: right;
+            font-weight: 700;
+        }
+
+            .drawer-overlay, .slide-drawer {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MINIMALIST HEADER -->
+    <header class="page-header">
+        <h1 class="program-title">ОПП «Обслуговування програмних систем і комплексів»</h1>
+        <p class="program-subtitle">Навчальний план ПР · Розподіл освітніх компонентів за семестрами</p>
+    </header>
+
+    <!-- CURRICULUM BOARD: ROWS OF SEMESTERS -->
+    <main class="curriculum-layout">
+        
+        <section class="semester-row-section" data-semester="3">
+            <div class="semester-sidebar">
+                <div class="sem-badge-circle">3</div>
+                <div class="sem-sidebar-info">
+                    <h2 class="sem-sidebar-title">Семестр 3</h2>
+                    <div class="sem-sidebar-sub">2 курс · Осінній семестр</div>
+                    <div class="sem-sidebar-count">5 обов'язкових дисциплін</div>
+                </div>
+            </div>
+            
+            <div class="semester-disciplines-area sem-grid sem-grid-3cols">
+                
+                <div class="discipline-card cat-mandatory" data-code="ОК7" data-name="Фізичне виховання (Фізична культура)" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК7&quot;, &quot;name&quot;: &quot;Фізичне виховання** (Фізична культура)&quot;, &quot;raw_name&quot;: &quot;Фізичне виховання** (Фізична культура)&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;3-6&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [3, 4, 5, 6], &quot;sem_loads&quot;: {&quot;3&quot;: &quot;34**&quot;, &quot;4&quot;: &quot;36**&quot;, &quot;5&quot;: &quot;48/1/2*&quot;, &quot;6&quot;: &quot;56/2/2*&quot;}, &quot;card_name&quot;: &quot;Фізичне виховання (Фізична культура)&quot;, &quot;credits&quot;: 8.7, &quot;hours_total&quot;: 261, &quot;hours_auditory&quot;: 174, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 3}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК7</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Фізичне виховання (Фізична культура)</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">34 годин</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК10" data-name="Дискретна математика" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК10&quot;, &quot;name&quot;: &quot;Дискретна математика&quot;, &quot;raw_name&quot;: &quot;Дискретна математика&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;3&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [3], &quot;sem_loads&quot;: {&quot;3&quot;: &quot;85/5&quot;}, &quot;card_name&quot;: &quot;Дискретна математика&quot;, &quot;credits&quot;: 5.0, &quot;hours_total&quot;: 150, &quot;hours_auditory&quot;: 85, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 3}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК10</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Дискретна математика</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">85 годин (5 годин на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК13" data-name="Основи екології (Екологія)" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК13&quot;, &quot;name&quot;: &quot;Основи екології* (Екологія)&quot;, &quot;raw_name&quot;: &quot;Основи екології* (Екологія)&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;3&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [3], &quot;sem_loads&quot;: {&quot;3&quot;: &quot;34*&quot;}, &quot;card_name&quot;: &quot;Основи екології (Екологія)&quot;, &quot;credits&quot;: 1.5, &quot;hours_total&quot;: 45, &quot;hours_auditory&quot;: 34, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 3}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК13</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Основи екології (Екологія)</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">34 годин</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК14" data-name="Алгоритмізація та програмування" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК14&quot;, &quot;name&quot;: &quot;Алгоритмізація та програмування&quot;, &quot;raw_name&quot;: &quot;Алгоритмізація та програмування&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;3&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [3], &quot;sem_loads&quot;: {&quot;3&quot;: &quot;102/6&quot;}, &quot;card_name&quot;: &quot;Алгоритмізація та програмування&quot;, &quot;credits&quot;: 6.0, &quot;hours_total&quot;: 180, &quot;hours_auditory&quot;: 102, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 3}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК14</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Алгоритмізація та програмування</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">102 годин (6 годин на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК19" data-name="Комп’ютерна графіка" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК19&quot;, &quot;name&quot;: &quot;Комп’ютерна графіка&quot;, &quot;raw_name&quot;: &quot;Комп’ютерна графіка&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;3&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [3], &quot;sem_loads&quot;: {&quot;3&quot;: &quot;34/2&quot;}, &quot;card_name&quot;: &quot;Комп’ютерна графіка&quot;, &quot;credits&quot;: 2.0, &quot;hours_total&quot;: 60, &quot;hours_auditory&quot;: 34, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 3}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК19</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Комп’ютерна графіка</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">34 годин (2 години на тиждень)</span>
+                    </div>
+                </div>
+            
+            </div>
+        </section>
+        
+        <section class="semester-row-section" data-semester="4">
+            <div class="semester-sidebar">
+                <div class="sem-badge-circle">4</div>
+                <div class="sem-sidebar-info">
+                    <h2 class="sem-sidebar-title">Семестр 4</h2>
+                    <div class="sem-sidebar-sub">2 курс · Весняний семестр</div>
+                    <div class="sem-sidebar-count">10 обов'язкових + 1 вибіркова з 1 блоку</div>
+                </div>
+            </div>
+            
+            <div class="semester-disciplines-area sem-grid sem-grid-6cols">
+                
+                <div class="discipline-card cat-mandatory" data-code="ОК1" data-name="Історія України" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК1&quot;, &quot;name&quot;: &quot;Історія України&quot;, &quot;raw_name&quot;: &quot;Історія України*&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;4&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [4], &quot;sem_loads&quot;: {&quot;4&quot;: &quot;36*&quot;}, &quot;card_name&quot;: &quot;Історія України&quot;, &quot;credits&quot;: 1.5, &quot;hours_total&quot;: 45, &quot;hours_auditory&quot;: 36, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 4}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК1</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Історія України</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">36 годин</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК3" data-name="Українська мова (за професійним спрямуванням)" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК3&quot;, &quot;name&quot;: &quot;Українська мова (за професійним спрямуванням)&quot;, &quot;raw_name&quot;: &quot;Українська мова (за професійним спрямуванням)&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;4&quot;, &quot;zalik&quot;: &quot;&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [4], &quot;sem_loads&quot;: {&quot;4&quot;: &quot;36/2&quot;}, &quot;card_name&quot;: &quot;Українська мова (за професійним спрямуванням)&quot;, &quot;credits&quot;: 2.0, &quot;hours_total&quot;: 60, &quot;hours_auditory&quot;: 36, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 4}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК3</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-exam">Екзамен</span></div>
+                    </div>
+                    <div class="card-title-text">Українська мова (за професійним спрямуванням)</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">36 годин (2 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК5" data-name="Економічна теорія (Економіка)" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК5&quot;, &quot;name&quot;: &quot;Економічна теорія **(Економіка)&quot;, &quot;raw_name&quot;: &quot;Економічна теорія **(Економіка)&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;4&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [4], &quot;sem_loads&quot;: {&quot;4&quot;: &quot;18/1&quot;}, &quot;card_name&quot;: &quot;Економічна теорія (Економіка)&quot;, &quot;credits&quot;: 1.0, &quot;hours_total&quot;: 30, &quot;hours_auditory&quot;: 18, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 4}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК5</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Економічна теорія (Економіка)</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">18 годин (1 година на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК6" data-name="Іноземна мова (за професійним спрямуванням)" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК6&quot;, &quot;name&quot;: &quot;Іноземна мова (за професійним спрямуванням)&quot;, &quot;raw_name&quot;: &quot;Іноземна мова (за професійним спрямуванням)&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;6&quot;, &quot;zalik&quot;: &quot;4,5&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [4, 5, 6], &quot;sem_loads&quot;: {&quot;4&quot;: &quot;36/2&quot;, &quot;5&quot;: &quot;32/2&quot;, &quot;6&quot;: &quot;28/2&quot;}, &quot;card_name&quot;: &quot;Іноземна мова (за професійним спрямуванням)&quot;, &quot;credits&quot;: 6.0, &quot;hours_total&quot;: 180, &quot;hours_auditory&quot;: 96, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 4}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК6</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Іноземна мова (за професійним спрямуванням)</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">36 годин (2 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК7" data-name="Фізичне виховання (Фізична культура)" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК7&quot;, &quot;name&quot;: &quot;Фізичне виховання** (Фізична культура)&quot;, &quot;raw_name&quot;: &quot;Фізичне виховання** (Фізична культура)&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;3-6&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [3, 4, 5, 6], &quot;sem_loads&quot;: {&quot;3&quot;: &quot;34**&quot;, &quot;4&quot;: &quot;36**&quot;, &quot;5&quot;: &quot;48/1/2*&quot;, &quot;6&quot;: &quot;56/2/2*&quot;}, &quot;card_name&quot;: &quot;Фізичне виховання (Фізична культура)&quot;, &quot;credits&quot;: 8.7, &quot;hours_total&quot;: 261, &quot;hours_auditory&quot;: 174, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 4}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК7</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Фізичне виховання (Фізична культура)</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">36 годин</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК8" data-name="Основи правознавства (Правознавство)" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК8&quot;, &quot;name&quot;: &quot;Основи правознавства **(Правознавство)&quot;, &quot;raw_name&quot;: &quot;Основи правознавства **(Правознавство)&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;4&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [4], &quot;sem_loads&quot;: {&quot;4&quot;: &quot;18/1&quot;}, &quot;card_name&quot;: &quot;Основи правознавства (Правознавство)&quot;, &quot;credits&quot;: 1.0, &quot;hours_total&quot;: 30, &quot;hours_auditory&quot;: 18, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 4}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК8</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Основи правознавства (Правознавство)</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">18 годин (1 година на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК9" data-name="Вища математика" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК9&quot;, &quot;name&quot;: &quot;Вища математика&quot;, &quot;raw_name&quot;: &quot;Вища математика&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;5&quot;, &quot;zalik&quot;: &quot;4&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [4, 5], &quot;sem_loads&quot;: {&quot;4&quot;: &quot;108/6&quot;, &quot;5&quot;: &quot;80/5&quot;}, &quot;card_name&quot;: &quot;Вища математика&quot;, &quot;credits&quot;: 9.4, &quot;hours_total&quot;: 282, &quot;hours_auditory&quot;: 188, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 4}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК9</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Вища математика</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">108 годин (6 годин на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК12" data-name="Фізика" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК12&quot;, &quot;name&quot;: &quot;Фізика&quot;, &quot;raw_name&quot;: &quot;Фізика&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;4&quot;, &quot;zalik&quot;: &quot;&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [4], &quot;sem_loads&quot;: {&quot;4&quot;: &quot;36/2&quot;}, &quot;card_name&quot;: &quot;Фізика&quot;, &quot;credits&quot;: 2.0, &quot;hours_total&quot;: 60, &quot;hours_auditory&quot;: 36, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 4}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК12</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-exam">Екзамен</span></div>
+                    </div>
+                    <div class="card-title-text">Фізика</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">36 годин (2 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК18" data-name="WEB-технології та WEB-дизайн" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК18&quot;, &quot;name&quot;: &quot;WEB-технології та WEB-дизайн&quot;, &quot;raw_name&quot;: &quot;WEB-технології та WEB-дизайн&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;5&quot;, &quot;zalik&quot;: &quot;4&quot;, &quot;course_work&quot;: &quot;5&quot;, &quot;semesters&quot;: [4, 5], &quot;sem_loads&quot;: {&quot;4&quot;: &quot;18/1&quot;, &quot;5&quot;: &quot;80/5&quot;}, &quot;card_name&quot;: &quot;WEB-технології та WEB-дизайн&quot;, &quot;credits&quot;: 6.0, &quot;hours_total&quot;: 180, &quot;hours_auditory&quot;: 98, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 4}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК18</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">WEB-технології та WEB-дизайн</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">18 годин (1 година на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-practice practice-card" data-code="ОК32" data-name="З алгоритмізації і програмування" data-cat="practice"  data-info="{&quot;code&quot;: &quot;ОК32&quot;, &quot;name&quot;: &quot;З алгоритмізації  і програмування&quot;, &quot;raw_name&quot;: &quot;З алгоритмізації  і програмування&quot;, &quot;category&quot;: &quot;practice&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;4&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [4], &quot;sem_loads&quot;: {&quot;4&quot;: &quot;Практика&quot;}, &quot;card_name&quot;: &quot;З алгоритмізації і програмування&quot;, &quot;credits&quot;: 4.5, &quot;hours_total&quot;: 135, &quot;hours_auditory&quot;: 0, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 4}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК32</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">З алгоритмізації і програмування</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">Практична підготовка</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-elective elective-card" data-code="ВК9" data-name="Основи UI/UX дизайну" data-cat="elective" data-elective-block="sem4_b1" data-pair-code="ВК10" data-pair-name="Інклюзивний дизайн та веб-доступність" data-info="{&quot;code&quot;: &quot;ВК9&quot;, &quot;name&quot;: &quot;Основи UI/UX дизайну&quot;, &quot;raw_name&quot;: &quot;Основи UI/UX дизайну&quot;, &quot;category&quot;: &quot;elective&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;4&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [4], &quot;sem_loads&quot;: {&quot;4&quot;: &quot;36/2&quot;}, &quot;card_name&quot;: &quot;Основи UI/UX дизайну&quot;, &quot;credits&quot;: 2.0, &quot;hours_total&quot;: 60, &quot;hours_auditory&quot;: 36, &quot;elective_block_num&quot;: 1, &quot;elective_alt_code&quot;: &quot;ВК10&quot;, &quot;elective_alt_name&quot;: &quot;Інклюзивний дизайн та веб-доступність&quot;, &quot;current_semester&quot;: 4}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ВК9</span>
+                            <span class="elective-block-pill" title="Вибірковий блок №1: обирається 1 дисципліна з двох (ВК9 або ВК10)">Вибір · 1 з 2</span>
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Основи UI/UX дизайну</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">36 годин (2 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-elective elective-card" data-code="ВК10" data-name="Інклюзивний дизайн та веб-доступність" data-cat="elective" data-elective-block="sem4_b1" data-pair-code="ВК9" data-pair-name="Основи UI/UX дизайну" data-info="{&quot;code&quot;: &quot;ВК10&quot;, &quot;name&quot;: &quot;Інклюзивний дизайн та веб-доступність&quot;, &quot;raw_name&quot;: &quot;Інклюзивний дизайн та веб-доступність&quot;, &quot;category&quot;: &quot;elective&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;4&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [4], &quot;sem_loads&quot;: {&quot;4&quot;: &quot;36/2&quot;}, &quot;card_name&quot;: &quot;Інклюзивний дизайн та веб-доступність&quot;, &quot;credits&quot;: 2.0, &quot;hours_total&quot;: 60, &quot;hours_auditory&quot;: 36, &quot;elective_block_num&quot;: 1, &quot;elective_alt_code&quot;: &quot;ВК9&quot;, &quot;elective_alt_name&quot;: &quot;Основи UI/UX дизайну&quot;, &quot;current_semester&quot;: 4}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ВК10</span>
+                            <span class="elective-block-pill" title="Вибірковий блок №1: обирається 1 дисципліна з двох (ВК10 або ВК9)">Вибір · 1 з 2</span>
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Інклюзивний дизайн та веб-доступність</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">36 годин (2 години на тиждень)</span>
+                    </div>
+                </div>
+            
+            </div>
+        </section>
+        
+        <section class="semester-row-section" data-semester="5">
+            <div class="semester-sidebar">
+                <div class="sem-badge-circle">5</div>
+                <div class="sem-sidebar-info">
+                    <h2 class="sem-sidebar-title">Семестр 5</h2>
+                    <div class="sem-sidebar-sub">3 курс · Осінній семестр</div>
+                    <div class="sem-sidebar-count">9 обов'язкових + 1 вибіркова з 1 блоку</div>
+                </div>
+            </div>
+            
+            <div class="semester-disciplines-area sem-grid sem-grid-6cols">
+                
+                <div class="discipline-card cat-mandatory" data-code="ОК6" data-name="Іноземна мова (за професійним спрямуванням)" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК6&quot;, &quot;name&quot;: &quot;Іноземна мова (за професійним спрямуванням)&quot;, &quot;raw_name&quot;: &quot;Іноземна мова (за професійним спрямуванням)&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;6&quot;, &quot;zalik&quot;: &quot;4,5&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [4, 5, 6], &quot;sem_loads&quot;: {&quot;4&quot;: &quot;36/2&quot;, &quot;5&quot;: &quot;32/2&quot;, &quot;6&quot;: &quot;28/2&quot;}, &quot;card_name&quot;: &quot;Іноземна мова (за професійним спрямуванням)&quot;, &quot;credits&quot;: 6.0, &quot;hours_total&quot;: 180, &quot;hours_auditory&quot;: 96, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 5}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК6</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Іноземна мова (за професійним спрямуванням)</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">32 годин (2 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК7" data-name="Фізичне виховання (Фізична культура)" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК7&quot;, &quot;name&quot;: &quot;Фізичне виховання** (Фізична культура)&quot;, &quot;raw_name&quot;: &quot;Фізичне виховання** (Фізична культура)&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;3-6&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [3, 4, 5, 6], &quot;sem_loads&quot;: {&quot;3&quot;: &quot;34**&quot;, &quot;4&quot;: &quot;36**&quot;, &quot;5&quot;: &quot;48/1/2*&quot;, &quot;6&quot;: &quot;56/2/2*&quot;}, &quot;card_name&quot;: &quot;Фізичне виховання (Фізична культура)&quot;, &quot;credits&quot;: 8.7, &quot;hours_total&quot;: 261, &quot;hours_auditory&quot;: 174, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 5}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК7</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Фізичне виховання (Фізична культура)</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">48 годин (1 година на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК9" data-name="Вища математика" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК9&quot;, &quot;name&quot;: &quot;Вища математика&quot;, &quot;raw_name&quot;: &quot;Вища математика&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;5&quot;, &quot;zalik&quot;: &quot;4&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [4, 5], &quot;sem_loads&quot;: {&quot;4&quot;: &quot;108/6&quot;, &quot;5&quot;: &quot;80/5&quot;}, &quot;card_name&quot;: &quot;Вища математика&quot;, &quot;credits&quot;: 9.4, &quot;hours_total&quot;: 282, &quot;hours_auditory&quot;: 188, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 5}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК9</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-exam">Екзамен</span></div>
+                    </div>
+                    <div class="card-title-text">Вища математика</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">80 годин (5 годин на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК11" data-name="Основи національного спротиву" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК11&quot;, &quot;name&quot;: &quot;Основи національного спротиву&quot;, &quot;raw_name&quot;: &quot;Основи національного спротиву&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;5&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [5], &quot;sem_loads&quot;: {&quot;5&quot;: &quot;60/4&quot;}, &quot;card_name&quot;: &quot;Основи національного спротиву&quot;, &quot;credits&quot;: 3.0, &quot;hours_total&quot;: 90, &quot;hours_auditory&quot;: 60, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 5}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК11</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Основи національного спротиву</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">60 годин (4 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК18" data-name="WEB-технології та WEB-дизайн" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК18&quot;, &quot;name&quot;: &quot;WEB-технології та WEB-дизайн&quot;, &quot;raw_name&quot;: &quot;WEB-технології та WEB-дизайн&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;5&quot;, &quot;zalik&quot;: &quot;4&quot;, &quot;course_work&quot;: &quot;5&quot;, &quot;semesters&quot;: [4, 5], &quot;sem_loads&quot;: {&quot;4&quot;: &quot;18/1&quot;, &quot;5&quot;: &quot;80/5&quot;}, &quot;card_name&quot;: &quot;WEB-технології та WEB-дизайн&quot;, &quot;credits&quot;: 6.0, &quot;hours_total&quot;: 180, &quot;hours_auditory&quot;: 98, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 5}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК18</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-exam">Екзамен</span> <span class="control-badge badge-coursework">Курсова робота</span></div>
+                    </div>
+                    <div class="card-title-text">WEB-технології та WEB-дизайн</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">80 годин (5 годин на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК26" data-name="Електротехніка та основи електроніки" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК26&quot;, &quot;name&quot;: &quot;Електротехніка та основи електроніки&quot;, &quot;raw_name&quot;: &quot;Електротехніка та основи електроніки&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;5&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [5], &quot;sem_loads&quot;: {&quot;5&quot;: &quot;48/3&quot;}, &quot;card_name&quot;: &quot;Електротехніка та основи електроніки&quot;, &quot;credits&quot;: 3.0, &quot;hours_total&quot;: 90, &quot;hours_auditory&quot;: 48, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 5}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК26</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Електротехніка та основи електроніки</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">48 годин (3 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК28" data-name="Комп’ютерні мережі" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК28&quot;, &quot;name&quot;: &quot;Комп’ютерні мережі&quot;, &quot;raw_name&quot;: &quot;Комп’ютерні мережі&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;5&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [5], &quot;sem_loads&quot;: {&quot;5&quot;: &quot;64/4&quot;}, &quot;card_name&quot;: &quot;Комп’ютерні мережі&quot;, &quot;credits&quot;: 4.0, &quot;hours_total&quot;: 120, &quot;hours_auditory&quot;: 64, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 5}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК28</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Комп’ютерні мережі</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">64 годин (4 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК30" data-name="Математичні методи дослідження операцій" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК30&quot;, &quot;name&quot;: &quot;Математичні методи дослідження операцій&quot;, &quot;raw_name&quot;: &quot;Математичні методи дослідження операцій&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;5&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [5], &quot;sem_loads&quot;: {&quot;5&quot;: &quot;64/4&quot;}, &quot;card_name&quot;: &quot;Математичні методи дослідження операцій&quot;, &quot;credits&quot;: 4.0, &quot;hours_total&quot;: 120, &quot;hours_auditory&quot;: 64, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 5}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК30</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Математичні методи дослідження операцій</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">64 годин (4 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-practice practice-card" data-code="ОК32" data-name="З програмування 1" data-cat="practice"  data-info="{&quot;code&quot;: &quot;ОК32&quot;, &quot;name&quot;: &quot;З програмування 1&quot;, &quot;raw_name&quot;: &quot;З програмування 1&quot;, &quot;category&quot;: &quot;practice&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;5&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [5], &quot;sem_loads&quot;: {&quot;5&quot;: &quot;Практика&quot;}, &quot;card_name&quot;: &quot;З програмування 1&quot;, &quot;credits&quot;: 4.5, &quot;hours_total&quot;: 135, &quot;hours_auditory&quot;: 0, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 5}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК32</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">З програмування 1</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">Практична підготовка</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-elective elective-card" data-code="ВК5" data-name="Створення 3D моделей та анімацій" data-cat="elective" data-elective-block="sem5_b1" data-pair-code="ВК6" data-pair-name="Комп’ютерне моделювання" data-info="{&quot;code&quot;: &quot;ВК5&quot;, &quot;name&quot;: &quot;Створення 3D моделей та анімацій&quot;, &quot;raw_name&quot;: &quot;Створення 3D моделей та анімацій&quot;, &quot;category&quot;: &quot;elective&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;5,6&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [5, 6], &quot;sem_loads&quot;: {&quot;5&quot;: &quot;32/2&quot;, &quot;6&quot;: &quot;28/2&quot;}, &quot;card_name&quot;: &quot;Створення 3D моделей та анімацій&quot;, &quot;credits&quot;: 3.0, &quot;hours_total&quot;: 90, &quot;hours_auditory&quot;: 60, &quot;elective_block_num&quot;: 1, &quot;elective_alt_code&quot;: &quot;ВК6&quot;, &quot;elective_alt_name&quot;: &quot;Комп’ютерне моделювання&quot;, &quot;current_semester&quot;: 5}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ВК5</span>
+                            <span class="elective-block-pill" title="Вибірковий блок №1: обирається 1 дисципліна з двох (ВК5 або ВК6)">Вибір · 1 з 2</span>
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Створення 3D моделей та анімацій</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">32 годин (2 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-elective elective-card" data-code="ВК6" data-name="Комп’ютерне моделювання" data-cat="elective" data-elective-block="sem5_b1" data-pair-code="ВК5" data-pair-name="Створення 3D моделей та анімацій" data-info="{&quot;code&quot;: &quot;ВК6&quot;, &quot;name&quot;: &quot;Комп’ютерне моделювання&quot;, &quot;raw_name&quot;: &quot;Комп’ютерне моделювання&quot;, &quot;category&quot;: &quot;elective&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;5,6&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [5, 6], &quot;sem_loads&quot;: {&quot;5&quot;: &quot;32/2&quot;, &quot;6&quot;: &quot;28/2&quot;}, &quot;card_name&quot;: &quot;Комп’ютерне моделювання&quot;, &quot;credits&quot;: 3.0, &quot;hours_total&quot;: 90, &quot;hours_auditory&quot;: 60, &quot;elective_block_num&quot;: 1, &quot;elective_alt_code&quot;: &quot;ВК5&quot;, &quot;elective_alt_name&quot;: &quot;Створення 3D моделей та анімацій&quot;, &quot;current_semester&quot;: 5}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ВК6</span>
+                            <span class="elective-block-pill" title="Вибірковий блок №1: обирається 1 дисципліна з двох (ВК6 або ВК5)">Вибір · 1 з 2</span>
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Комп’ютерне моделювання</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">32 годин (2 години на тиждень)</span>
+                    </div>
+                </div>
+            
+            </div>
+        </section>
+        
+        <section class="semester-row-section" data-semester="6">
+            <div class="semester-sidebar">
+                <div class="sem-badge-circle">6</div>
+                <div class="sem-sidebar-info">
+                    <h2 class="sem-sidebar-title">Семестр 6</h2>
+                    <div class="sem-sidebar-sub">3 курс · Весняний семестр</div>
+                    <div class="sem-sidebar-count">8 обов'язкових + 2 вибіркові з 2 блоків</div>
+                </div>
+            </div>
+            
+            <div class="semester-disciplines-area sem-grid sem-grid-6cols">
+                
+                <div class="discipline-card cat-mandatory" data-code="ОК6" data-name="Іноземна мова (за професійним спрямуванням)" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК6&quot;, &quot;name&quot;: &quot;Іноземна мова (за професійним спрямуванням)&quot;, &quot;raw_name&quot;: &quot;Іноземна мова (за професійним спрямуванням)&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;6&quot;, &quot;zalik&quot;: &quot;4,5&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [4, 5, 6], &quot;sem_loads&quot;: {&quot;4&quot;: &quot;36/2&quot;, &quot;5&quot;: &quot;32/2&quot;, &quot;6&quot;: &quot;28/2&quot;}, &quot;card_name&quot;: &quot;Іноземна мова (за професійним спрямуванням)&quot;, &quot;credits&quot;: 6.0, &quot;hours_total&quot;: 180, &quot;hours_auditory&quot;: 96, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 6}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК6</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-exam">Екзамен</span></div>
+                    </div>
+                    <div class="card-title-text">Іноземна мова (за професійним спрямуванням)</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">28 годин (2 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК7" data-name="Фізичне виховання (Фізична культура)" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК7&quot;, &quot;name&quot;: &quot;Фізичне виховання** (Фізична культура)&quot;, &quot;raw_name&quot;: &quot;Фізичне виховання** (Фізична культура)&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;3-6&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [3, 4, 5, 6], &quot;sem_loads&quot;: {&quot;3&quot;: &quot;34**&quot;, &quot;4&quot;: &quot;36**&quot;, &quot;5&quot;: &quot;48/1/2*&quot;, &quot;6&quot;: &quot;56/2/2*&quot;}, &quot;card_name&quot;: &quot;Фізичне виховання (Фізична культура)&quot;, &quot;credits&quot;: 8.7, &quot;hours_total&quot;: 261, &quot;hours_auditory&quot;: 174, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 6}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК7</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Фізичне виховання (Фізична культура)</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">56 годин (2 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК16" data-name="Операційні системи" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК16&quot;, &quot;name&quot;: &quot;Операційні системи&quot;, &quot;raw_name&quot;: &quot;Операційні системи&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;6&quot;, &quot;zalik&quot;: &quot;&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [6], &quot;sem_loads&quot;: {&quot;6&quot;: &quot;56/4&quot;}, &quot;card_name&quot;: &quot;Операційні системи&quot;, &quot;credits&quot;: 3.0, &quot;hours_total&quot;: 90, &quot;hours_auditory&quot;: 56, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 6}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК16</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-exam">Екзамен</span></div>
+                    </div>
+                    <div class="card-title-text">Операційні системи</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">56 годин (4 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК17" data-name="Організація баз даних та знань" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК17&quot;, &quot;name&quot;: &quot;Організація баз даних та знань&quot;, &quot;raw_name&quot;: &quot;Організація баз даних та знань&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;6&quot;, &quot;zalik&quot;: &quot;&quot;, &quot;course_work&quot;: &quot;6&quot;, &quot;semesters&quot;: [6], &quot;sem_loads&quot;: {&quot;6&quot;: &quot;84/6&quot;}, &quot;card_name&quot;: &quot;Організація баз даних та знань&quot;, &quot;credits&quot;: 5.0, &quot;hours_total&quot;: 150, &quot;hours_auditory&quot;: 84, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 6}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК17</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-exam">Екзамен</span> <span class="control-badge badge-coursework">Курсова робота</span></div>
+                    </div>
+                    <div class="card-title-text">Організація баз даних та знань</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">84 годин (6 годин на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК21" data-name="Економіка та основи ІТ-бізнесу" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК21&quot;, &quot;name&quot;: &quot;Економіка та основи ІТ-бізнесу&quot;, &quot;raw_name&quot;: &quot;Економіка та основи ІТ-бізнесу&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;6&quot;, &quot;zalik&quot;: &quot;&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [6], &quot;sem_loads&quot;: {&quot;6&quot;: &quot;56/4&quot;}, &quot;card_name&quot;: &quot;Економіка та основи ІТ-бізнесу&quot;, &quot;credits&quot;: 3.0, &quot;hours_total&quot;: 90, &quot;hours_auditory&quot;: 56, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 6}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК21</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-exam">Екзамен</span></div>
+                    </div>
+                    <div class="card-title-text">Економіка та основи ІТ-бізнесу</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">56 годин (4 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК24" data-name="Тестування програмних систем і комплексів" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК24&quot;, &quot;name&quot;: &quot;Тестування програмних систем і комплексів&quot;, &quot;raw_name&quot;: &quot;Тестування програмних систем і комплексів&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;6&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [6], &quot;sem_loads&quot;: {&quot;6&quot;: &quot;56/4&quot;}, &quot;card_name&quot;: &quot;Тестування програмних систем і комплексів&quot;, &quot;credits&quot;: 3.0, &quot;hours_total&quot;: 90, &quot;hours_auditory&quot;: 56, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 6}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК24</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Тестування програмних систем і комплексів</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">56 годин (4 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК27" data-name="Комп’ютерна схемотехніка та архітектура комп’ютерів" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК27&quot;, &quot;name&quot;: &quot;Комп’ютерна схемотехніка та архітектура комп’ютерів&quot;, &quot;raw_name&quot;: &quot;Комп’ютерна схемотехніка та архітектура комп’ютерів&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;6&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [6], &quot;sem_loads&quot;: {&quot;6&quot;: &quot;42/3&quot;}, &quot;card_name&quot;: &quot;Комп’ютерна схемотехніка та архітектура комп’ютерів&quot;, &quot;credits&quot;: 2.0, &quot;hours_total&quot;: 60, &quot;hours_auditory&quot;: 42, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 6}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК27</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Комп’ютерна схемотехніка та архітектура комп’ютерів</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">42 годин (3 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-practice practice-card" data-code="ОК32" data-name="З набуття робітничої професії" data-cat="practice"  data-info="{&quot;code&quot;: &quot;ОК32&quot;, &quot;name&quot;: &quot;З набуття робітничої професії&quot;, &quot;raw_name&quot;: &quot;З набуття робітничої професії&quot;, &quot;category&quot;: &quot;practice&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;6&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [6], &quot;sem_loads&quot;: {&quot;6&quot;: &quot;Практика&quot;}, &quot;card_name&quot;: &quot;З набуття робітничої професії&quot;, &quot;credits&quot;: 6.0, &quot;hours_total&quot;: 180, &quot;hours_auditory&quot;: 0, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 6}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК32</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">З набуття робітничої професії</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">Практична підготовка</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-elective elective-card" data-code="ВК1" data-name="Штучний інтелект" data-cat="elective" data-elective-block="sem6_b1" data-pair-code="ВК2" data-pair-name="Технології Інтернет речей" data-info="{&quot;code&quot;: &quot;ВК1&quot;, &quot;name&quot;: &quot;Штучний інтелект&quot;, &quot;raw_name&quot;: &quot;Штучний інтелект&quot;, &quot;category&quot;: &quot;elective&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;6&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [6], &quot;sem_loads&quot;: {&quot;6&quot;: &quot;42/3&quot;}, &quot;card_name&quot;: &quot;Штучний інтелект&quot;, &quot;credits&quot;: 2.0, &quot;hours_total&quot;: 60, &quot;hours_auditory&quot;: 42, &quot;elective_block_num&quot;: 1, &quot;elective_alt_code&quot;: &quot;ВК2&quot;, &quot;elective_alt_name&quot;: &quot;Технології Інтернет речей&quot;, &quot;current_semester&quot;: 6}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ВК1</span>
+                            <span class="elective-block-pill" title="Вибірковий блок №1: обирається 1 дисципліна з двох (ВК1 або ВК2)">Блок 1 · 1 з 2</span>
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Штучний інтелект</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">42 годин (3 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-elective elective-card" data-code="ВК2" data-name="Технології Інтернет речей" data-cat="elective" data-elective-block="sem6_b1" data-pair-code="ВК1" data-pair-name="Штучний інтелект" data-info="{&quot;code&quot;: &quot;ВК2&quot;, &quot;name&quot;: &quot;Технології Інтернет речей&quot;, &quot;raw_name&quot;: &quot;Технології Інтернет речей&quot;, &quot;category&quot;: &quot;elective&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;6&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [6], &quot;sem_loads&quot;: {&quot;6&quot;: &quot;42/3&quot;}, &quot;card_name&quot;: &quot;Технології Інтернет речей&quot;, &quot;credits&quot;: 2.0, &quot;hours_total&quot;: 60, &quot;hours_auditory&quot;: 42, &quot;elective_block_num&quot;: 1, &quot;elective_alt_code&quot;: &quot;ВК1&quot;, &quot;elective_alt_name&quot;: &quot;Штучний інтелект&quot;, &quot;current_semester&quot;: 6}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ВК2</span>
+                            <span class="elective-block-pill" title="Вибірковий блок №1: обирається 1 дисципліна з двох (ВК2 або ВК1)">Блок 1 · 1 з 2</span>
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Технології Інтернет речей</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">42 годин (3 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-elective elective-card" data-code="ВК5" data-name="Створення 3D моделей та анімацій" data-cat="elective" data-elective-block="sem6_b2" data-pair-code="ВК6" data-pair-name="Комп’ютерне моделювання" data-info="{&quot;code&quot;: &quot;ВК5&quot;, &quot;name&quot;: &quot;Створення 3D моделей та анімацій&quot;, &quot;raw_name&quot;: &quot;Створення 3D моделей та анімацій&quot;, &quot;category&quot;: &quot;elective&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;5,6&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [5, 6], &quot;sem_loads&quot;: {&quot;5&quot;: &quot;32/2&quot;, &quot;6&quot;: &quot;28/2&quot;}, &quot;card_name&quot;: &quot;Створення 3D моделей та анімацій&quot;, &quot;credits&quot;: 3.0, &quot;hours_total&quot;: 90, &quot;hours_auditory&quot;: 60, &quot;elective_block_num&quot;: 2, &quot;elective_alt_code&quot;: &quot;ВК6&quot;, &quot;elective_alt_name&quot;: &quot;Комп’ютерне моделювання&quot;, &quot;current_semester&quot;: 6}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ВК5</span>
+                            <span class="elective-block-pill" title="Вибірковий блок №2: обирається 1 дисципліна з двох (ВК5 або ВК6)">Блок 2 · 1 з 2</span>
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Створення 3D моделей та анімацій</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">28 годин (2 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-elective elective-card" data-code="ВК6" data-name="Комп’ютерне моделювання" data-cat="elective" data-elective-block="sem6_b2" data-pair-code="ВК5" data-pair-name="Створення 3D моделей та анімацій" data-info="{&quot;code&quot;: &quot;ВК6&quot;, &quot;name&quot;: &quot;Комп’ютерне моделювання&quot;, &quot;raw_name&quot;: &quot;Комп’ютерне моделювання&quot;, &quot;category&quot;: &quot;elective&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;5,6&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [5, 6], &quot;sem_loads&quot;: {&quot;5&quot;: &quot;32/2&quot;, &quot;6&quot;: &quot;28/2&quot;}, &quot;card_name&quot;: &quot;Комп’ютерне моделювання&quot;, &quot;credits&quot;: 3.0, &quot;hours_total&quot;: 90, &quot;hours_auditory&quot;: 60, &quot;elective_block_num&quot;: 2, &quot;elective_alt_code&quot;: &quot;ВК5&quot;, &quot;elective_alt_name&quot;: &quot;Створення 3D моделей та анімацій&quot;, &quot;current_semester&quot;: 6}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ВК6</span>
+                            <span class="elective-block-pill" title="Вибірковий блок №2: обирається 1 дисципліна з двох (ВК6 або ВК5)">Блок 2 · 1 з 2</span>
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Комп’ютерне моделювання</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">28 годин (2 години на тиждень)</span>
+                    </div>
+                </div>
+            
+            </div>
+        </section>
+        
+        <section class="semester-row-section" data-semester="7">
+            <div class="semester-sidebar">
+                <div class="sem-badge-circle">7</div>
+                <div class="sem-sidebar-info">
+                    <h2 class="sem-sidebar-title">Семестр 7</h2>
+                    <div class="sem-sidebar-sub">4 курс · Осінній семестр</div>
+                    <div class="sem-sidebar-count">11 обов'язкових + 2 вибіркові з 2 блоків</div>
+                </div>
+            </div>
+            
+            <div class="semester-disciplines-area sem-grid sem-grid-6cols">
+                
+                <div class="discipline-card cat-mandatory" data-code="ОК2" data-name="Культурологія" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК2&quot;, &quot;name&quot;: &quot;Культурологія&quot;, &quot;raw_name&quot;: &quot;Культурологія&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;7&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [7], &quot;sem_loads&quot;: {&quot;7&quot;: &quot;20/1&quot;}, &quot;card_name&quot;: &quot;Культурологія&quot;, &quot;credits&quot;: 1.0, &quot;hours_total&quot;: 30, &quot;hours_auditory&quot;: 20, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 7}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК2</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Культурологія</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">20 годин (1 година на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК4" data-name="Основи філософських знань" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК4&quot;, &quot;name&quot;: &quot;Основи філософських знань&quot;, &quot;raw_name&quot;: &quot;Основи філософських знань&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;7&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [7], &quot;sem_loads&quot;: {&quot;7&quot;: &quot;40/2&quot;}, &quot;card_name&quot;: &quot;Основи філософських знань&quot;, &quot;credits&quot;: 2.0, &quot;hours_total&quot;: 60, &quot;hours_auditory&quot;: 40, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 7}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК4</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Основи філософських знань</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">40 годин (2 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК15" data-name="Об&#x27;єктно-орієнтоване програмування" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК15&quot;, &quot;name&quot;: &quot;Об&#x27;єктно-орієнтоване програмування&quot;, &quot;raw_name&quot;: &quot;Об&#x27;єктно-орієнтоване програмування&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;7&quot;, &quot;zalik&quot;: &quot;&quot;, &quot;course_work&quot;: &quot;7&quot;, &quot;semesters&quot;: [7], &quot;sem_loads&quot;: {&quot;7&quot;: &quot;100/5&quot;}, &quot;card_name&quot;: &quot;Об&#x27;єктно-орієнтоване програмування&quot;, &quot;credits&quot;: 6.0, &quot;hours_total&quot;: 180, &quot;hours_auditory&quot;: 100, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 7}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК15</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-exam">Екзамен</span> <span class="control-badge badge-coursework">Курсова робота</span></div>
+                    </div>
+                    <div class="card-title-text">Об'єктно-орієнтоване програмування</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">100 годин (5 годин на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК20" data-name="Розробка клієнт-серверних застосувань" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК20&quot;, &quot;name&quot;: &quot;Розробка клієнт-серверних застосувань&quot;, &quot;raw_name&quot;: &quot;Розробка клієнт-серверних застосувань&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;7&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [7], &quot;sem_loads&quot;: {&quot;7&quot;: &quot;60/3&quot;}, &quot;card_name&quot;: &quot;Розробка клієнт-серверних застосувань&quot;, &quot;credits&quot;: 3.0, &quot;hours_total&quot;: 90, &quot;hours_auditory&quot;: 60, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 7}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК20</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Розробка клієнт-серверних застосувань</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">60 годин (3 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК22" data-name="Технологія створення програмних продуктів" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК22&quot;, &quot;name&quot;: &quot;Технологія створення програмних продуктів&quot;, &quot;raw_name&quot;: &quot;Технологія створення програмних продуктів&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;7&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [7], &quot;sem_loads&quot;: {&quot;7&quot;: &quot;60/3&quot;}, &quot;card_name&quot;: &quot;Технологія створення програмних продуктів&quot;, &quot;credits&quot;: 3.0, &quot;hours_total&quot;: 90, &quot;hours_auditory&quot;: 60, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 7}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК22</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Технологія створення програмних продуктів</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">60 годин (3 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК23" data-name="Технологія захисту інформації" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК23&quot;, &quot;name&quot;: &quot;Технологія захисту інформації&quot;, &quot;raw_name&quot;: &quot;Технологія захисту інформації&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;7&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [7], &quot;sem_loads&quot;: {&quot;7&quot;: &quot;60/3&quot;}, &quot;card_name&quot;: &quot;Технологія захисту інформації&quot;, &quot;credits&quot;: 3.0, &quot;hours_total&quot;: 90, &quot;hours_auditory&quot;: 60, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 7}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК23</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Технологія захисту інформації</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">60 годин (3 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК25" data-name="Адміністрування програмних систем і комплексів" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК25&quot;, &quot;name&quot;: &quot;Адміністрування програмних систем і комплексів&quot;, &quot;raw_name&quot;: &quot;Адміністрування програмних систем і комплексів&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;7&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [7], &quot;sem_loads&quot;: {&quot;7&quot;: &quot;60/3&quot;}, &quot;card_name&quot;: &quot;Адміністрування програмних систем і комплексів&quot;, &quot;credits&quot;: 3.0, &quot;hours_total&quot;: 90, &quot;hours_auditory&quot;: 60, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 7}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК25</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Адміністрування програмних систем і комплексів</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">60 годин (3 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК29" data-name="Основи охорони праці та безпека життєдіяльності" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК29&quot;, &quot;name&quot;: &quot;Основи охорони праці та безпека життєдіяльності&quot;, &quot;raw_name&quot;: &quot;Основи охорони праці та безпека життєдіяльності&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;7&quot;, &quot;zalik&quot;: &quot;&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [7], &quot;sem_loads&quot;: {&quot;7&quot;: &quot;40/2&quot;}, &quot;card_name&quot;: &quot;Основи охорони праці та безпека життєдіяльності&quot;, &quot;credits&quot;: 2.0, &quot;hours_total&quot;: 60, &quot;hours_auditory&quot;: 40, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 7}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК29</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-exam">Екзамен</span></div>
+                    </div>
+                    <div class="card-title-text">Основи охорони праці та безпека життєдіяльності</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">40 годин (2 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-mandatory" data-code="ОК31" data-name="Чисельні методи" data-cat="mandatory"  data-info="{&quot;code&quot;: &quot;ОК31&quot;, &quot;name&quot;: &quot;Чисельні методи&quot;, &quot;raw_name&quot;: &quot;Чисельні методи&quot;, &quot;category&quot;: &quot;mandatory&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;7&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [7], &quot;sem_loads&quot;: {&quot;7&quot;: &quot;60/3&quot;}, &quot;card_name&quot;: &quot;Чисельні методи&quot;, &quot;credits&quot;: 6.0, &quot;hours_total&quot;: 180, &quot;hours_auditory&quot;: 60, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 7}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК31</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Чисельні методи</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">60 годин (3 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-practice practice-card" data-code="ОК32" data-name="З програмування 2" data-cat="practice"  data-info="{&quot;code&quot;: &quot;ОК32&quot;, &quot;name&quot;: &quot;З програмування 2&quot;, &quot;raw_name&quot;: &quot;З програмування 2&quot;, &quot;category&quot;: &quot;practice&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;7&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [7], &quot;sem_loads&quot;: {&quot;7&quot;: &quot;Практика&quot;}, &quot;card_name&quot;: &quot;З програмування 2&quot;, &quot;credits&quot;: 4.5, &quot;hours_total&quot;: 135, &quot;hours_auditory&quot;: 0, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 7}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК32</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">З програмування 2</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">Практична підготовка</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-practice practice-card" data-code="ОК33" data-name="Технологічна практика" data-cat="practice"  data-info="{&quot;code&quot;: &quot;ОК33&quot;, &quot;name&quot;: &quot;Технологічна практика&quot;, &quot;raw_name&quot;: &quot;Технологічна практика&quot;, &quot;category&quot;: &quot;practice&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;7&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [7], &quot;sem_loads&quot;: {&quot;7&quot;: &quot;Практика&quot;}, &quot;card_name&quot;: &quot;Технологічна практика&quot;, &quot;credits&quot;: 9.0, &quot;hours_total&quot;: 270, &quot;hours_auditory&quot;: 0, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 7}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК33</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Технологічна практика</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">Практична підготовка</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-elective elective-card" data-code="ВК3" data-name="Основи психології" data-cat="elective" data-elective-block="sem7_b1" data-pair-code="ВК4" data-pair-name="Психологічні основи життєвого успіху" data-info="{&quot;code&quot;: &quot;ВК3&quot;, &quot;name&quot;: &quot;Основи психології&quot;, &quot;raw_name&quot;: &quot;Основи психології&quot;, &quot;category&quot;: &quot;elective&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;7&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [7], &quot;sem_loads&quot;: {&quot;7&quot;: &quot;40/2&quot;}, &quot;card_name&quot;: &quot;Основи психології&quot;, &quot;credits&quot;: 2.0, &quot;hours_total&quot;: 60, &quot;hours_auditory&quot;: 40, &quot;elective_block_num&quot;: 1, &quot;elective_alt_code&quot;: &quot;ВК4&quot;, &quot;elective_alt_name&quot;: &quot;Психологічні основи життєвого успіху&quot;, &quot;current_semester&quot;: 7}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ВК3</span>
+                            <span class="elective-block-pill" title="Вибірковий блок №1: обирається 1 дисципліна з двох (ВК3 або ВК4)">Блок 1 · 1 з 2</span>
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Основи психології</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">40 годин (2 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-elective elective-card" data-code="ВК4" data-name="Психологічні основи життєвого успіху" data-cat="elective" data-elective-block="sem7_b1" data-pair-code="ВК3" data-pair-name="Основи психології" data-info="{&quot;code&quot;: &quot;ВК4&quot;, &quot;name&quot;: &quot;Психологічні основи життєвого успіху&quot;, &quot;raw_name&quot;: &quot;Психологічні основи життєвого успіху&quot;, &quot;category&quot;: &quot;elective&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;7&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [7], &quot;sem_loads&quot;: {&quot;7&quot;: &quot;40/2&quot;}, &quot;card_name&quot;: &quot;Психологічні основи життєвого успіху&quot;, &quot;credits&quot;: 2.0, &quot;hours_total&quot;: 60, &quot;hours_auditory&quot;: 40, &quot;elective_block_num&quot;: 1, &quot;elective_alt_code&quot;: &quot;ВК3&quot;, &quot;elective_alt_name&quot;: &quot;Основи психології&quot;, &quot;current_semester&quot;: 7}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ВК4</span>
+                            <span class="elective-block-pill" title="Вибірковий блок №1: обирається 1 дисципліна з двох (ВК4 або ВК3)">Блок 1 · 1 з 2</span>
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Психологічні основи життєвого успіху</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">40 годин (2 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-elective elective-card" data-code="ВК7" data-name="Розробка Desktop-додатків" data-cat="elective" data-elective-block="sem7_b2" data-pair-code="ВК8" data-pair-name="Хмарні технології" data-info="{&quot;code&quot;: &quot;ВК7&quot;, &quot;name&quot;: &quot;Розробка Desktop-додатків&quot;, &quot;raw_name&quot;: &quot;Розробка Desktop-додатків&quot;, &quot;category&quot;: &quot;elective&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;7&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [7], &quot;sem_loads&quot;: {&quot;7&quot;: &quot;60/3&quot;}, &quot;card_name&quot;: &quot;Розробка Desktop-додатків&quot;, &quot;credits&quot;: 3.0, &quot;hours_total&quot;: 90, &quot;hours_auditory&quot;: 60, &quot;elective_block_num&quot;: 2, &quot;elective_alt_code&quot;: &quot;ВК8&quot;, &quot;elective_alt_name&quot;: &quot;Хмарні технології&quot;, &quot;current_semester&quot;: 7}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ВК7</span>
+                            <span class="elective-block-pill" title="Вибірковий блок №2: обирається 1 дисципліна з двох (ВК7 або ВК8)">Блок 2 · 1 з 2</span>
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Розробка Desktop-додатків</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">60 годин (3 години на тиждень)</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-elective elective-card" data-code="ВК8" data-name="Хмарні технології" data-cat="elective" data-elective-block="sem7_b2" data-pair-code="ВК7" data-pair-name="Розробка Desktop-додатків" data-info="{&quot;code&quot;: &quot;ВК8&quot;, &quot;name&quot;: &quot;Хмарні технології&quot;, &quot;raw_name&quot;: &quot;Хмарні технології&quot;, &quot;category&quot;: &quot;elective&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;7&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [7], &quot;sem_loads&quot;: {&quot;7&quot;: &quot;60/3&quot;}, &quot;card_name&quot;: &quot;Хмарні технології&quot;, &quot;credits&quot;: 3.0, &quot;hours_total&quot;: 90, &quot;hours_auditory&quot;: 60, &quot;elective_block_num&quot;: 2, &quot;elective_alt_code&quot;: &quot;ВК7&quot;, &quot;elective_alt_name&quot;: &quot;Розробка Desktop-додатків&quot;, &quot;current_semester&quot;: 7}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ВК8</span>
+                            <span class="elective-block-pill" title="Вибірковий блок №2: обирається 1 дисципліна з двох (ВК8 або ВК7)">Блок 2 · 1 з 2</span>
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Хмарні технології</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">60 годин (3 години на тиждень)</span>
+                    </div>
+                </div>
+            
+            </div>
+        </section>
+        
+        <section class="semester-row-section" data-semester="8">
+            <div class="semester-sidebar">
+                <div class="sem-badge-circle">8</div>
+                <div class="sem-sidebar-info">
+                    <h2 class="sem-sidebar-title">Семестр 8</h2>
+                    <div class="sem-sidebar-sub">4 курс · Переддипломний семестр</div>
+                    <div class="sem-sidebar-count">2 обов'язкові компоненти</div>
+                </div>
+            </div>
+            
+            <div class="semester-disciplines-area sem-grid sem-grid-2cols">
+                
+                <div class="discipline-card cat-practice practice-card" data-code="ОК34" data-name="Переддипломна практика" data-cat="practice"  data-info="{&quot;code&quot;: &quot;ОК34&quot;, &quot;name&quot;: &quot;Переддипломна практика&quot;, &quot;raw_name&quot;: &quot;Переддипломна практика&quot;, &quot;category&quot;: &quot;practice&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;8&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [8], &quot;sem_loads&quot;: {&quot;8&quot;: &quot;Практика&quot;}, &quot;card_name&quot;: &quot;Переддипломна практика&quot;, &quot;credits&quot;: 6.0, &quot;hours_total&quot;: 180, &quot;hours_auditory&quot;: 0, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 8}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК34</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-zalik">Залік</span></div>
+                    </div>
+                    <div class="card-title-text">Переддипломна практика</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">Практична підготовка</span>
+                    </div>
+                </div>
+            
+                <div class="discipline-card cat-practice practice-card" data-code="ОК35" data-name="Дипломне проєктування" data-cat="practice"  data-info="{&quot;code&quot;: &quot;ОК35&quot;, &quot;name&quot;: &quot;Дипломне проєктування&quot;, &quot;raw_name&quot;: &quot;Дипломне проєктування&quot;, &quot;category&quot;: &quot;practice&quot;, &quot;exam&quot;: &quot;&quot;, &quot;zalik&quot;: &quot;8&quot;, &quot;course_work&quot;: &quot;&quot;, &quot;semesters&quot;: [8], &quot;sem_loads&quot;: {&quot;8&quot;: &quot;Практика&quot;}, &quot;card_name&quot;: &quot;Дипломне проєктування&quot;, &quot;credits&quot;: 7.5, &quot;hours_total&quot;: 225, &quot;hours_auditory&quot;: 0, &quot;elective_block_num&quot;: 0, &quot;elective_alt_code&quot;: &quot;&quot;, &quot;elective_alt_name&quot;: &quot;&quot;, &quot;current_semester&quot;: 8}">
+                    <div class="card-header-line">
+                        <div class="card-code-block">
+                            <span class="code-pill">ОК35</span>
+                            
+                        </div>
+                        <div class="control-badges-wrap"><span class="control-badge badge-diploma">Дипломне проєктування</span></div>
+                    </div>
+                    <div class="card-title-text">Дипломне проєктування</div>
+                    <div class="card-footer-line">
+                        <span class="load-full-text">Практична підготовка</span>
+                    </div>
+                </div>
+            
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- SLIDE-OVER DRAWER FOR DISCIPLINE DETAILS -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <aside class="slide-drawer" id="slide-drawer">
+        <button class="close-drawer-btn" id="close-drawer" aria-label="Закрити панель">
+            <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+        </button>
+
+        <div class="drawer-header">
+            <div class="drawer-code-chip" id="dr-code">ОК1</div>
+            <h2 class="drawer-title" id="dr-title">Назва дисципліни</h2>
+            <div class="drawer-raw-title" id="dr-raw-title"></div>
+            <div class="drawer-category" id="dr-cat">Обов'язковий компонент</div>
+        </div>
+
+        <!-- ELECTIVE BLOCK EXPLANATION BOX (VISIBLE FOR ELECTIVE CARDS) -->
+        <div class="drawer-elective-box" id="dr-elective-box" style="display: none;">
+            <div class="drawer-elective-title">
+                <span>🎯</span>
+                <span id="dr-el-block-title">Вибірковий блок</span>
+            </div>
+            <div class="drawer-elective-desc">
+                Згідно з навчальним планом, здобувач освіти обирає <strong>1 дисципліну</strong> серед двох запропонованих у цьому блоці:
+            </div>
+            <div class="elective-pair-container">
+                <div class="pair-row is-current">
+                    <span class="pair-tag tag-current">Поточна</span>
+                    <strong id="dr-el-current-code">ВК1</strong>
+                    <span id="dr-el-current-name">Назва</span>
+                </div>
+                <div class="pair-or-line">або</div>
+                <div class="pair-row is-alt">
+                    <span class="pair-tag tag-alt">Альтернатива</span>
+                    <strong id="dr-el-alt-code">ВК2</strong>
+                    <span id="dr-el-alt-name">Назва альтернативи</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATS GRID -->
+        <div class="drawer-stats-row">
+            <div class="drawer-stat-card">
+                <div class="drawer-stat-num" id="dr-credits">—</div>
+                <div class="drawer-stat-txt">Кредити ЄКТС</div>
+            </div>
+            <div class="drawer-stat-card">
+                <div class="drawer-stat-num" id="dr-hours-tot">—</div>
+                <div class="drawer-stat-txt">Всього годин</div>
+            </div>
+            <div class="drawer-stat-card">
+                <div class="drawer-stat-num" id="dr-hours-aud">—</div>
+                <div class="drawer-stat-txt">Аудиторних годин</div>
+            </div>
+        </div>
+
+        <!-- SEMESTER TIMELINE -->
+        <div class="drawer-card-box">
+            <div class="drawer-card-label">Розподіл за семестрами</div>
+            <div class="drawer-sem-pills" id="dr-semesters"></div>
+        </div>
+
+        <!-- CONTROL & LOADS TABLE -->
+        <div class="drawer-card-box">
+            <div class="drawer-card-label">Форми підсумкового контролю</div>
+            <table class="control-table">
+                <tbody>
+                    <tr>
+                        <td>Семестр екзамену:</td>
+                        <td class="val-cell" id="dr-exam">—</td>
+                    </tr>
+                    <tr>
+                        <td>Семестр заліку:</td>
+                        <td class="val-cell" id="dr-zalik">—</td>
+                    </tr>
+                    <tr>
+                        <td>Курсова робота / проєкт:</td>
+                        <td class="val-cell" id="dr-cw">—</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- DETAILED LOAD BREAKDOWN -->
+        <div class="drawer-card-box">
+            <div class="drawer-card-label">Годинне навантаження за семестрами</div>
+            <div id="dr-loads-list"></div>
+        </div>
+    </aside>
+
+    <!-- INTERACTION SCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.discipline-card');
+            const drawer = document.getElementById('slide-drawer');
+            const overlay = document.getElementById('drawer-overlay');
+            const closeBtn = document.getElementById('close-drawer');
+
+            // Synchronous highlight across all semesters on hover
+            // Plus elective block pair highlight
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    const name = card.getAttribute('data-name');
+                    const electiveBlock = card.getAttribute('data-elective-block');
+                    
+                    if (name) {
+                        cards.forEach(other => {
+                            if (other.getAttribute('data-name') === name) {
+                                other.classList.add('linked-highlight');
+                            }
+                        });
+                    }
+                    
+                    if (electiveBlock) {
+                        cards.forEach(other => {
+                            if (other !== card && other.getAttribute('data-elective-block') === electiveBlock) {
+                                other.classList.add('block-paired-highlight');
+                            }
+                        });
+                    }
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    cards.forEach(other => {
+                        other.classList.remove('linked-highlight');
+                        other.classList.remove('block-paired-highlight');
+                    });
+                });
+
+                // Click to open slide-over drawer
+                card.addEventListener('click', () => {
+                    const infoRaw = card.getAttribute('data-info');
+                    if (!infoRaw) return;
+                    try {
+                        const info = JSON.parse(infoRaw);
+                        openDrawer(info);
+                    } catch (e) {
+                        console.error('Error parsing info', e);
+                    }
+                });
+            });
+
+            function openDrawer(info) {
+                document.getElementById('dr-code').innerText = info.code || 'ОК';
+                document.getElementById('dr-title').innerText = info.card_name || info.name || '';
+                
+                const rawElem = document.getElementById('dr-raw-title');
+                if (info.raw_name && info.raw_name !== info.card_name) {
+                    rawElem.innerText = `Повна офіційна назва: ${info.raw_name}`;
+                    rawElem.style.display = 'block';
+                } else {
+                    rawElem.style.display = 'none';
+                }
+
+                let catText = "Обов'язковий компонент освітньої програми";
+                if (info.category === 'practice') {
+                    catText = "Практична підготовка (Практика)";
+                } else if (info.category === 'elective') {
+                    catText = "Вибірковий компонент (Дисципліна за вибором здобувача освіти)";
+                }
+                document.getElementById('dr-cat').innerText = catText;
+
+                // Elective block box
+                const elBox = document.getElementById('dr-elective-box');
+                if (info.category === 'elective' && info.elective_alt_code) {
+                    elBox.style.display = 'block';
+                    document.getElementById('dr-el-block-title').innerText = `Вибірковий блок №${info.elective_block_num} (обирається 1 дисципліна)`;
+                    document.getElementById('dr-el-current-code').innerText = info.code;
+                    document.getElementById('dr-el-current-name').innerText = info.card_name || info.name;
+                    document.getElementById('dr-el-alt-code').innerText = info.elective_alt_code;
+                    document.getElementById('dr-el-alt-name').innerText = info.elective_alt_name;
+                } else {
+                    elBox.style.display = 'none';
+                }
+
+                // Stats
+                document.getElementById('dr-credits').innerText = (info.credits !== undefined && info.credits !== null && info.credits !== '') ? info.credits : '—';
+                document.getElementById('dr-hours-tot').innerText = info.hours_total || '—';
+                document.getElementById('dr-hours-aud').innerText = info.hours_auditory || '—';
+
+                // Semester timeline pills
+                const semPillsContainer = document.getElementById('dr-semesters');
+                semPillsContainer.innerHTML = '';
+                for (let s = 3; s <= 8; s++) {
+                    const pill = document.createElement('span');
+                    pill.className = 'sem-pill';
+                    if (info.semesters && info.semesters.includes(s)) {
+                        pill.classList.add('sem-pill-active');
+                        pill.innerHTML = `<span>✓</span> Семестр ${s}`;
+                    } else {
+                        pill.innerText = `Семестр ${s}`;
+                    }
+                    semPillsContainer.appendChild(pill);
+                }
+
+                // Control table (full names)
+                const examVal = info.exam ? `Семестр ${info.exam} (Екзамен)` : 'Не передбачено';
+                const zalikVal = info.zalik ? `Семестр ${info.zalik} (Залік)` : 'Не передбачено';
+                const cwVal = info.course_work ? `Семестр ${info.course_work} (Курсова робота)` : 'Не передбачено';
+                
+                document.getElementById('dr-exam').innerText = examVal;
+                document.getElementById('dr-zalik').innerText = zalikVal;
+                document.getElementById('dr-cw').innerText = cwVal;
+
+                // Loads list
+                const loadsList = document.getElementById('dr-loads-list');
+                loadsList.innerHTML = '';
+                if (info.sem_loads && Object.keys(info.sem_loads).length > 0) {
+                    const table = document.createElement('table');
+                    table.className = 'control-table';
+                    let tRows = '';
+                    for (const [sem, l] of Object.entries(info.sem_loads)) {
+                        tRows += `<tr>
+                            <td>Семестр ${sem}:</td>
+                            <td class="val-cell">${l} год</td>
+                        </tr>`;
+                    }
+                    table.innerHTML = `<tbody>${tRows}</tbody>`;
+                    loadsList.appendChild(table);
+                } else {
+                    loadsList.innerHTML = '<span style="font-size:0.82rem; color:var(--text-dim);">Годинне навантаження окремо не виділено</span>';
+                }
+
+                drawer.classList.add('active');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeDrawer() {
+                drawer.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            closeBtn.addEventListener('click', closeDrawer);
+            overlay.addEventListener('click', closeDrawer);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeDrawer();
+            });
+        });
+    </script>
+</body>
+</html>

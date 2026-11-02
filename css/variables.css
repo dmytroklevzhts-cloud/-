@@ -1,0 +1,57 @@
+/**
+ * Дніпровський політехнічний фаховий коледж
+ * Design Tokens & CSS Variables
+ */
+
+:root {
+    /* Colors - Brand & Accents */
+    --color-text-main: #202622;
+    --color-text-muted: #68706A;
+    --color-border: #D9DDD5;
+
+    /* Theme - Design Program (Purple) */
+    --color-design: #6453A3;
+    --color-design-light: #EFECF6;
+    --color-design-hover: #524285;
+
+    /* Theme - Systems & Software Program (Green) */
+    --color-software: #397565;
+    --color-software-light: #EAF0EA;
+    --color-software-hover: #2c5e51;
+
+    /* Backgrounds */
+    --color-bg-page: #FAFAF7;
+    --color-bg-white: #FFFFFF;
+    --color-bg-neutral: #EEEFE8;
+    --color-bg-neutral-light: #F4F4EF;
+
+    /* Typography */
+    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    
+    /* Font Sizes */
+    --font-size-hero: 108px;
+    --font-size-h1: 66px;
+    --font-size-h2: 44px;
+    --font-size-h3: 36px;
+    --font-size-h4: 30px;
+    --font-size-h5: 27px;
+    --font-size-body-lg: 25px;
+    --font-size-body: 23px;
+    --font-size-body-sm: 20px;
+    --font-size-meta: 18px;
+    --font-size-caption: 17px;
+    --font-size-tag: 15px;
+
+    /* Layout Dimensions */
+    --frame-width: 1920px;
+    --frame-height: 1080px;
+    --container-padding-x: 96px;
+    --content-width: 1728px;
+
+    /* Transitions & Shadows */
+    --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-normal: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.04);
+    --shadow-hover: 0 8px 30px rgba(100, 83, 163, 0.12);
+}
+

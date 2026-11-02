@@ -1,0 +1,13 @@
+/**
+ * Дніпровський політехнічний фаховий коледж
+ * Освітній напрям «Комп'ютерні науки»
+ * Головний файл стилів
+ */
+
+@import url('variables.css');
+@import url('reset.css');
+@import url('base.css');
+@import url('components.css');
+@import url('sections.css');
+@import url('practice-slider.css');
+
