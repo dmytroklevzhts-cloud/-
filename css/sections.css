@@ -937,6 +937,34 @@
     user-select: none;
 }
 
+.showcase-loading-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(248, 250, 252, 0.86);
+    color: var(--color-design);
+    font-size: 14px;
+    font-weight: 500;
+    pointer-events: none;
+}
+
+.showcase-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(100, 83, 163, 0.22);
+    border-top-color: var(--color-design);
+    border-radius: 50%;
+    animation: showcase-spin 0.8s linear infinite;
+}
+
+@keyframes showcase-spin {
+    to { transform: rotate(360deg); }
+}
+
 .mockup-scroll-hint {
     position: absolute;
     bottom: 14px;

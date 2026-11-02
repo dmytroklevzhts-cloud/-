@@ -85,6 +85,9 @@
         const tagsContainer = document.getElementById("showcase-tags");
         const counterEl = document.getElementById("showcase-counter");
         const zoomValEl = document.getElementById("showcase-zoom-val");
+        const loadingOverlay = document.getElementById("showcase-loading");
+        const loadingText = document.getElementById("showcase-loading-text");
+        let imageLoadToken = 0;
 
         // Buttons
         const prevBtn = document.getElementById("showcase-prev-btn");
@@ -129,8 +132,22 @@
 
         function loadProjectContent(proj) {
             if (viewportImg) {
+                const loadToken = ++imageLoadToken;
+                if (loadingOverlay) loadingOverlay.style.display = "flex";
+                if (loadingText) loadingText.textContent = `Завантаження: ${proj.name}...`;
+                viewportImg.onload = () => {
+                    if (loadToken !== imageLoadToken) return;
+                    if (loadingOverlay) loadingOverlay.style.display = "none";
+                };
+                viewportImg.onerror = () => {
+                    if (loadToken !== imageLoadToken) return;
+                    if (loadingText) loadingText.textContent = "Не вдалося завантажити макет";
+                };
                 viewportImg.src = proj.image;
                 viewportImg.alt = proj.title;
+                if (viewportImg.complete && viewportImg.naturalWidth > 0) {
+                    if (loadingOverlay) loadingOverlay.style.display = "none";
+                }
             }
             if (viewportWrap) {
                 viewportWrap.scrollTop = 0;
