@@ -48,14 +48,14 @@
             shortTitle: 'Практика',
             fullTitle: 'Практика й портфоліо',
             nextId: 'section-6',
-            nextLabel: '06 Навчання, команда, простір',
+            nextLabel: '06 Команда викладачів',
             isLast: false
         },
         {
             id: 'section-6',
             num: '06',
-            shortTitle: 'Галерея',
-            fullTitle: 'Фотогалерея коледжу',
+            shortTitle: 'Команда',
+            fullTitle: 'Команда викладачів ПР та КД',
             nextId: 'section-7',
             nextLabel: '07 3D-моделювання',
             isLast: false

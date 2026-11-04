@@ -1,0 +1,760 @@
+/**
+ * Дніпровський політехнічний фаховий коледж
+ * Секція 06: Команда викладачів (ПР та КД)
+ * Концепція: «Чистий Split: Spotlight Stage + Візуальна сітка карток 5x2»
+ */
+
+/* ==========================================================================
+   КОМПОЗИЦІЯ СЕКЦІЇ 06 (1920x1080)
+   ========================================================================== */
+.team-split-layout {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 28px;
+    margin-top: 10px;
+    height: 610px;
+}
+
+/* --------------------------------------------------------------------------
+   ЛІВА КОЛОНКА: ЧИСТИЙ SPOTLIGHT STAGE (ВІДКРИТИЙ ПОРТРЕТ, МІНІМУМ ТЕКСТУ)
+   -------------------------------------------------------------------------- */
+.spotlight-stage {
+    width: 450px;
+    height: 100%;
+    flex-shrink: 0;
+    position: relative;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #0F172A;
+    border: 1px solid rgba(100, 83, 163, 0.25);
+    box-shadow: 0 18px 45px -10px rgba(15, 23, 42, 0.22),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.spotlight-media {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    background: #110E1D;
+}
+
+.spotlight-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    display: block;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.spotlight-img.is-switching {
+    opacity: 0.25;
+    transform: scale(0.98);
+}
+
+/* Делікатний градієнт: середина 100% прозора для обличчя */
+.spotlight-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(
+        180deg,
+        rgba(15, 23, 42, 0.45) 0%,
+        rgba(15, 23, 42, 0.0) 20%,
+        rgba(15, 23, 42, 0.0) 60%,
+        rgba(15, 23, 42, 0.75) 85%,
+        rgba(15, 23, 42, 0.95) 100%
+    );
+    pointer-events: none;
+}
+
+/* Верхній рядок: статус та лічильник */
+.spotlight-top {
+    position: relative;
+    z-index: 3;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.spotlight-badge {
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #F8FAFC;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all var(--transition-fast);
+}
+
+.spotlight-badge--head {
+    background: linear-gradient(135deg, rgba(100, 83, 163, 0.9) 0%, rgba(124, 58, 237, 0.9) 100%);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #FFFFFF;
+    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+}
+
+.spotlight-badge .star-icon {
+    color: #FCD34D;
+    font-size: 12px;
+}
+
+.spotlight-counter {
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #E2E8F0;
+    font-size: 11px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+}
+
+/* Нижня скляна капсула (Frosted Glass Capsule) */
+.spotlight-capsule {
+    position: relative;
+    z-index: 3;
+    margin: 16px;
+    padding: 16px 18px;
+    border-radius: 16px;
+    background: rgba(15, 23, 42, 0.78);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.spotlight-capsule__info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.spotlight-capsule__tag {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #C4B5FD;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.spotlight-capsule__dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #A78BFA;
+    box-shadow: 0 0 6px #A78BFA;
+}
+
+.spotlight-capsule__name {
+    font-size: 16.5px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #FFFFFF;
+    margin: 0;
+    letter-spacing: -0.01em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.spotlight-capsule__focus {
+    font-size: 12.5px;
+    color: #CBD5E1;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.btn-spotlight-dossier {
+    flex-shrink: 0;
+    padding: 10px 16px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #6453A3 0%, #7C3AED 100%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 14px rgba(100, 83, 163, 0.4);
+    transition: all var(--transition-fast);
+}
+
+.btn-spotlight-dossier:hover {
+    background: linear-gradient(135deg, #7C3AED 0%, #9061F9 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(124, 58, 237, 0.5);
+}
+
+.btn-spotlight-dossier .arrow {
+    font-size: 13px;
+    transition: transform var(--transition-fast);
+}
+
+.btn-spotlight-dossier:hover .arrow {
+    transform: translate(2px, -2px);
+}
+
+/* --------------------------------------------------------------------------
+   ПРАВА КОЛОНКА: ВІЗУАЛЬНА СІТКА ФОТО-КАРТОК (5 КОЛОНОК x 2 РЯДКИ = 10 КАРТОК)
+   -------------------------------------------------------------------------- */
+.team-grid-panel {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Шапка сітки з фільтрами */
+.team-grid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2px 12px 2px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    flex-shrink: 0;
+}
+
+.team-grid-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.team-grid-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #6453A3;
+}
+
+.team-grid-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0F172A;
+    letter-spacing: -0.01em;
+}
+
+.team-grid-count {
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: rgba(100, 83, 163, 0.08);
+    color: #6453A3;
+    font-size: 11.5px;
+    font-weight: 600;
+}
+
+.team-grid-filters {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0, 0, 0, 0.04);
+    padding: 4px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.team-filter-btn {
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    color: #64748B;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.team-filter-btn:hover {
+    color: #0F172A;
+}
+
+.team-filter-btn.is-active {
+    background: #6453A3;
+    color: #FFFFFF;
+    box-shadow: 0 3px 8px rgba(100, 83, 163, 0.3);
+}
+
+/* Сітка 5x2 */
+.team-cards-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 14px;
+    padding-top: 14px;
+}
+
+/* Індивідуальна фото-картка */
+.team-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    position: relative;
+    transition: transform var(--transition-fast),
+                box-shadow var(--transition-fast),
+                border-color var(--transition-fast);
+    outline: none;
+}
+
+.team-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(124, 58, 237, 0.45);
+    box-shadow: 0 12px 26px rgba(100, 83, 163, 0.15),
+                0 0 0 1px rgba(124, 58, 237, 0.2);
+}
+
+.team-card.is-active {
+    border-color: #7C3AED;
+    box-shadow: 0 0 0 2px #7C3AED,
+                0 10px 24px rgba(100, 83, 163, 0.18);
+    background: #FAF8FF;
+}
+
+/* Верхня фото-частина картки */
+.team-card__media {
+    position: relative;
+    width: 100%;
+    height: 185px;
+    overflow: hidden;
+    background: #F1F5F9;
+}
+
+.team-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    display: block;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.team-card:hover .team-card__img {
+    transform: scale(1.06);
+}
+
+.team-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(15, 23, 42, 0.25) 0%,
+        rgba(15, 23, 42, 0.0) 40%,
+        rgba(15, 23, 42, 0.35) 100%
+    );
+    pointer-events: none;
+}
+
+.team-card__num {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
+    color: #FFFFFF;
+    font-size: 10.5px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.team-card__badge-head {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #6453A3 0%, #7C3AED 100%);
+    color: #FFFFFF;
+    font-size: 10px;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.4);
+    letter-spacing: 0.02em;
+}
+
+/* Нижня текстова частина картки */
+.team-card__body {
+    padding: 10px 12px 10px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    min-height: 72px;
+}
+
+.team-card__name {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #0F172A;
+    line-height: 1.25;
+    margin: 0 0 4px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: color var(--transition-fast);
+}
+
+.team-card:hover .team-card__name,
+.team-card.is-active .team-card__name {
+    color: #6453A3;
+}
+
+.team-card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+}
+
+.team-card__focus {
+    font-size: 11.5px;
+    font-weight: 500;
+    color: #6453A3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: rgba(100, 83, 163, 0.08);
+    padding: 2px 7px;
+    border-radius: 6px;
+}
+
+.team-card__arrow {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #94A3B8;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.team-card:hover .team-card__arrow,
+.team-card.is-active .team-card__arrow {
+    color: #7C3AED;
+    transform: translate(2px, -2px);
+}
+
+/* ==========================================================================
+   МОДАЛЬНЕ ВІКНО ДОСЬЄ ВИКЛАДАЧА (ідентично попередній робочій структурі)
+   ========================================================================== */
+.teacher-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.teacher-modal.is-open {
+    display: flex;
+}
+
+.teacher-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.72);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    animation: teacherModalFadeIn 0.25s ease-out forwards;
+}
+
+.teacher-modal__window {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1040px;
+    max-height: 90vh;
+    background: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.35),
+                0 0 0 1px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: teacherModalScaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes teacherModalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes teacherModalScaleIn {
+    from { opacity: 0; transform: scale(0.96) translateY(12px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Шапка модального вікна */
+.teacher-modal__header {
+    padding: 16px 24px;
+    border-bottom: 1px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #F8FAFC;
+}
+
+.teacher-modal__header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.teacher-modal__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: rgba(100, 83, 163, 0.12);
+    color: #6453A3;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.teacher-modal__counter {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748B;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.teacher-modal__nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.teacher-modal__nav-btn {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid #E2E8F0;
+    background: #FFFFFF;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.teacher-modal__nav-btn:hover {
+    background: #F1F5F9;
+    border-color: #CBD5E1;
+    color: #0F172A;
+}
+
+.teacher-modal__close {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid #E2E8F0;
+    background: #FFFFFF;
+    color: #64748B;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.teacher-modal__close:hover {
+    background: #EF4444;
+    border-color: #EF4444;
+    color: #FFFFFF;
+}
+
+/* Тіло модального вікна */
+.teacher-modal__body {
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 28px;
+    overflow-y: auto;
+    max-height: calc(90vh - 70px);
+}
+
+/* Ліва колонка модалки: фото та 4 картки */
+.teacher-modal__left {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.teacher-modal__portrait-wrap {
+    width: 100%;
+    height: 250px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #F1F5F9;
+    border: 1px solid #E2E8F0;
+}
+
+.teacher-modal__portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    display: block;
+}
+
+.teacher-modal__stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.teacher-modal__stat-card {
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.teacher-modal__stat-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748B;
+}
+
+.teacher-modal__stat-value {
+    font-size: 12px;
+    font-weight: 700;
+    color: #0F172A;
+    line-height: 1.3;
+}
+
+/* Права колонка модалки: детальні текстові блоки */
+.teacher-modal__right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.teacher-modal__prog-tag {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #6453A3;
+}
+
+.teacher-modal__name {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0F172A;
+    line-height: 1.2;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.teacher-modal__position {
+    font-size: 13.5px;
+    color: #475569;
+    margin: 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.teacher-modal__dossier-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.teacher-modal__dossier-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #F1F5F9;
+}
+
+.teacher-modal__dossier-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.teacher-modal__dossier-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #0F172A;
+    text-decoration: underline;
+    text-decoration-color: #CBD5E1;
+    text-underline-offset: 3px;
+}
+
+.teacher-modal__dossier-text {
+    font-size: 13px;
+    color: #334155;
+    line-height: 1.45;
+}
+
+.teacher-modal__disciplines-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.teacher-modal__discipline-pill {
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(100, 83, 163, 0.08);
+    border: 1px solid rgba(100, 83, 163, 0.18);
+    color: #554495;
+    font-size: 11.5px;
+    font-weight: 600;
+    line-height: 1.3;
+}

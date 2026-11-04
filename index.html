@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Modular CSS files -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=11">
 </head>
 
 <body>
@@ -58,9 +58,9 @@
                         <span>05</span>
                         <span class="site-header__pill-tooltip">05 Практика</span>
                     </a>
-                    <a href="#section-6" class="site-header__pill" data-section="section-6" title="06 / Фотогалерея">
+                    <a href="#section-6" class="site-header__pill" data-section="section-6" title="06 / Команда викладачів">
                         <span>06</span>
-                        <span class="site-header__pill-tooltip">06 Галерея</span>
+                        <span class="site-header__pill-tooltip">06 Команда</span>
                     </a>
                     <a href="#section-7" class="site-header__pill" data-section="section-7" title="07 / 3D-моделювання">
                         <span>07</span>
@@ -392,40 +392,22 @@
         </div>
 
         <div class="section3-showcase-container">
-            <!-- Ліва частина: Преміум фрейм для огляду знімка макета та скролу/зуму -->
-            <div class="web-showcase-frame">
-                <!-- Верхня панель фрейму (чистий дизайн замість браузера) -->
-                <div class="web-showcase-header">
-                    <div class="web-showcase-badge">
-                        <span class="web-showcase-dot"></span>
-                        <span id="showcase-badge-text" class="web-showcase-tag">МАКЕТ 01 · UI/UX ДИЗАЙН</span>
+            <!-- Ліва частина: Чиста сцена з 3 нахиленими картками макета (Figma 3D Cascade) -->
+            <div class="web-showcase-stage" id="deck-stage">
+                <div class="deck-cards-track">
+                    <!-- Картка 1: Hero Screen -->
+                    <div class="deck-card deck-card--slot-front deck-card--active" data-frame-index="0" title="Головний екран (Hero) — клік для перегляду">
+                        <img id="deck-img-0" src="img/Figma/frames/1_1.webp" alt="Головний екран макета" class="deck-card__img">
                     </div>
-                    <div class="web-showcase-actions">
-                        <div class="zoom-controls">
-                            <button id="showcase-zoom-out" class="btn-mockup-icon" title="Зменшити">−</button>
-                            <span id="showcase-zoom-val" class="zoom-val">100%</span>
-                            <button id="showcase-zoom-in" class="btn-mockup-icon" title="Збільшити">+</button>
-                            <button id="showcase-zoom-reset" class="btn-mockup-icon"
-                                title="Скинути масштаб">1:1</button>
-                        </div>
-                        <button id="showcase-fullscreen-btn" class="btn-mockup-fullscreen"
-                            title="Розгорнути на весь екран">
-                            <span>На весь екран</span>
-                            <span class="fs-icon">⛶</span>
-                        </button>
-                    </div>
-                </div>
 
-                <!-- Робоча область зі знімком сайту та плавним скролом -->
-                <div id="showcase-viewport" class="web-showcase-viewport">
-                    <img id="showcase-screen-img" src="img/Figma/1.png" alt="Знімок студентського макета"
-                        class="web-showcase-image">
-                    <div class="showcase-loading-overlay" id="showcase-loading" aria-live="polite">
-                        <div class="showcase-spinner" aria-hidden="true"></div>
-                        <span id="showcase-loading-text">Завантаження макета...</span>
+                    <!-- Картка 2: Каталог / Контентна сітка -->
+                    <div class="deck-card deck-card--slot-mid" data-frame-index="1" title="Контентна сітка та каталог — клік для перегляду">
+                        <img id="deck-img-1" src="img/Figma/frames/1_2.webp" alt="Контентна сітка макета" class="deck-card__img">
                     </div>
-                    <div class="mockup-scroll-hint">
-                        <span>Прокручуйте для огляду макета ↓</span>
+
+                    <!-- Картка 3: Деталі / Замовлення / Футер -->
+                    <div class="deck-card deck-card--slot-back" data-frame-index="2" title="Деталі інтерфейсу та футер — клік для перегляду">
+                        <img id="deck-img-2" src="img/Figma/frames/1_3.webp" alt="Деталі та футер макета" class="deck-card__img">
                     </div>
                 </div>
             </div>
@@ -498,15 +480,20 @@
 
     </section>
 
-    <!-- Повноекранне модальне вікно (Lightbox Zoom Modal) -->
+    <!-- Повноекранне модальне вікно (Lightbox Modal) -->
     <div id="showcase-modal" class="showcase-modal">
         <div class="showcase-modal__overlay"></div>
         <div class="showcase-modal__container">
             <div class="showcase-modal__header">
                 <div class="showcase-modal__info">
                     <h3 id="showcase-modal-title" class="showcase-modal__title">Strawberry — Промо-сайт бренду</h3>
-                    <span id="showcase-modal-author" class="showcase-modal__subtitle">Повноекранний перегляд
-                        макета</span>
+                    <span id="showcase-modal-author" class="showcase-modal__subtitle">Кадр 01 / 03 · Головний екран</span>
+                </div>
+                <!-- Модальні кнопки гортання кадрів -->
+                <div class="modal-frame-switch">
+                    <button id="modal-prev-frame" class="btn-modal-action" title="Попередній кадр">← Попередній</button>
+                    <span id="modal-frame-badge" class="modal-frame-badge">Кадр 01 / 03</span>
+                    <button id="modal-next-frame" class="btn-modal-action" title="Наступний кадр">Наступний →</button>
                 </div>
                 <div class="showcase-modal__controls">
                     <button id="modal-zoom-out" class="btn-modal-action" title="Зменшити">−</button>
@@ -517,7 +504,7 @@
                 </div>
             </div>
             <div class="showcase-modal__body">
-                <img id="showcase-modal-img" src="img/Figma/1.png" alt="Повний знімок макета"
+                <img id="showcase-modal-img" src="img/Figma/frames/1_1.webp" alt="Повний знімок кадру"
                     class="showcase-modal__img">
             </div>
         </div>
@@ -691,30 +678,15 @@
             </header>
 
             <div class="practice-modal__body">
+
                 <!-- Ліва колонка: фото та параметри -->
                 <div class="practice-modal__left">
                     <div class="practice-modal__image-wrap">
                         <img id="modal-item-img" src="img/practice/1.svg" alt="Кейс практики"
                             class="practice-modal__img">
                     </div>
-                    <div id="modal-specs-grid" class="practice-modal__specs-grid">
-                        <div id="modal-spec-item-speciality" class="practice-spec-item">
-                            <div id="modal-spec-label-speciality" class="practice-spec-label">Спеціальність</div>
-                            <div id="modal-spec-speciality" class="practice-spec-value">122 Комп’ютерні науки</div>
-                        </div>
-                        <div id="modal-spec-item-type" class="practice-spec-item">
-                            <div id="modal-spec-label-type" class="practice-spec-label">Вид практики</div>
-                            <div id="modal-spec-type" class="practice-spec-value">Технологічна практика</div>
-                        </div>
-                        <div id="modal-spec-item-course" class="practice-spec-item">
-                            <div id="modal-spec-label-course" class="practice-spec-label">Курс навчання</div>
-                            <div id="modal-spec-course" class="practice-spec-value">3 курс</div>
-                        </div>
-                        <div id="modal-spec-item-duration" class="practice-spec-item">
-                            <div id="modal-spec-label-duration" class="practice-spec-label">Тривалість</div>
-                            <div id="modal-spec-duration" class="practice-spec-value">4 тижні</div>
-                        </div>
-                    </div>
+                    <!-- Поля конкретної статті додаються сюди з modal у practice-slider.js -->
+                    <div id="modal-specs-grid" class="practice-modal__specs-grid"></div>
 
                 </div>
 
@@ -765,90 +737,175 @@
 
 
 
-    <!-- ==========================================================================
-         СЕКЦІЯ 06: ФОТОГАЛЕРЕЯ
+                        <!-- ==========================================================================
+         СЕКЦІЯ 06: КОМАНДА ВИКЛАДАЧІВ (ПР та КД)
          ========================================================================== -->
     <section id="section-6" class="screen-section screen-section--cream">
         <div class="screen-title-block">
-            <h2 class="screen-title">Навчання. Команда. Простір.</h2>
-            <p class="screen-subtitle">Спільна галерея двох програм — місце для майбутніх фотографій життя коледжу.</p>
+            <div class="practice-section-badge" style="margin-bottom: 8px;">
+                <span class="practice-section-badge__dot"></span>
+                <span>06 / ЕКСПЕРТНЕ ДОСЬЄ ТА НАСТАВНИКИ</span>
+            </div>
+            <h2 class="screen-title">Команда, яка навчає та надихає.</h2>
+            <p class="screen-subtitle">Викладачі циклової комісії, які забезпечують якісну фахову підготовку за освітньо-професійними програмами «ПР» та «КД».</p>
         </div>
 
-        <div class="section6-gallery-layout">
-            <!-- Велика головна заглушка: Навчання -->
-            <div class="placeholder-box placeholder-box--neutral placeholder-box--sec6-main"
-                data-placeholder="gallery-study">
-                <div class="placeholder-box__header">
-                    <span class="placeholder-box__tag">МІСЦЕ ДЛЯ ЗОБРАЖЕННЯ</span>
-                    <span class="placeholder-box__arrow">↗</span>
+        <div class="team-split-layout">
+            <!-- Ліва частина: Преміальний Spotlight Stage (чистий портрет, мінімум тексту) -->
+            <div class="spotlight-stage" id="spotlight-stage" role="region" aria-label="Головний портрет викладача">
+                <div class="spotlight-media">
+                    <img id="spotlight-hero-img" src="img/Teacher/1.png" alt="Омельяненко Анна Миколаївна" class="spotlight-img">
                 </div>
-                <div class="placeholder-box__graphic">
-                    <div class="placeholder-graphic-composition">
-                        <div class="placeholder-circle"></div>
-                        <div class="placeholder-diamond"></div>
+                <div class="spotlight-overlay"></div>
+
+                <!-- Верхній рядок: статус та лічильник -->
+                <div class="spotlight-top">
+                    <div id="spotlight-badge" class="spotlight-badge spotlight-badge--head">
+                        <span class="star-icon">★</span>
+                        <span id="spotlight-badge-text">ГОЛОВА ЦИКЛОВОЇ КОМІСІЇ</span>
                     </div>
+                    <span id="spotlight-counter" class="spotlight-counter">01 / 10</span>
                 </div>
-                <div class="placeholder-box__footer">
-                    <div class="placeholder-box__title">Навчання</div>
-                    <div class="placeholder-box__desc">Місце для фото заняття або роботи над спільним завданням</div>
+
+                <!-- Нижня скляна капсула (Frosted Glass Capsule) - не перекриває обличчя -->
+                <div class="spotlight-capsule">
+                    <div class="spotlight-capsule__info">
+                        <div class="spotlight-capsule__tag">
+                            <span class="spotlight-capsule__dot"></span>
+                            <span id="spotlight-tag">КЕРІВНИК ЦИКЛОВОЇ КОМІСІЇ</span>
+                        </div>
+                        <h3 id="spotlight-name" class="spotlight-capsule__name">Омельяненко Анна Миколаївна</h3>
+                        <p id="spotlight-focus" class="spotlight-capsule__focus">Програмування та комп’ютерні мережі · Досвід: 10 років 10 місяців</p>
+                    </div>
+                    <button id="btn-spotlight-dossier" class="btn-spotlight-dossier" title="Переглянути повне досьє викладача">
+                        <span>Досьє</span>
+                        <span class="arrow">↗</span>
+                    </button>
                 </div>
             </div>
 
-            <!-- Права частина: дві заглушки + повідомлення -->
-            <div class="section6-gallery-side">
-                <div class="section6-subgrid">
-                    <!-- Заглушка: Команда -->
-                    <div class="placeholder-box placeholder-box--purple placeholder-box--sec6-sub"
-                        data-placeholder="gallery-team">
-                        <div class="placeholder-box__header">
-                            <span class="placeholder-box__tag">МІСЦЕ ДЛЯ ЗОБРАЖЕННЯ</span>
-                            <span class="placeholder-box__arrow">↗</span>
-                        </div>
-                        <div class="placeholder-box__graphic">
-                            <div class="placeholder-graphic-composition">
-                                <div class="placeholder-circle"></div>
-                                <div class="placeholder-diamond"></div>
-                            </div>
-                        </div>
-                        <div class="placeholder-box__footer">
-                            <div class="placeholder-box__title">Команда</div>
-                            <div class="placeholder-box__desc">Місце для фото студентів двох програм</div>
-                        </div>
+            <!-- Права частина: Сучасна візуальна сітка фото-карток 5x2 -->
+            <div class="team-grid-panel">
+                <div class="team-grid-header">
+                    <div class="team-grid-title-wrap">
+                        <span class="team-grid-dot"></span>
+                        <span class="team-grid-title">Наставники та викладачі</span>
+                        <span class="team-grid-count">10 викладачів</span>
                     </div>
-
-                    <!-- Заглушка: Простір -->
-                    <div class="placeholder-box placeholder-box--green placeholder-box--sec6-sub"
-                        data-placeholder="gallery-space">
-                        <div class="placeholder-box__header">
-                            <span class="placeholder-box__tag">МІСЦЕ ДЛЯ ЗОБРАЖЕННЯ</span>
-                            <span class="placeholder-box__arrow">↗</span>
-                        </div>
-                        <div class="placeholder-box__graphic">
-                            <div class="placeholder-graphic-composition">
-                                <div class="placeholder-circle"></div>
-                                <div class="placeholder-square"></div>
-                            </div>
-                        </div>
-                        <div class="placeholder-box__footer">
-                            <div class="placeholder-box__title">Простір</div>
-                            <div class="placeholder-box__desc">Місце для фото аудиторії або майстерні</div>
-                        </div>
+                    <div class="team-grid-filters">
+                        <button class="team-filter-btn is-active" data-filter-program="all">Всі програми</button>
+                        <button class="team-filter-btn" data-filter-program="pr">ОПП «ПР»</button>
+                        <button class="team-filter-btn" data-filter-program="kd">ОПП «КД»</button>
                     </div>
                 </div>
 
-                <div class="section6-note-box">
-                    <span class="section6-note-arrow">↗</span>
-                    <div class="section6-note-content">
-                        <div class="section6-note-title">Тут будуть справжні моменти.</div>
-                        <p class="section6-note-desc">Це змінні заглушки, не фотографії коледжу. Їх можна замінити без
-                            зміни композиції сторінки.</p>
-                    </div>
+                <!-- Сітка 10 фото-карток (2 ряди по 5 карток) -->
+                <div class="team-cards-grid">
+                    <!-- Заповнюється динамічно скриптом teachers.js -->
                 </div>
             </div>
         </div>
-
     </section>
 
+        <!-- ==========================================================================
+         МОДАЛЬНЕ ВІКНО ДОСЬЄ ВИКЛАДАЧА (СЕКЦІЯ 06)
+         ========================================================================== -->
+    <div id="teacher-detail-modal" class="teacher-modal" role="dialog" aria-modal="true" aria-labelledby="teacher-modal-name">
+        <div class="teacher-modal__backdrop" id="teacher-modal-backdrop"></div>
+        <div class="teacher-modal__window">
+            <header class="teacher-modal__header">
+                <div class="teacher-modal__header-left">
+                    <span id="teacher-modal-badge" class="teacher-modal__badge">
+                        <span class="teacher-modal__badge-dot"></span>
+                        <span id="teacher-modal-badge-text">ЦК ЕЛЕКТРОТЕХНІЧНИХ ТА КОМП'ЮТЕРНИХ ДИСЦИПЛІН</span>
+                    </span>
+                    <span id="teacher-modal-counter" class="teacher-modal__counter">ВИКЛАДАЧ 01 / 10</span>
+                </div>
+                <div class="teacher-modal__nav">
+                    <button id="btn-teacher-prev" class="teacher-modal__nav-btn" title="Попередній викладач (←)" aria-label="Попередній викладач">← Попередній</button>
+                    <button id="btn-teacher-next" class="teacher-modal__nav-btn" title="Наступний викладач (→)" aria-label="Наступний викладач">Наступний →</button>
+                    <button id="btn-teacher-close" class="teacher-modal__close" title="Закрити (Esc)" aria-label="Закрити вікно">✕</button>
+                </div>
+            </header>
+
+            <div class="teacher-modal__body">
+                <!-- Ліва колонка: фото та 4 статистичні параметри -->
+                <div class="teacher-modal__left">
+                    <div class="teacher-modal__portrait-wrap">
+                        <img id="teacher-modal-img" src="img/Teacher/1.png" alt="Фото викладача" class="teacher-modal__portrait">
+                    </div>
+                    
+                    <div class="teacher-modal__stats">
+                        <div class="teacher-modal__stat-card">
+                            <span class="teacher-modal__stat-label">Кваліфікаційна категорія</span>
+                            <span id="teacher-modal-cat-stat" class="teacher-modal__stat-value">Спеціаліст вищої категорії</span>
+                        </div>
+                        <div class="teacher-modal__stat-card">
+                            <span class="teacher-modal__stat-label">Педагогічний стаж</span>
+                            <span id="teacher-modal-exp-stat" class="teacher-modal__stat-value">10 років 10 місяців</span>
+                        </div>
+                        <div class="teacher-modal__stat-card">
+                            <span class="teacher-modal__stat-label">Рівень освіти</span>
+                            <span id="teacher-modal-edu-stat" class="teacher-modal__stat-value">Повна вища (магістр)</span>
+                        </div>
+                        <div class="teacher-modal__stat-card">
+                            <span class="teacher-modal__stat-label">Кваліфікація за дипломом</span>
+                            <span id="teacher-modal-qual-stat" class="teacher-modal__stat-value">Аналітик комп'ютерних систем</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Права колонка: повне досьє та дисципліни -->
+                <div class="teacher-modal__right">
+                    <div class="teacher-modal__intro">
+                        <span class="teacher-modal__prog-tag">ОСВІТНЬО-ПРОФЕСІЙНІ ПРОГРАМИ «ПР» ТА «КД»</span>
+                        <h2 id="teacher-modal-name" class="teacher-modal__name">Омельяненко Анна Миколаївна</h2>
+                        <p id="teacher-modal-pos" class="teacher-modal__position">Посада: голова циклової комісії електротехнічних та комп’ютерних дисциплін, викладач спеціальних дисциплін</p>
+                    </div>
+
+                    <div class="teacher-modal__dossier-list">
+                        <!-- Освіта -->
+                        <div class="teacher-modal__dossier-item">
+                            <span class="teacher-modal__dossier-title">Освіта:</span>
+                            <span id="teacher-modal-education" class="teacher-modal__dossier-text">повна вища, 2012 р. – ДВНЗ «Національний гірничий університет»</span>
+                        </div>
+
+                        <!-- Спеціальність та диплом -->
+                        <div class="teacher-modal__dossier-item">
+                            <span class="teacher-modal__dossier-title">Спеціальність та диплом:</span>
+                            <span id="teacher-modal-speciality" class="teacher-modal__dossier-text">Системне програмування, магістр з комп'ютерних систем</span>
+                        </div>
+
+                        <!-- Кваліфікація за дипломом -->
+                        <div class="teacher-modal__dossier-item">
+                            <span class="teacher-modal__dossier-title">Кваліфікація за дипломом:</span>
+                            <span id="teacher-modal-qualification" class="teacher-modal__dossier-text">аналітик комп'ютерних систем</span>
+                        </div>
+
+                        <!-- Кваліфікаційна категорія -->
+                        <div class="teacher-modal__dossier-item">
+                            <span class="teacher-modal__dossier-title">Кваліфікаційна категорія:</span>
+                            <span id="teacher-modal-category" class="teacher-modal__dossier-text">спеціаліст вищої кваліфікаційної категорії</span>
+                        </div>
+
+                        <!-- Педагогічний стаж -->
+                        <div class="teacher-modal__dossier-item">
+                            <span class="teacher-modal__dossier-title">Педагогічний стаж:</span>
+                            <span id="teacher-modal-experience" class="teacher-modal__dossier-text">10 років 10 місяців</span>
+                        </div>
+
+                        <!-- Дисципліни які викладає -->
+                        <div class="teacher-modal__dossier-item">
+                            <span class="teacher-modal__dossier-title">Дисципліни які викладає:</span>
+                            <div id="teacher-modal-disciplines" class="teacher-modal__disciplines-wrap">
+                                <!-- Список бейджів дисциплін -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- ==========================================================================
          СЕКЦІЯ 07: 3D-МОДЕЛЮВАННЯ ТА ВІЗУАЛІЗАЦІЯ
@@ -1149,8 +1206,9 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
     <script src="js/cad-viewer.js"></script>
-    <script src="js/web-showcase.js?v=2"></script>
+    <script src="js/web-showcase.js?v=11"></script>
     <script src="js/practice-slider.js"></script>
+    <script src="js/teachers.js"></script>
     <script src="js/site-header.js"></script>
 </body>
 
