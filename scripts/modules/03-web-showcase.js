@@ -297,3 +297,4 @@ export function initWebShowcase() {
 
     setFrame(0, false);
 }
+

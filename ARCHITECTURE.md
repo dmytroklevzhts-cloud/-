@@ -118,3 +118,4 @@ E:\Коледж\Сайт\
 - `tech-lab-tab--active`, `algo-nav-card--active`, `db-scenario-card--active`, `ai-step-card--active`
 - `wave-card--active`, `is-open` (для модальних вікон)
 - `cad-model-btn--active`, `cad-details--slide-left`, `cad-details--slide-right`
+

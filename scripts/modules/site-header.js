@@ -231,3 +231,4 @@ function applyActiveSection(index) {
         }
     }
 }
+
