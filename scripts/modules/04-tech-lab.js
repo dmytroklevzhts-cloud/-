@@ -13,6 +13,101 @@
 let currentLab = 'algo'; // 'algo' | 'db' | 'ai'
 
 // ========================================================================
+// МОДАЛЬНЕ ВІКНО ІНСПЕКТОРА ТА ТЕОРІЇ ДЛЯ АДАПТИВНИХ ЕКРАНІВ (<= 1199px)
+// ========================================================================
+function openLabModal(title, icon, contentHtml) {
+    const modalEl = document.getElementById('tech-lab-modal');
+    if (!modalEl) return;
+    const titleEl = document.getElementById('tech-lab-modal-title');
+    const iconEl = document.getElementById('tech-lab-modal-icon');
+    const bodyEl = document.getElementById('tech-lab-modal-body');
+    if (titleEl) titleEl.textContent = title;
+    if (iconEl) iconEl.textContent = icon || '📖';
+    if (bodyEl) bodyEl.innerHTML = contentHtml;
+    modalEl.classList.add('is-open');
+    modalEl.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('tech-lab-modal-locked');
+}
+
+function closeLabModal() {
+    const modalEl = document.getElementById('tech-lab-modal');
+    if (!modalEl) return;
+    modalEl.classList.remove('is-open');
+    modalEl.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('tech-lab-modal-locked');
+}
+
+function openLabModalForCurrentState() {
+    let inspector = null;
+    let title = 'Аналізатор та теорія';
+    let icon = '📖';
+    let contentHtml = '';
+
+    if (currentLab === 'algo') {
+        inspector = document.querySelector('.algo-side-inspector');
+        const titles = {
+            quicksort: 'Аналізатор QuickSort & Складність O(n log n)',
+            dijkstra: 'Аналізатор графа Дейкстри & Найкоротший шлях',
+            bst: 'Аналізатор бінарного дерева пошуку (BST)',
+            maze: 'Аналізатор евристичного пошуку A*'
+        };
+        title = titles[algoSubmode] || 'Аналізатор алгоритму';
+        icon = '📊';
+
+        if (inspector) contentHtml += inspector.innerHTML;
+
+        const marginCard = document.querySelector('#algo-workspace-content .tech-lab-margin-info');
+        if (marginCard) {
+            contentHtml += `<div class="tech-lab-modal-margin-wrap">
+                <span class="tech-lab-modal-section-title">📖 Теоретичні основи та практичне застосування</span>
+                ${marginCard.innerHTML}
+            </div>`;
+        }
+    } else if (currentLab === 'ai') {
+        inspector = document.querySelector('.ai-side-inspector');
+        title = aiSubmode === 'kmeans' ? 'Аналізатор K-Means: Евклідові відстані & Теорія' : 'Аналізатор Поліноміальної регресії: R², MSE & Теорія';
+        icon = '🧠';
+
+        if (inspector) contentHtml += inspector.innerHTML;
+
+        const marginCard = document.querySelector('#ai-workspace-content .tech-lab-margin-info');
+        if (marginCard) {
+            contentHtml += `<div class="tech-lab-modal-margin-wrap">
+                <span class="tech-lab-modal-section-title">📖 Теоретичні основи та практичне застосування</span>
+                ${marginCard.innerHTML}
+            </div>`;
+        }
+    } else if (currentLab === 'db') {
+        inspector = document.querySelector('#db-info-panel');
+        const activeTable = DB_10_TABLES.find(t => t.id === (lockedTableId || 'students'));
+        title = activeTable ? `${activeTable.icon} Таблиця ${activeTable.name}: Структура та зв'язки` : 'Інспектор структури реляційної БД';
+        icon = '🗄️';
+
+        // Додаємо швидкі перемикачі 10 таблиць прямо всередині модального вікна
+        contentHtml += `
+            <div class="modal-db-table-pills">
+                <span class="modal-pills-label">Оберіть таблицю для перегляду структури:</span>
+                <div class="modal-pills-row">
+                    ${DB_10_TABLES.map(t => `
+                        <button class="modal-db-pill ${(lockedTableId || 'students') === t.id ? 'is-active' : ''}" data-table-id="${t.id}">
+                            ${t.icon} ${t.name}
+                        </button>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+
+        if (inspector) {
+            contentHtml += inspector.innerHTML;
+        }
+    }
+
+    if (contentHtml) {
+        openLabModal(title, icon, contentHtml);
+    }
+}
+
+// ========================================================================
 // 1. ІНІЦІАЛІЗАЦІЯ
 // ========================================================================
 function init() {
@@ -24,6 +119,56 @@ function init() {
                 switchLab(lab);
             }
         });
+    });
+
+    const modalCloseBtn = document.getElementById('tech-lab-modal-close');
+    const modalBackdrop = document.getElementById('tech-lab-modal-backdrop');
+    modalCloseBtn?.addEventListener('click', closeLabModal);
+    modalBackdrop?.addEventListener('click', closeLabModal);
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeLabModal();
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('.btn-lab-modal-trigger, .btn-lab-modal-prominent');
+        if (trigger) {
+            e.preventDefault();
+            openLabModalForCurrentState();
+            return;
+        }
+
+        const modalPill = e.target.closest('.modal-db-pill');
+        if (modalPill) {
+            e.preventDefault();
+            const tableId = modalPill.getAttribute('data-table-id');
+            if (tableId) {
+                lockedTableId = tableId;
+                hoveredTableId = tableId;
+                const stage = document.getElementById('tech-lab-stage');
+                if (stage) updateDbFocus(stage);
+                openLabModalForCurrentState();
+            }
+            return;
+        }
+
+        const quickPill = e.target.closest('.db-quick-pill');
+        if (quickPill) {
+            e.preventDefault();
+            const tableId = quickPill.getAttribute('data-table-id');
+            if (tableId) {
+                lockedTableId = tableId;
+                hoveredTableId = tableId;
+                const stage = document.getElementById('tech-lab-stage');
+                if (stage) updateDbFocus(stage);
+                if (window.innerWidth <= 1199) {
+                    openLabModalForCurrentState();
+                }
+            }
+            return;
+        }
     });
 
     renderLab(currentLab);
@@ -75,14 +220,20 @@ function renderAlgoLab(stage) {
                             <button class="lab-tool-btn ${algoSubmode === 'dijkstra' ? 'lab-tool-btn--active' : ''}" data-algo="dijkstra">
                                 <span class="lab-tool-btn__icon">🕸️</span>
                                 <div class="lab-tool-btn__body">
-                                    <span class="lab-tool-btn__title">Граф Дейкстри</span>
+                                    <span class="lab-tool-btn__title">
+                                        <span class="title-full">Граф Дейкстри</span>
+                                        <span class="title-short">Дейкстра</span>
+                                    </span>
                                     <span class="lab-tool-btn__desc">Найкоротший шлях</span>
                                 </div>
                             </button>
                             <button class="lab-tool-btn ${algoSubmode === 'bst' ? 'lab-tool-btn--active' : ''}" data-algo="bst">
                                 <span class="lab-tool-btn__icon">🌳</span>
                                 <div class="lab-tool-btn__body">
-                                    <span class="lab-tool-btn__title">Дерево пошуку (BST)</span>
+                                    <span class="lab-tool-btn__title">
+                                        <span class="title-full">Дерево пошуку (BST)</span>
+                                        <span class="title-short">Дерево BST</span>
+                                    </span>
                                     <span class="lab-tool-btn__desc">Ієрархічні індекси</span>
                                 </div>
                             </button>
@@ -154,6 +305,9 @@ function initQuickSortView(container) {
                     <button class="btn-lab-action" id="btn-shuffle-sort">
                         🔀 Перемішати масив
                     </button>
+                    <button class="btn-lab-action btn-lab-modal-trigger btn-lab-modal-prominent" id="btn-open-algo-modal">
+                        📖 Теорія та аналізатор O(n log n)
+                    </button>
                 </div>
             `;
 
@@ -174,7 +328,7 @@ function initQuickSortView(container) {
                 <div class="algo-canvas-panel">
 
                     <div class="algo-canvas-box" style="flex: 1; width: 100%;">
-                        <div class="sorting-bars-container" id="sorting-bars-container" style="width: 100%; height: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 8px;">
+                        <div class="sorting-bars-container" id="sorting-bars-container">
                             ${sortArray.map((val, idx) => `
                                 <div class="sorting-bar-col" data-idx="${idx}">
                                     <span class="sorting-bar-val">${val}</span>
@@ -424,6 +578,7 @@ function initDijkstraView(container) {
                 <div class="lab-action-vgroup">
                     <button class="btn-lab-action" id="btn-dijkstra-rand-weights">🎲 Нові ваги ребер</button>
                     <button class="btn-lab-action" id="btn-dijkstra-reset-pos">🔄 Скинути сітку</button>
+                    <button class="btn-lab-action btn-lab-modal-trigger btn-lab-modal-prominent">📖 Теорія графів та аналізатор</button>
                 </div>
                 <div class="db-sidebar-stat-card" style="margin-top: 4px;">
                     <span class="db-stat-icon">🕸️</span>
@@ -836,6 +991,7 @@ function initBstView(container) {
                     <button class="btn-lab-action" id="btn-bst-preset-large">🌲 Велике (13 вузлів)</button>
                     <button class="btn-lab-action" id="btn-bst-preset-linear">📉 Вироджене (Linear O(n))</button>
                     <button class="btn-lab-action" id="btn-bst-reset">🧹 Очистити дерево</button>
+                    <button class="btn-lab-action btn-lab-modal-trigger btn-lab-modal-prominent">📖 Властивості BST та аналізатор</button>
                 </div>
                 <div class="db-sidebar-stat-card" style="margin-top: 4px;">
                     <span class="db-stat-icon">🌳</span>
@@ -1158,6 +1314,7 @@ function initMazeView(container) {
                     <button class="btn-lab-action" id="btn-clear-walls">
                         🧹 Очистити стіни
                     </button>
+                    <button class="btn-lab-action btn-lab-modal-trigger btn-lab-modal-prominent">📖 Евристика A* та аналізатор</button>
                 </div>
                 <div class="db-sidebar-stat-card" style="margin-top: 4px;">
                     <span class="db-stat-icon">🧭</span>
@@ -1607,6 +1764,12 @@ function renderDbLab(stage) {
                     <div class="db-er-stage" style="height: 100%; border-radius: 12px; display: flex; flex-direction: column;">
 
 
+                        <!-- Панель інспектора ER-схеми для адаптивних екранів -->
+                        <div class="db-er-top-toolbar">
+                            <span class="db-er-hint">↔ Гортайте схему: 10 реляційних таблиць та зв'язки</span>
+                            <button class="btn-lab-action btn-lab-modal-trigger db-modal-info-btn">🗄️ Інспектор 10 таблиць</button>
+                        </div>
+
                         <!-- Повноформатне полотно ER-схеми в масштабованому SVG просторі -->
                         <div class="db-er-canvas-container" id="db-er-canvas" style="flex: 1;">
                             <svg class="db-er-svg-canvas" id="db-er-svg-canvas" viewBox="0 0 1600 485" preserveAspectRatio="xMidYMid meet">
@@ -1720,6 +1883,16 @@ function setupDbEventListeners(stage) {
                 hoveredTableId = tableId;
             }
             updateDbFocus(stage);
+
+            if (window.innerWidth <= 1199 && lockedTableId) {
+                setTimeout(() => {
+                    const infoPanel = stage.querySelector('#db-info-panel');
+                    const table = DB_10_TABLES.find(x => x.id === tableId);
+                    if (infoPanel && table) {
+                        openLabModal(`${table.icon} Таблиця: ${table.name} (${table.label})`, table.icon, infoPanel.innerHTML);
+                    }
+                }, 40);
+            }
         });
     });
 
@@ -2091,15 +2264,19 @@ function renderAiLab(stage) {
                             <button class="lab-tool-btn ${aiSubmode === 'kmeans' ? 'lab-tool-btn--active' : ''}" data-aimode="kmeans">
                                 <span class="lab-tool-btn__icon">🧠</span>
                                 <div class="lab-tool-btn__body">
-                                    <span class="lab-tool-btn__title">K-Means Кластеризація</span>
-
+                                    <span class="lab-tool-btn__title">
+                                        <span class="title-full">K-Means Кластеризація</span>
+                                        <span class="title-short">K-Means</span>
+                                    </span>
                                 </div>
                             </button>
                             <button class="lab-tool-btn ${aiSubmode === 'regression' ? 'lab-tool-btn--active' : ''}" data-aimode="regression">
                                 <span class="lab-tool-btn__icon">📈</span>
                                 <div class="lab-tool-btn__body">
-                                    <span class="lab-tool-btn__title">Поліноміальна регресія</span>
-
+                                    <span class="lab-tool-btn__title">
+                                        <span class="title-full">Поліноміальна регресія</span>
+                                        <span class="title-short">Регресія</span>
+                                    </span>
                                 </div>
                             </button>
                         </div>
@@ -2198,6 +2375,7 @@ function renderKMeansAdvanced(container) {
                     <button class="btn-lab-action" id="btn-k-next-point">👣 Наступна (P${activeKPointIdx + 1})</button>
                     <button class="btn-lab-action" id="btn-k-recalc-centroids">🎯 Оновити центри мас</button>
                     <button class="btn-lab-action" id="btn-k-shuffle">🎲 Нова вибірка</button>
+                    <button class="btn-lab-action btn-lab-modal-trigger btn-lab-modal-prominent">🧠 Формули та аналізатор K-Means</button>
                 </div>
 
             `;
@@ -2531,6 +2709,7 @@ function renderRegressionAdvanced(container) {
                     </button>
                     <button class="btn-lab-action" id="btn-reg-add">➕ Додати фахівця</button>
                     <button class="btn-lab-action" id="btn-reg-reset" title="Відновити початкову вибірку">🔄 Скинути вибірку</button>
+                    <button class="btn-lab-action btn-lab-modal-trigger btn-lab-modal-prominent">📊 Метрики R², MSE та теорія</button>
                 </div>
 
             `;

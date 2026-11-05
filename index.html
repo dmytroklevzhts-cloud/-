@@ -534,19 +534,31 @@
                 <button class="tech-lab-tab tech-lab-tab--active" data-lab="algo" role="tab" aria-selected="true">
                     <span class="lab-tab-num">01</span>
                     <span class="lab-tab-icon">⚡</span>
-                    <span class="lab-tab-text">Алгоритми та структури</span>
+                    <span class="lab-tab-text">
+                        <span class="tab-text-full">Алгоритми та структури</span>
+                        <span class="tab-text-short">Алгоритми</span>
+                        <span class="tab-text-micro">Алго</span>
+                    </span>
                     <span class="lab-tab-badge">4 алгоритми наживо</span>
                 </button>
                 <button class="tech-lab-tab" data-lab="db" role="tab" aria-selected="false">
                     <span class="lab-tab-num">02</span>
                     <span class="lab-tab-icon">🗄️</span>
-                    <span class="lab-tab-text">Бази даних &amp; ER-моделювання</span>
+                    <span class="lab-tab-text">
+                        <span class="tab-text-full">Бази даних &amp; ER-моделювання</span>
+                        <span class="tab-text-short">Бази даних</span>
+                        <span class="tab-text-micro">БД</span>
+                    </span>
                     <span class="lab-tab-badge">10 таблиць &amp; 12 зв'язків</span>
                 </button>
                 <button class="tech-lab-tab" data-lab="ai" role="tab" aria-selected="false">
                     <span class="lab-tab-num">03</span>
                     <span class="lab-tab-icon">🧠</span>
-                    <span class="lab-tab-text">Штучний інтелект &amp; ML</span>
+                    <span class="lab-tab-text">
+                        <span class="tab-text-full">Штучний інтелект &amp; ML</span>
+                        <span class="tab-text-short">AI та ML</span>
+                        <span class="tab-text-micro">AI</span>
+                    </span>
                     <span class="lab-tab-badge">Покрокове навчання</span>
                 </button>
             </div>
@@ -557,7 +569,22 @@
             </div>
         </div>
 
-
+        <!-- Модальне вікно інспектора та теорії для адаптивних екранів (<= 1199px) -->
+        <div class="tech-lab-modal" id="tech-lab-modal" aria-hidden="true" role="dialog" aria-modal="true">
+            <div class="tech-lab-modal-backdrop" id="tech-lab-modal-backdrop"></div>
+            <div class="tech-lab-modal-dialog">
+                <div class="tech-lab-modal-header">
+                    <div class="tech-lab-modal-title-wrap">
+                        <span class="tech-lab-modal-icon" id="tech-lab-modal-icon">📖</span>
+                        <h3 class="tech-lab-modal-title" id="tech-lab-modal-title">Аналізатор та теорія</h3>
+                    </div>
+                    <button class="tech-lab-modal-close" id="tech-lab-modal-close" aria-label="Закрити модальне вікно">✕</button>
+                </div>
+                <div class="tech-lab-modal-body" id="tech-lab-modal-body">
+                    <!-- Динамічний вміст інспектора -->
+                </div>
+            </div>
+        </div>
     </section>
 
 

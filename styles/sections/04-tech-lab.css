@@ -26,6 +26,23 @@
 /* --------------------------------------------------------------------------
    1. Верхні таби перемикання 3 лабораторій
    -------------------------------------------------------------------------- */
+.tab-text-short,
+.tab-text-micro {
+    display: none;
+}
+
+.tab-text-full {
+    display: inline;
+}
+
+.title-short {
+    display: none;
+}
+
+.title-full {
+    display: inline;
+}
+
 .tech-lab-tabs {
     display: flex;
     align-items: center;
@@ -817,9 +834,10 @@
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    gap: 12px;
+    gap: 8px;
     padding-bottom: 20px;
     border-bottom: 2px solid #E2E8F0;
+    box-sizing: border-box;
 }
 
 .sorting-bar-col {
@@ -829,6 +847,9 @@
     gap: 6px;
     height: 100%;
     justify-content: flex-end;
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 28px;
 }
 
 .sorting-bar-val {
@@ -839,7 +860,8 @@
 }
 
 .sorting-bar {
-    width: 28px;
+    width: 100%;
+    max-width: 28px;
     border-radius: 5px 5px 0 0;
     background: #818CF8;
     transition: height 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease;
@@ -1846,50 +1868,448 @@
 }
 
 /* ==========================================================================
+   МОДАЛЬНЕ ВІКНО ІНСПЕКТОРА ТА ТЕОРІЇ (TECH LAB MODAL)
+   ========================================================================== */
+.tech-lab-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tech-lab-modal.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.tech-lab-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.tech-lab-modal-dialog {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    border-radius: 18px;
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    max-width: 620px;
+    width: 100%;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(14px) scale(0.97);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tech-lab-modal.is-open .tech-lab-modal-dialog {
+    transform: translateY(0) scale(1);
+}
+
+.tech-lab-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1.5px solid #F1F5F9;
+    background: #F8FAFC;
+    flex-shrink: 0;
+}
+
+.tech-lab-modal-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tech-lab-modal-icon {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.tech-lab-modal-title {
+    margin: 0;
+    font-size: 15.5px;
+    font-weight: 800;
+    color: #0F172A;
+    letter-spacing: -0.01em;
+}
+
+.tech-lab-modal-close {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #E2E8F0;
+    background: #FFFFFF;
+    border-radius: 50%;
+    color: #64748B;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+    line-height: 1;
+}
+
+.tech-lab-modal-close:hover {
+    background: #F1F5F9;
+    color: #0F172A;
+    border-color: #CBD5E1;
+    transform: scale(1.05);
+}
+
+.tech-lab-modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+}
+
+body.tech-lab-modal-locked {
+    overflow: hidden;
+}
+
+/* Стилі інспектора всередині модального вікна */
+.tech-lab-modal-body .algo-side-inspector,
+.tech-lab-modal-body .ai-side-inspector {
+    display: flex !important;
+    width: 100% !important;
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+.tech-lab-modal-body .algo-inspector-head,
+.tech-lab-modal-body .ai-inspector-head {
+    border-bottom: 1.5px solid #F1F5F9;
+    padding-bottom: 10px;
+}
+
+/* Кнопка запуску модального вікна інспектора */
+.btn-lab-modal-trigger {
+    background: linear-gradient(135deg, #EEF2FF 0%, #F5F3FF 100%) !important;
+    color: #4F46E5 !important;
+    border: 1.5px solid #C7D2FE !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.08);
+}
+
+.btn-lab-modal-trigger:hover {
+    background: linear-gradient(135deg, #E0E7FF 0%, #EDE9FE 100%) !important;
+    border-color: #818CF8 !important;
+    color: #4338CA !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.16);
+}
+
+/* Акцентна головна кнопка виклику модального вікна теорії та метрик на малих екранах */
+.btn-lab-modal-prominent {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    grid-column: 1 / -1 !important;
+    min-height: 42px !important;
+    padding: 6px 10px !important;
+    background: linear-gradient(135deg, #6453A3 0%, #7C3AED 100%) !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.02em !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    white-space: normal !important;
+    line-height: 1.25 !important;
+    gap: 8px !important;
+    box-shadow: 0 4px 14px rgba(100, 83, 163, 0.28) !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.btn-lab-modal-prominent:hover {
+    background: linear-gradient(135deg, #524285 0%, #6D28D9 100%) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(100, 83, 163, 0.38) !important;
+}
+
+/* Навігація таблицями всередині модального вікна */
+.modal-db-table-pills {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 12px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    margin-bottom: 6px;
+}
+
+.modal-pills-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748B;
+}
+
+.modal-pills-row {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: thin;
+}
+
+.modal-db-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    background: #FFFFFF;
+    border: 1.5px solid #CBD5E1;
+    border-radius: 8px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #1E293B;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all 0.18s ease;
+}
+
+.modal-db-pill:hover,
+.modal-db-pill.is-active {
+    background: #6453A3;
+    border-color: #6453A3;
+    color: #FFFFFF;
+}
+
+.tech-lab-modal-margin-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 6px;
+    border-top: 1.5px dashed #E2E8F0;
+    padding-top: 12px;
+}
+
+.tech-lab-modal-section-title {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6453A3;
+}
+
+.db-er-top-toolbar {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #F1F5F9;
+    flex-shrink: 0;
+}
+
+.db-er-hint {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748B;
+}
+
+/* ==========================================================================
    Responsive Adaptations for Section 04 (Tech Lab)
    ========================================================================== */
 
-/* Laptop & Compact Desktop (<= 1440px) */
-@media (max-width: 1440px) {
-    .tech-lab-stage {
-        height: auto;
-        min-height: 590px;
-    }
-
-    .lab-sidebar-tools {
-        width: 220px;
-        min-width: 220px;
-        max-width: 220px;
-    }
-
-    .algo-side-inspector,
-    .ai-side-inspector {
-        width: 380px;
+/* Wide Desktop (> 1199px) */
+@media (min-width: 1200px) {
+    .btn-lab-modal-trigger,
+    .btn-lab-modal-prominent {
+        display: none !important;
     }
 }
 
-/* Tablet (<= 1024px) */
-@media (max-width: 1024px) {
-    #section-4 {
-        padding-top: calc(var(--header-height) + 20px);
-        padding-bottom: 36px;
+/* Laptop, Tablet & Mobile (<= 1199px) — Екрани до 1200px (зокрема 1058px) */
+@media (max-width: 1199px) {
+    /* Ховаємо бейджі у табах, щоб текст назв ніколи не обрізався */
+    .lab-tab-badge {
+        display: none !important;
     }
 
     .tech-lab-tabs {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        padding-bottom: 4px;
-    }
-
-    .tech-lab-tabs::-webkit-scrollbar {
-        display: none;
+        width: 100%;
+        display: flex;
+        gap: 8px;
+        overflow: visible;
+        padding-bottom: 0;
     }
 
     .tech-lab-tab {
-        flex: 0 0 auto;
-        min-width: 220px;
-        min-height: 44px;
+        flex: 1 1 0;
+        min-width: 0;
+        height: 48px;
+        padding: 0 12px;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .lab-tab-text {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    /* Ховаємо бічні інспектори з макета сітки, переносячи їх у модальне вікно */
+    .algo-side-inspector,
+    .ai-side-inspector {
+        display: none !important;
+    }
+
+    /* Ховаємо довгі текстові картки з робочої області — вони доступні в модальному вікні */
+    .tech-lab-margin-info {
+        display: none !important;
+    }
+
+    /* Модальне вікно відображає картки розвантажено */
+    .tech-lab-modal-body .tech-lab-margin-info {
+        display: flex !important;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+
+    /* Інтерактивні полотна отримують повну доступну ширину */
+    .algo-split-container,
+    .ai-split-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+    }
+
+    .algo-canvas-panel,
+    .ai-canvas-panel {
+        width: 100% !important;
+        flex: 1 1 auto;
+        min-width: 0;
+        height: 520px;
+    }
+
+    .btn-lab-modal-trigger {
+        display: inline-flex !important;
+    }
+
+    .db-er-top-toolbar {
+        display: flex !important;
+    }
+
+    .db-er-stage::before {
+        display: none !important;
+    }
+
+    .db-er-canvas-container {
+        display: block !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        width: 100% !important;
+        flex: 1;
+        scrollbar-width: thin;
+        scrollbar-color: #CBD5E1 transparent;
+    }
+
+    .db-er-svg-canvas {
+        min-width: 1300px !important;
+        width: 1300px !important;
+        height: 420px !important;
+        display: block !important;
+        flex-shrink: 0;
+    }
+}
+
+/* Laptop screens (1025px - 1199px, including 1058px) */
+@media (min-width: 1025px) and (max-width: 1199px) {
+    .tech-lab-stage {
+        height: 648px;
+    }
+
+    .lab-sidebar-tools {
+        width: 236px;
+        min-width: 236px;
+        max-width: 236px;
+        padding: 10px;
+        gap: 6px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #CBD5E1 transparent;
+    }
+
+    .lab-sidebar-section {
+        gap: 6px;
+    }
+
+    .lab-tool-btn {
+        min-height: 42px;
+        padding: 6px 10px;
+    }
+
+    .lab-tool-btn__icon {
+        font-size: 17px;
+    }
+
+    .lab-tool-btn__title {
+        font-size: 12.5px;
+    }
+
+    .lab-tool-btn__desc {
+        font-size: 11px;
+    }
+
+    .btn-lab-action {
+        min-height: 36px;
+        font-size: 11.5px;
+        padding: 4px 8px;
+    }
+
+    .btn-lab-modal-prominent {
+        min-height: 40px !important;
+        font-size: 12px !important;
+        padding: 6px 8px !important;
+    }
+}
+
+/* Tablet & Mobile (<= 1024px) */
+@media (max-width: 1024px) {
+    #section-4 {
+        padding-top: calc(var(--header-height) + 16px);
+        padding-bottom: 32px;
+        gap: 10px;
+    }
+
+    .tech-lab-tab {
+        height: 46px;
+        padding: 0 8px;
+        gap: 6px;
     }
 
     .tech-lab-stage {
@@ -1897,176 +2317,438 @@
         min-height: auto;
         border-radius: 16px;
         overflow: visible;
+        padding: 10px;
     }
 
+    /* Головна перебудова лейауту: Flex-потік із перестановкою */
     .tech-lab-layout {
+        display: flex;
         flex-direction: column;
         height: auto;
         overflow: visible;
+        gap: 10px;
     }
 
+    /* Робимо дочірні секції сайдбару прямими flex-елементами лейауту */
     .lab-sidebar-tools {
+        display: contents;
+    }
+
+    /* 1. Верхня панель вибору режиму (QuickSort / Дейкстра / BST / Лабіринт або K-Means / Регресія) */
+    .lab-sidebar-section:first-child {
+        order: 1;
         width: 100%;
-        min-width: 100%;
-        max-width: 100%;
-        height: auto;
-        max-height: none;
-        border-right: none;
-        border-bottom: 1.5px solid #E2E8F0;
-        padding: 12px;
+        margin-bottom: 2px;
     }
 
     .lab-sidebar-nav {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+        width: 100%;
+    }
+
+    /* Для AI лабораторії (2 кнопки) */
+    [data-aimode] {
+        grid-column: span 2;
     }
 
     .lab-tool-btn {
-        min-height: 44px;
+        min-height: 42px;
+        padding: 6px 8px;
+        gap: 6px;
+        justify-content: center;
+        text-align: center;
     }
 
+    .lab-tool-btn__icon {
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+
+    .lab-tool-btn__title {
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .lab-tool-btn__desc {
+        display: none;
+    }
+
+    /* 2. ІНТЕРАКТИВНЕ ПОЛОТНО — НА ПЕРЕДНЬОМУ ПЛАНІ ПІД НАВІГАЦІЄЮ */
     .lab-content-stage {
+        order: 2;
+        width: 100%;
         height: auto;
         overflow: visible;
-        padding: 12px;
-        flex-direction: column;
-    }
-
-    .algo-split-container,
-    .ai-split-container {
-        flex-direction: column;
-        height: auto;
-        overflow: visible;
-        gap: 14px;
+        padding: 0;
+        margin: 0;
     }
 
     .algo-canvas-panel,
     .ai-canvas-panel {
-        width: 100%;
+        width: 100% !important;
         height: 380px;
         min-height: 300px;
+        border-radius: 14px;
     }
 
-    .algo-side-inspector,
-    .ai-side-inspector {
+    /* 3. КНОПКИ КЕРУВАННЯ — ОДРАЗУ ПІД РОБОЧИМ ПОЛОТНОМ */
+    .lab-sidebar-section#algo-sidebar-actions,
+    .lab-sidebar-section#ai-sidebar-actions {
+        order: 3;
         width: 100%;
-        height: auto;
-        min-height: auto;
-        overflow: visible;
-    }
-
-    .tech-lab-margin-info {
-        grid-template-columns: 1fr;
-        height: auto;
+        padding: 10px 0 0 0;
+        border-top: 1px solid #E2E8F0;
+        margin-top: 4px;
+        display: flex;
+        flex-direction: column;
         gap: 8px;
     }
 
-    .db-studio-layout {
+    .lab-sidebar-title {
+        font-size: 11px;
+        font-weight: 800;
+        color: #64748B;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 2px;
+    }
+
+    .lab-action-vgroup {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+        width: 100%;
+    }
+
+    .btn-lab-action {
+        min-height: 42px;
         height: auto;
-        min-height: 460px;
+        padding: 6px 10px;
+        font-size: 12px;
+        line-height: 1.25;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .lab-reg-degrees-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4px;
+        width: 100%;
+    }
+
+    .btn-reg-degree {
+        font-size: 11px;
+        padding: 0 4px;
+        min-height: 38px;
+    }
+
+    .dijkstra-target-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 4px;
+    }
+
+    .btn-dijkstra-target {
+        min-height: 36px;
+        font-size: 12px;
+        font-weight: 800;
+    }
+
+    .db-sidebar-stat-card {
+        display: none !important;
     }
 
     .db-er-stage {
-        height: 480px;
-    }
-
-    .db-er-canvas-container {
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
+        height: 460px !important;
+        min-height: 460px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
     }
 }
 
 /* Mobile Devices (<= 768px) */
 @media (max-width: 768px) {
-    .tech-lab-tabs {
-        gap: 8px;
-    }
-
-    .tech-lab-tab {
-        min-width: 190px;
-        height: 44px;
-        padding: 0 12px;
-        gap: 8px;
-    }
-
-    .lab-tab-text {
-        font-size: 12.5px;
-    }
-
-    .lab-tab-badge {
+    .tab-text-full {
         display: none;
     }
 
-    .lab-toolbar {
-        height: auto;
-        padding: 10px 14px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
+    .tab-text-short {
+        display: inline;
     }
 
-    .lab-toolbar-actions {
+    .tech-lab-tabs {
         width: 100%;
-        justify-content: flex-start;
-        overflow-x: auto;
-        padding-bottom: 2px;
+        display: flex;
+        gap: 6px;
+        overflow: visible;
+        padding-bottom: 0;
     }
 
-    .btn-lab-action {
-        min-height: 44px;
-        padding: 0 12px;
-        font-size: 13px;
+    .tech-lab-tab {
+        flex: 1 1 0;
+        min-width: 0;
+        height: 44px;
+        padding: 0 6px;
+        gap: 5px;
+        border-radius: 10px;
+        justify-content: center;
+    }
+
+    .lab-tab-num {
+        font-size: 10px;
+        padding: 2px 4px;
+    }
+
+    .lab-tab-icon {
+        font-size: 16px;
+    }
+
+    .lab-tab-text {
+        font-size: 12px;
+        text-align: center;
+        white-space: nowrap;
     }
 
     .lab-sidebar-nav {
-        grid-template-columns: 1fr;
-        gap: 6px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+    }
+
+    [data-aimode] {
+        grid-column: span 1;
     }
 
     .algo-canvas-panel,
     .ai-canvas-panel {
         height: 320px;
+        min-height: 280px;
+    }
+
+    .sorting-bars-container {
+        height: 200px;
+        gap: 4px;
+        padding-bottom: 12px;
+    }
+
+    .sorting-bar-col {
+        gap: 4px;
+        max-width: 20px;
+    }
+
+    .sorting-bar-val {
+        font-size: 9.5px;
     }
 
     .db-er-stage {
-        height: 420px;
-        padding: 8px 10px;
+        height: 440px !important;
+        min-height: 440px;
+        padding: 8px;
     }
 
-    .db-er-header {
+    .db-er-svg-canvas {
+        min-width: 1250px !important;
+        width: 1250px !important;
+        height: 390px !important;
+    }
+
+    .db-er-top-toolbar {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
         gap: 6px;
-    }
-
-    .lab-footer {
-        height: auto;
-        padding: 10px 14px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-
-    .lab-footer-metrics {
-        flex-wrap: wrap;
-        gap: 8px 14px;
+        text-align: center;
     }
 }
 
 /* Small Mobile Screens (<= 480px) */
 @media (max-width: 480px) {
+    .title-full {
+        display: none !important;
+    }
+
+    .title-short {
+        display: inline !important;
+    }
+
+    .lab-reg-degrees-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 6px !important;
+    }
+
+    .btn-reg-degree {
+        min-height: 40px !important;
+        font-size: 12px !important;
+        padding: 0 8px !important;
+    }
+
+    .tech-lab-tabs {
+        gap: 4px;
+    }
+
     .tech-lab-tab {
-        min-width: 160px;
-        font-size: 12px;
+        height: 42px;
+        padding: 0 4px;
+        gap: 4px;
+        border-radius: 8px;
+    }
+
+    .lab-tab-num {
+        display: none;
+    }
+
+    .lab-tab-icon {
+        font-size: 15px;
+    }
+
+    .lab-tab-text {
+        font-size: 11.5px;
     }
 
     .algo-canvas-panel,
     .ai-canvas-panel {
-        height: 270px;
+        height: 290px;
+        min-height: 260px;
+    }
+
+    .sorting-bars-container {
+        height: 180px;
+        gap: 3px;
+        padding-bottom: 8px;
+    }
+
+    .sorting-bar-col {
+        gap: 3px;
+        max-width: 16px;
+    }
+
+    .sorting-bar-val {
+        font-size: 8.5px;
+        font-weight: 700;
+    }
+
+    .btn-lab-action {
+        font-size: 11px;
+        padding: 0 6px;
+        min-height: 40px;
+    }
+
+    .tech-lab-modal-dialog {
+        max-height: 88vh;
+        width: 95%;
+        border-radius: 14px;
+    }
+
+    .tech-lab-modal-header {
+        padding: 10px 14px;
+    }
+
+    .tech-lab-modal-title {
+        font-size: 13.5px;
+    }
+
+    .tech-lab-modal-body {
+        padding: 12px;
+        gap: 10px;
     }
 
     .db-er-stage {
-        height: 360px;
+        height: 410px !important;
+        min-height: 410px;
+        padding: 6px;
+    }
+
+    .db-er-svg-canvas {
+        min-width: 1150px !important;
+        width: 1150px !important;
+        height: 360px !important;
+    }
+}
+
+/* Very Small Mobile Screens (<= 380px) */
+@media (max-width: 380px) {
+    .lab-action-vgroup {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6px !important;
+    }
+
+    .lab-action-vgroup .btn-lab-action {
+        width: 100% !important;
+        min-height: 42px !important;
+        justify-content: center !important;
+        font-size: 12.5px !important;
+        padding: 0 10px !important;
+    }
+
+    .btn-lab-modal-prominent {
+        font-size: 12px !important;
+        min-height: 42px !important;
+        padding: 6px 8px !important;
+    }
+}
+
+/* Micro Screens (<= 360px, наприклад 320px - 325px) */
+@media (max-width: 360px) {
+    .tab-text-full,
+    .tab-text-short {
+        display: none !important;
+    }
+
+    .tab-text-micro {
+        display: inline !important;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .tech-lab-tabs {
+        gap: 3px;
+    }
+
+    .tech-lab-tab {
+        height: 38px;
+        padding: 0 3px;
+        gap: 2px;
+        border-radius: 6px;
+    }
+
+    .lab-tab-icon {
+        font-size: 13px;
+    }
+
+    .lab-tool-btn {
+        min-height: 38px;
+        padding: 0 5px;
+        gap: 4px;
+    }
+
+    .lab-tool-btn__title {
+        font-size: 10.5px;
+    }
+
+    .sorting-bars-container {
+        gap: 2px;
+    }
+
+    .sorting-bar-col {
+        gap: 2px;
+        max-width: 14px;
+    }
+
+    .sorting-bar-val {
+        font-size: 7.5px;
+    }
+
+    .tech-lab-card {
+        padding: 8px;
+    }
+
+    .tech-lab-header {
+        margin-bottom: 10px;
     }
 }

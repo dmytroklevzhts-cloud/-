@@ -420,8 +420,8 @@
 /* Small Mobile Screens (<= 480px) */
 @media (max-width: 480px) {
     .site-header__container {
-        padding: 0 12px;
-        gap: 8px;
+        padding: 0 10px;
+        gap: 6px;
     }
 
     .site-header__brand-text {
@@ -438,14 +438,25 @@
         height: 24px;
     }
 
+    /* На екранах мобільних приховуємо кнопку наступного розділу (↓), звільняючи простір */
+    .site-header__next-btn {
+        display: none !important;
+    }
+
+    .site-header__nav {
+        flex: 1 1 auto;
+        min-width: 0;
+        justify-content: flex-start;
+    }
+
     .site-header__pills-bar {
         padding: 2px 4px;
-        gap: 2px;
+        gap: 3px;
     }
 
     .site-header__pill {
-        width: 32px;
-        height: 28px;
+        width: 30px;
+        height: 26px;
         font-size: 11.5px;
     }
 
@@ -455,6 +466,45 @@
 
     .btn-header-cta-fixed {
         padding: 0 10px;
+        height: 38px;
+        min-height: 38px;
+    }
+}
+
+/* Extra Small Screens (<= 360px, наприклад 320px - 325px) */
+@media (max-width: 360px) {
+    .site-header__container {
+        padding: 0 6px;
+        gap: 5px;
+    }
+
+    .site-header__logo-wrap {
+        width: 32px;
+        height: 32px;
+        border-radius: 6px;
+    }
+
+    .site-header__logo {
+        width: 20px;
+        height: 20px;
+    }
+
+    .site-header__pill {
+        width: 27px;
+        height: 24px;
+        font-size: 11px;
+    }
+
+    .btn-header-cta-fixed {
+        padding: 0 8px;
+        height: 34px;
+        min-height: 34px;
+        font-size: 11.5px;
+        gap: 4px;
+    }
+
+    .btn-header-cta-fixed .arrow {
+        font-size: 12px;
     }
 }
 

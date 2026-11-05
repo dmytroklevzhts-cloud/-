@@ -615,18 +615,23 @@
 /* Laptop & Compact Desktop (<= 1440px) */
 @media (max-width: 1440px) {
     .section3-showcase-container {
-        height: auto;
-        min-height: 520px;
+        height: 565px;
+        min-height: 540px;
         gap: 28px;
     }
 
+    .web-showcase-stage {
+        height: 100%;
+        min-height: 480px;
+    }
+
     .deck-card {
-        width: 580px;
-        height: 380px;
+        width: 540px;
+        height: 360px;
     }
 
     .section3-details-col {
-        width: 480px;
+        width: 460px;
     }
 
     .showcase-info-card {
@@ -640,8 +645,8 @@
     }
 }
 
-/* Tablet (<= 1024px) */
-@media (max-width: 1024px) {
+/* Tablet & Compact Laptop (<= 1199px) — запобігає накладанню на 1033px */
+@media (max-width: 1199px) {
     .section3-showcase-container {
         flex-direction: column;
         height: auto;
