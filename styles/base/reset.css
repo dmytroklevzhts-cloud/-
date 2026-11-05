@@ -1,5 +1,5 @@
 /**
- * Reset & Normalization
+ * Скидання та нормалізація стилів (Reset & Normalization)
  */
 
 *,
@@ -51,4 +51,3 @@ ul,
 ol {
     list-style: none;
 }
-

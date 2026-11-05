@@ -13,8 +13,7 @@
  * ==============================================================================
  */
 
-(function () {
-    'use strict';
+/** Module 05: Practice Slider */
 
     // 20 карток практики із заготовками для майбутнього редагування
     const PRACTICE_ITEMS = [
@@ -1296,9 +1295,6 @@
     }
 
     // Запуск після завантаження сторінки
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
-})();
+    export function initPracticeSlider() {
+    init();
+}

@@ -8,8 +8,7 @@
  * ============================================================================
  */
 
-(function () {
-    'use strict';
+/** Module 04: Tech Lab */
 
     let currentLab = 'algo'; // 'algo' | 'db' | 'ai'
 
@@ -2555,9 +2554,6 @@
         return lines;
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
-})();
+export function initTechLab() {
+    init();
+}

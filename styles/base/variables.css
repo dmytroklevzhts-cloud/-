@@ -1,6 +1,7 @@
 /**
  * Дніпровський політехнічний фаховий коледж
- * Design Tokens & CSS Variables
+ * Освітній напрям «Комп'ютерні науки»
+ * Токени дизайну та CSS змінні
  */
 
 :root {
@@ -9,12 +10,12 @@
     --color-text-muted: #68706A;
     --color-border: #D9DDD5;
 
-    /* Theme - Design Program (Purple) */
+    /* Theme - Design Program (Purple / Amethyst) */
     --color-design: #6453A3;
     --color-design-light: #EFECF6;
     --color-design-hover: #524285;
 
-    /* Theme - Systems & Software Program (Green) */
+    /* Theme - Systems & Software Program (Green / Emerald) */
     --color-software: #397565;
     --color-software-light: #EAF0EA;
     --color-software-hover: #2c5e51;
@@ -54,4 +55,3 @@
     --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.04);
     --shadow-hover: 0 8px 30px rgba(100, 83, 163, 0.12);
 }
-

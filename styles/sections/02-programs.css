@@ -1,0 +1,375 @@
+/**
+ * Секція 02: Знайомство з програмами (Два фокуси. Спільна цифрова основа)
+ * ОПП «Комп’ютерний дизайн» та «Обслуговування програмних систем»
+ */
+
+.section2-content {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.section2-cards {
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 32px;
+}
+
+.section2-card {
+    flex: 1 1 0;
+    height: 540px;
+    padding: 24px 28px 20px 28px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    position: relative;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+.section2-card--purple {
+    background: linear-gradient(150deg, #FFFFFF 0%, #F6F3FC 50%, #EFEBF8 100%);
+    border: 1px solid rgba(100, 83, 163, 0.22);
+    box-shadow: 0 10px 30px -10px rgba(100, 83, 163, 0.08);
+}
+
+.section2-card--purple:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 42px -12px rgba(100, 83, 163, 0.22);
+    border-color: var(--color-design);
+}
+
+.section2-card--green {
+    background: linear-gradient(150deg, #FFFFFF 0%, #F0F6F2 50%, #E7EFEA 100%);
+    border: 1px solid rgba(46, 125, 50, 0.22);
+    box-shadow: 0 10px 30px -10px rgba(46, 125, 50, 0.08);
+}
+
+.section2-card--green:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 42px -12px rgba(46, 125, 50, 0.22);
+    border-color: var(--color-software);
+}
+
+.section2-card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section2-card__tags {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.section2-card__meta-code {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background: rgba(0, 0, 0, 0.04);
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+.section2-card__budget {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: #2D3430;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.section2-card__hero-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.section2-card__text-block {
+    flex: 1 1 0;
+}
+
+.section2-card__title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--color-text-main);
+    margin: 0 0 6px 0;
+}
+
+.section2-card__lead {
+    font-size: 14.5px;
+    line-height: 1.45;
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+.section2-card__illustration-wrap {
+    width: 195px;
+    height: 115px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.section2-card__illustration {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section2-card:hover .section2-card__illustration {
+    transform: scale(1.06);
+}
+
+/* Modules Section */
+.section2-card__modules {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.section2-block-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #7B847E;
+}
+
+.section2-stack-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.stack-box {
+    padding: 8px 12px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    transition: transform var(--transition-fast), background-color var(--transition-fast);
+}
+
+.stack-box:hover {
+    transform: translateY(-1px);
+}
+
+.stack-box--purple {
+    background: rgba(100, 83, 163, 0.06);
+    border: 1px solid rgba(100, 83, 163, 0.14);
+}
+
+.stack-box--purple .stack-box__cat {
+    color: var(--color-design);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.stack-box--purple .stack-box__tools {
+    color: #4C455C;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.stack-box--green {
+    background: rgba(46, 125, 50, 0.06);
+    border: 1px solid rgba(46, 125, 50, 0.14);
+}
+
+.stack-box--green .stack-box__cat {
+    color: var(--color-software);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.stack-box--green .stack-box__tools {
+    color: #37473D;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Careers Section */
+.section2-card__careers {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.section2-career-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.career-chip {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: var(--color-text-main);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.career-chip:hover {
+    background: #FFFFFF;
+    transform: translateY(-1px);
+}
+
+/* Card Footer */
+.section2-card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.section2-card__practice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.practice-pill {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: #FFFFFF;
+}
+
+.practice-pill--purple {
+    background-color: var(--color-design);
+}
+
+.practice-pill--green {
+    background-color: var(--color-software);
+}
+
+.practice-note {
+    font-size: 12.5px;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.section2-card__action {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13.5px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    transition: transform var(--transition-fast), background-color var(--transition-fast);
+}
+
+.section2-card__action--purple {
+    color: var(--color-design);
+    background: rgba(100, 83, 163, 0.09);
+}
+
+.section2-card__action--purple:hover {
+    background: rgba(100, 83, 163, 0.16);
+    transform: translateX(3px);
+}
+
+.section2-card__action--green {
+    color: var(--color-software);
+    background: rgba(46, 125, 50, 0.09);
+}
+
+.section2-card__action--green:hover {
+    background: rgba(46, 125, 50, 0.16);
+    transform: translateX(3px);
+}
+
+/* Unified Meta Block */
+.section2-meta-block {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+}
+
+.section2-meta-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+}
+
+.section2-meta-pill {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.05);
+    color: #4A524D;
+}
+
+.section2-metrics-grid {
+    display: flex;
+    gap: 32px;
+}
+
+.metric-column {
+    flex: 1 1 0;
+    padding: 0;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.metric-column__head {
+    font-size: 11.5px;
+    color: var(--color-text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.metric-column__value {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--color-text-main);
+    line-height: 1.25;
+}
+
+.metric-column__desc {
+    font-size: 12.5px;
+    color: #6C746E;
+    line-height: 1.35;
+}

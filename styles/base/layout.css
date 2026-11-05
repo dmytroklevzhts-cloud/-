@@ -1,5 +1,5 @@
 /**
- * Base Layout & Canvas System (1920x1080)
+ * Базова система полотна 1920x1080 (Canvas System)
  */
 
 body {
@@ -43,33 +43,4 @@ body {
     padding: 104px var(--container-padding-x) 36px var(--container-padding-x);
     gap: 40px;
     border-top: none;
-}
-
-/* Standard Section Title Block (Sections 2 to 10) */
-.screen-title-block {
-    align-self: stretch;
-    height: auto;
-    min-height: 110px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 14px;
-}
-
-.screen-title {
-    align-self: stretch;
-    font-size: var(--font-size-h1);
-    font-weight: 500;
-    line-height: 1.1;
-    color: var(--color-text-main);
-    letter-spacing: -0.02em;
-}
-
-.screen-subtitle {
-    align-self: stretch;
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 1.4;
-    color: var(--color-text-muted);
 }

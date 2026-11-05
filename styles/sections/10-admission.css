@@ -1,0 +1,116 @@
+/**
+ * Секція 10: Освіта та вступ (Коледж — початок наступного кроку)
+ * Дніпровський політехнічний фаховий коледж — 122 «Комп'ютерні науки»
+ */
+
+.section10-content {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 32px;
+}
+
+.section10-edu-row {
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 64px;
+}
+
+.section10-col-bachelor {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 22px;
+}
+
+.bachelor-desc {
+    align-self: stretch;
+    color: var(--color-text-main);
+    font-size: var(--font-size-body-lg);
+    font-weight: 400;
+    line-height: 1.45;
+}
+
+.speciality-code-name {
+    align-self: stretch;
+    color: var(--color-text-main);
+    font-size: var(--font-size-h5);
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+.section10-col-specific {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 28px;
+}
+
+.speciality-group-block {
+    align-self: stretch;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.speciality-subtext {
+    align-self: stretch;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-body);
+    font-weight: 400;
+}
+
+.section10-cta-banner {
+    align-self: stretch;
+    min-height: 196px;
+    padding: 32px;
+    background-color: var(--color-design-light);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 48px;
+    border-radius: 4px;
+}
+
+.cta-banner-text {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.cta-banner-heading {
+    align-self: stretch;
+    color: var(--color-text-main);
+    font-size: 43px;
+    font-weight: 500;
+}
+
+.cta-banner-subheading {
+    align-self: stretch;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-body);
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+.section10-disclaimer {
+    align-self: stretch;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-caption);
+    font-weight: 400;
+}

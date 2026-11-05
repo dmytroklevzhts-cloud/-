@@ -1,0 +1,27 @@
+/**
+ * Дніпровський політехнічний фаховий коледж
+ * Освітній напрям «Комп'ютерні науки» (122)
+ * Головний файл стилів (Main Stylesheet)
+ */
+
+/* 1. Базовий шар (Tokens, Reset, Typography, Canvas Layout) */
+@import url('base/variables.css');
+@import url('base/reset.css');
+@import url('base/typography.css');
+@import url('base/layout.css');
+
+/* 2. Глобальні компоненти (Header & Program Tags) */
+@import url('components/header.css');
+@import url('components/tags.css');
+
+/* 3. Модульні стилі 10 секцій сайту */
+@import url('sections/01-hero.css');
+@import url('sections/02-programs.css');
+@import url('sections/03-web-showcase.css');
+@import url('sections/04-tech-lab.css');
+@import url('sections/05-practice.css');
+@import url('sections/06-teachers.css');
+@import url('sections/07-cad-viewer.css');
+@import url('sections/08-careers.css');
+@import url('sections/09-work-spheres.css');
+@import url('sections/10-admission.css');

@@ -1,0 +1,67 @@
+/**
+ * Індикаторні мітки програм (Program Tags) та глобальні кнопки дій (CTA)
+ */
+
+/* Program Tags (Indicators) */
+.program-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: var(--font-size-caption);
+    font-weight: 500;
+}
+
+.program-tag__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    flex-shrink: 0;
+}
+
+.program-tag--purple {
+    color: var(--color-design);
+}
+
+.program-tag--purple .program-tag__dot {
+    background-color: var(--color-design);
+}
+
+.program-tag--green {
+    color: var(--color-software);
+}
+
+.program-tag--green .program-tag__dot {
+    background-color: var(--color-software);
+}
+
+/* Call to Action Button */
+.btn-header-cta {
+    height: 64px;
+    padding: 0 28px;
+    background-color: var(--color-design);
+    color: #FFFFFF;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.btn-header-cta span.arrow {
+    font-size: 24px;
+    font-weight: 400;
+    transition: transform var(--transition-fast);
+}
+
+.btn-header-cta:hover {
+    background-color: var(--color-design-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(100, 83, 163, 0.25);
+}
+
+.btn-header-cta:hover span.arrow {
+    transform: translate(3px, -3px);
+}

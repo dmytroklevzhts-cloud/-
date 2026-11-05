@@ -1,0 +1,114 @@
+/**
+ * Секція 08: Професії (Ким можна стати після коледжу)
+ * Дніпровський політехнічний фаховий коледж — 122 «Комп'ютерні науки»
+ */
+
+.section8-content {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 32px;
+}
+
+.section8-columns {
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 64px;
+}
+
+.section8-col {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.careers-list {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.career-row {
+    align-self: stretch;
+    min-height: 78px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    text-decoration: none;
+    transition: background-color var(--transition-fast), padding-left var(--transition-fast);
+}
+
+.career-row:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding-left: 10px;
+}
+
+.career-row__name {
+    flex: 1 1 0;
+    color: var(--color-text-main);
+    font-size: var(--font-size-h5);
+    font-weight: 400;
+    line-height: 1.25;
+}
+
+.career-row__arrow {
+    font-size: 24px;
+    font-weight: 400;
+    transition: transform var(--transition-fast);
+}
+
+.career-row__arrow--purple {
+    color: var(--color-design);
+}
+
+.career-row__arrow--green {
+    color: var(--color-software);
+}
+
+.career-row:hover .career-row__arrow {
+    transform: translate(3px, -3px);
+}
+
+.section8-shared-row {
+    align-self: stretch;
+    height: 78px;
+    padding-left: 24px;
+    padding-right: 24px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-page);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.section8-shared-row:hover {
+    border-color: var(--color-design);
+    background-color: var(--color-design-light);
+}
+
+.section8-shared-title {
+    color: var(--color-text-main);
+    font-size: 27px;
+    font-weight: 500;
+}
+
+.section8-shared-action {
+    color: var(--color-design);
+    font-size: 24px;
+    font-weight: 400;
+}

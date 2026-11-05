@@ -4,8 +4,7 @@
  * Концепція: «Чистий Split: Голова ЦК ліворуч + 9 викладачів у сітці праворуч»
  */
 
-(function () {
-    'use strict';
+/** Module 06: Teachers Team */
 
     /**
      * Дані Голови циклової комісії (фіксована картка ліворуч)
@@ -437,9 +436,6 @@
     }
 
     // Запуск після завантаження DOM
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initTeachersSection);
-    } else {
-        initTeachersSection();
-    }
-})();
+    export function initTeachers() {
+    initTeachersSection();
+}

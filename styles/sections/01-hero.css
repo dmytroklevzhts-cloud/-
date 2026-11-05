@@ -1,0 +1,376 @@
+/**
+ * Секція 01: Головний екран (Hero)
+ * Дніпровський політехнічний фаховий коледж — 122 «Комп'ютерні науки»
+ */
+
+.hero-body {
+    align-self: stretch;
+    height: 488px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 64px;
+}
+
+.hero-main-col {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-text-muted);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 4px 0;
+}
+
+.hero-badge__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-design);
+    box-shadow: 0 0 10px rgba(100, 83, 163, 0.5);
+}
+
+/* Creative Hero Typography */
+.hero-heading {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+}
+
+.hero-heading__row {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-heading__row:hover {
+    transform: translateX(6px);
+}
+
+.hero-word {
+    font-size: 82px;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    user-select: none;
+}
+
+/* 1. Творчість - Комп'ютерний дизайн (Rich Violet/Amethyst) */
+.hero-word--creative {
+    background: linear-gradient(135deg, #442B86 0%, #6453A3 45%, #7E5DC8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 18px rgba(100, 83, 163, 0.16));
+}
+
+/* 2. Технології - Програмна інженерія (Rich Emerald/Green) */
+.hero-word--tech {
+    background: linear-gradient(135deg, #0F4922 0%, #1E6B35 50%, #2E7D32 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 18px rgba(46, 125, 50, 0.16));
+}
+
+/* 3. Твій напрям - Майбутній фах (Obsidian Charcoal) */
+.hero-word--path {
+    color: #151916;
+}
+
+/* Companion Subtags */
+.hero-subtag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.hero-heading__row:hover .hero-subtag {
+    transform: scale(1.04);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.hero-subtag--creative {
+    background: rgba(100, 83, 163, 0.09);
+    color: var(--color-design);
+    border: 1px solid rgba(100, 83, 163, 0.22);
+}
+
+.hero-subtag--creative .hero-subtag__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-design);
+}
+
+.hero-subtag--tech {
+    background: rgba(46, 125, 50, 0.09);
+    color: #1B5E20;
+    border: 1px solid rgba(46, 125, 50, 0.22);
+}
+
+.hero-subtag--tech .hero-subtag__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #2E7D32;
+}
+
+.hero-subtag--path {
+    background: rgba(32, 38, 34, 0.06);
+    color: var(--color-text-main);
+    border: 1px solid rgba(32, 38, 34, 0.16);
+}
+
+.hero-subtag__arrow {
+    font-size: 15px;
+    line-height: 1;
+    color: var(--color-design);
+}
+
+.hero-description {
+    width: 920px;
+    color: var(--color-text-muted);
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.45;
+    margin-top: 4px;
+}
+
+/* College Photo Card */
+.hero-photo-card {
+    width: 590px;
+    height: 488px;
+    flex-shrink: 0;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #EEEFE8;
+    box-shadow: 0 16px 36px -12px rgba(32, 38, 34, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.06);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.hero-photo-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 48px -12px rgba(100, 83, 163, 0.2), 0 0 0 1px rgba(100, 83, 163, 0.2);
+}
+
+.hero-photo-card__wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hero-photo-card__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-photo-card:hover .hero-photo-card__img {
+    transform: scale(1.04);
+}
+
+.hero-photo-card__gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.2) 60%, rgba(15, 20, 18, 0.9) 100%);
+}
+
+.hero-photo-card__top {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 22px;
+}
+
+.hero-photo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #1A1E1B;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.hero-photo-badge__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #10B981;
+    box-shadow: 0 0 8px #10B981;
+}
+
+.hero-photo-card__bottom {
+    position: relative;
+    z-index: 2;
+    padding: 24px 24px 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.hero-photo-card__title {
+    color: #FFFFFF;
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.hero-photo-card__desc {
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+/* Hero Program Quick Navigation Rows */
+.hero-programs-block {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.hero-program-row {
+    align-self: stretch;
+    height: 104px;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 24px;
+    text-decoration: none;
+    transition: background-color var(--transition-fast), padding-left var(--transition-fast);
+}
+
+.hero-program-row:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding-left: 12px;
+}
+
+.hero-program-indicator {
+    width: 4px;
+    height: 48px;
+    flex-shrink: 0;
+}
+
+.hero-program-indicator--purple {
+    background-color: var(--color-design);
+}
+
+.hero-program-indicator--green {
+    background-color: var(--color-software);
+}
+
+.hero-program-title {
+    width: 1080px;
+    color: var(--color-text-main);
+    font-size: 31px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+}
+
+.hero-program-focus {
+    flex: 1 1 0;
+    font-size: var(--font-size-body-sm);
+    font-weight: 400;
+}
+
+.hero-program-focus--purple {
+    color: var(--color-design);
+}
+
+.hero-program-focus--green {
+    color: var(--color-software);
+}
+
+.hero-program-arrow {
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1;
+    transition: transform var(--transition-fast);
+}
+
+.hero-program-arrow--purple {
+    color: var(--color-design);
+}
+
+.hero-program-arrow--green {
+    color: var(--color-software);
+}
+
+.hero-program-row:hover .hero-program-arrow {
+    transform: translate(3px, -3px);
+}
+
+.hero-bottom-info {
+    align-self: stretch;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 8px;
+}
+
+.hero-bottom-meta {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-meta);
+    font-weight: 400;
+}
+
+.hero-bottom-next {
+    color: var(--color-text-main);
+    font-size: var(--font-size-meta);
+    font-weight: 400;
+    text-decoration: none;
+    transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.hero-bottom-next:hover {
+    color: var(--color-design);
+    transform: translateY(2px);
+}

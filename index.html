@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Modular CSS files -->
-    <link rel="stylesheet" href="css/style.css?v=11">
+    <!-- Modular CSS Architecture -->
+    <link rel="stylesheet" href="styles/main.css?v=12">
 </head>
 
 <body>
@@ -596,7 +596,7 @@
             <div class="wave-vignette wave-vignette--left"></div>
             <div class="wave-vignette wave-vignette--right"></div>
 
-            <!-- В’юпорт для 20 циклічних карток (рендеряться через js/practice-slider.js) -->
+            <!-- В’юпорт для 20 циклічних карток (рендеряться через scripts/modules/05-practice.js) -->
             <div class="wave-cards-viewport" id="wave-cards-viewport"></div>
         </div>
 
@@ -643,10 +643,10 @@
                 <!-- Ліва колонка: фото та параметри -->
                 <div class="practice-modal__left">
                     <div class="practice-modal__image-wrap">
-                        <img id="modal-item-img" src="img/practice/1.svg" alt="Кейс практики"
+                        <img id="modal-item-img" src="img/practice/1.jpg" alt="Кейс практики"
                             class="practice-modal__img">
                     </div>
-                    <!-- Поля конкретної статті додаються сюди з modal у practice-slider.js -->
+                    <!-- Поля конкретної статті додаються сюди з modal у scripts/modules/05-practice.js -->
                     <div id="modal-specs-grid" class="practice-modal__specs-grid"></div>
 
                 </div>
@@ -742,7 +742,7 @@
 
             <!-- Права частина: Сітка 10 карток викладачів (5x2) -->
             <div class="team-cards-grid">
-                <!-- Динамічно заповнюється скриптом teachers.js -->
+                <!-- Динамічно заповнюється скриптом scripts/modules/06-teachers.js -->
             </div>
         </div>
     </section>
@@ -1121,12 +1121,8 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
-    <script src="js/cad-viewer.js"></script>
-    <script src="js/web-showcase.js?v=11"></script>
-    <script src="js/practice-slider.js"></script>
-    <script src="js/teachers.js"></script>
-    <script src="js/code-showcase.js"></script>
-    <script src="js/site-header.js"></script>
+    <!-- Modular Application Entry Point (ES Modules) -->
+    <script type="module" src="scripts/main.js"></script>
 </body>
 
 </html>
