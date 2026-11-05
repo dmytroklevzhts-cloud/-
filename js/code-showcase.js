@@ -60,38 +60,46 @@
 
     function renderAlgoLab(stage) {
         stage.innerHTML = `
-            <div class="lab-toolbar">
-                <div class="lab-toolbar-info">
-                    <span class="lab-toolbar-badge">ЛАБОРАТОРІЯ 01</span>
-                    <span class="lab-toolbar-title">Складні алгоритми та структури даних</span>
-                    <span class="lab-toolbar-desc">· Оберіть один із 4 інженерних алгоритмів для симуляції</span>
-                </div>
-                <div class="lab-toolbar-actions">
-                    <button class="btn-lab-action ${algoSubmode === 'quicksort' ? 'btn-lab-action--active' : ''}" data-algo="quicksort">📊 QuickSort</button>
-                    <button class="btn-lab-action ${algoSubmode === 'dijkstra' ? 'btn-lab-action--active' : ''}" data-algo="dijkstra">🕸️ Граф Дейкстри</button>
-                    <button class="btn-lab-action ${algoSubmode === 'bst' ? 'btn-lab-action--active' : ''}" data-algo="bst">🌳 Дерево пошуку (BST)</button>
-                    <button class="btn-lab-action ${algoSubmode === 'maze' ? 'btn-lab-action--active' : ''}" data-algo="maze">🧭 Лабіринт A*</button>
-                </div>
+            <!-- Повноформатна верхня панель перемикання 4 алгоритмів (на всю ширину) -->
+            <div class="algo-navbar-full">
+                <button class="algo-nav-card ${algoSubmode === 'quicksort' ? 'algo-nav-card--active' : ''}" data-algo="quicksort">
+                    <span class="algo-nav-card__icon">📊</span>
+                    <div class="algo-nav-card__body">
+                        <span class="algo-nav-card__title">QuickSort</span>
+                        <span class="algo-nav-card__desc">Швидке сортування масивів</span>
+                    </div>
+                </button>
+                <button class="algo-nav-card ${algoSubmode === 'dijkstra' ? 'algo-nav-card--active' : ''}" data-algo="dijkstra">
+                    <span class="algo-nav-card__icon">🕸️</span>
+                    <div class="algo-nav-card__body">
+                        <span class="algo-nav-card__title">Граф Дейкстри</span>
+                        <span class="algo-nav-card__desc">Найкоротший шлях у мережі</span>
+                    </div>
+                </button>
+                <button class="algo-nav-card ${algoSubmode === 'bst' ? 'algo-nav-card--active' : ''}" data-algo="bst">
+                    <span class="algo-nav-card__icon">🌳</span>
+                    <div class="algo-nav-card__body">
+                        <span class="algo-nav-card__title">Дерево пошуку (BST)</span>
+                        <span class="algo-nav-card__desc">Ієрархічні індекси та сортування</span>
+                    </div>
+                </button>
+                <button class="algo-nav-card ${algoSubmode === 'maze' ? 'algo-nav-card--active' : ''}" data-algo="maze">
+                    <span class="algo-nav-card__icon">🧭</span>
+                    <div class="algo-nav-card__body">
+                        <span class="algo-nav-card__title">Лабіринт A*</span>
+                        <span class="algo-nav-card__desc">Евристичний пошук маршруту</span>
+                    </div>
+                </button>
             </div>
 
             <div class="lab-workspace">
                 <div class="algo-workspace-layout" id="algo-workspace-content">
-                    <!-- Рендериться залежно від algoSubmode -->
-                </div>
-            </div>
-
-            <div class="lab-footer">
-                <div class="lab-footer-metrics" id="algo-footer-metrics">
-                    <!-- Метрики алгоритму -->
-                </div>
-                <div class="lab-footer-discipline">
-                    <span>Дисципліна:</span>
-                    <strong>«Алгоритмізація та програмування» / «Теорія алгоритмів та структур даних»</strong>
+                    <!-- Динамічно рендериться активний алгоритм -->
                 </div>
             </div>
         `;
 
-        stage.querySelectorAll('.lab-toolbar-actions [data-algo]').forEach(btn => {
+        stage.querySelectorAll('.algo-nav-card[data-algo]').forEach(btn => {
             btn.addEventListener('click', function () {
                 algoSubmode = this.getAttribute('data-algo');
                 renderAlgoLab(stage);
@@ -101,78 +109,132 @@
         renderAlgoSubmode();
     }
 
-    // ------------------------------------------------------------------------
-    // Рендер обраного алгоритму
-    // ------------------------------------------------------------------------
     function renderAlgoSubmode() {
         const container = document.getElementById('algo-workspace-content');
-        const metricsEl = document.getElementById('algo-footer-metrics');
         if (!container) return;
 
         if (algoSubmode === 'quicksort') {
-            initQuickSortView(container, metricsEl);
+            initQuickSortView(container);
         } else if (algoSubmode === 'dijkstra') {
-            initDijkstraView(container, metricsEl);
+            initDijkstraView(container);
         } else if (algoSubmode === 'bst') {
-            initBstView(container, metricsEl);
+            initBstView(container);
         } else if (algoSubmode === 'maze') {
-            initMazeView(container, metricsEl);
+            initMazeView(container);
         }
     }
 
-    // --- 1. QuickSort ---
+    // ========================================================================
+    // 1. QUICKSORT (ШВИДКЕ СОРТУВАННЯ МАСИВІВ)
+    // ========================================================================
     let sortArray = [45, 18, 85, 32, 70, 92, 14, 55, 63, 27, 76, 40, 89, 21, 68, 50];
     let isSorting = false;
+    let sortCompCount = 0;
+    let sortSwapCount = 0;
+    let sortStatusText = 'Очікує запуску';
 
-    function initQuickSortView(container, metricsEl) {
+    function initQuickSortView(container) {
         container.innerHTML = `
-            <div class="algo-subnav">
-                <div style="display: flex; gap: 8px; align-items: center;">
-                    <button class="btn-lab-action btn-lab-action--primary" id="btn-start-sort">▶ Запустити сортування</button>
-                    <button class="btn-lab-action" id="btn-shuffle-sort">🔀 Перемішати масив</button>
-                </div>
-                <div style="font-size: 11.5px; color: #64748B; font-family: ui-monospace, monospace;">
-                    Алгоритм: <strong>QuickSort (Розбиття на підмасиви відносно Pivot)</strong>
-                </div>
-            </div>
-
             <div class="algo-stage-card">
-                <div class="sorting-bars-container" id="sorting-bars-container">
-                    ${sortArray.map((val, idx) => `
-                        <div class="sorting-bar-col" data-idx="${idx}">
-                            <span class="sorting-bar-val">${val}</span>
-                            <div class="sorting-bar" style="height: ${val * 2.5}px;"></div>
+                <div class="algo-split-container">
+                    <!-- Ліва панель: інтерактивна симуляція сортування -->
+                    <div class="algo-canvas-panel">
+                        <div class="algo-subnav" style="width: 100%; box-sizing: border-box;">
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <button class="btn-lab-action btn-lab-action--primary" id="btn-start-sort">
+                                    ▶ Запустити сортування
+                                </button>
+                                <button class="btn-lab-action" id="btn-shuffle-sort">
+                                    🔀 Перемішати масив
+                                </button>
+                            </div>
+                            <div style="font-size: 11px; color: #475569; font-weight: 700;">
+                                Елементів: <strong>${sortArray.length}</strong> | Порівнянь: <strong id="sort-comps-val">${sortCompCount}</strong> | Обмінів: <strong id="sort-swaps-val">${sortSwapCount}</strong>
+                            </div>
                         </div>
-                    `).join('')}
+
+                        <div class="sorting-bars-container" id="sorting-bars-container" style="flex: 1; width: 100%;">
+                            ${sortArray.map((val, idx) => `
+                                <div class="sorting-bar-col" data-idx="${idx}">
+                                    <span class="sorting-bar-val">${val}</span>
+                                    <div class="sorting-bar" style="height: ${val * 2.3}px;"></div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Права панель: інженерний інспектор QuickSort -->
+                    <div class="algo-side-inspector">
+                        <div class="algo-inspector-head">
+                            <span class="algo-inspector-title">📊 АНАЛІЗАТОР QUICKSORT</span>
+                            <span class="algo-inspector-badge">Divide & Conquer</span>
+                        </div>
+
+                        <!-- Результат сортування -->
+                        <div class="algo-result-card">
+                            <div class="algo-result-label">Поточний стан масиву:</div>
+                            <div class="algo-result-val" id="sort-result-status">${sortStatusText}</div>
+                            <div class="algo-result-sub">Швидкість: <strong>O(n log n)</strong> | Стек: <strong>O(log n)</strong> | Елементів: <strong>16</strong></div>
+                        </div>
+
+                        <!-- Блок 1: Принцип роботи та кольори полотна -->
+                        <div class="algo-guide-box">
+                            <div class="algo-guide-title">📖 Принцип роботи та кольори полотна</div>
+                            <div class="algo-guide-text">
+                                <strong>QuickSort (Швидке сортування)</strong> працює за принципом <em>«Розділяй і володарюй»</em>: обирає опорний елемент (<strong>Pivot</strong>), ділить масив на дві половини (менші та більші) і рекурсивно їх впорядковує.
+                            </div>
+                            <div class="algo-legend-row">
+                                <span class="algo-legend-pill">🟡 <strong>Жовтий:</strong> порівняння</span>
+                                <span class="algo-legend-pill">🔴 <strong>Рожевий:</strong> обмін місцями</span>
+                                <span class="algo-legend-pill">🟢 <strong>Зелений:</strong> відсортовано</span>
+                            </div>
+                        </div>
+
+                        <!-- Блок 2: Керування та практика в IT -->
+                        <div class="algo-guide-box">
+                            <div class="algo-guide-title">🎮 Керування та практика в IT</div>
+                            <ul class="algo-guide-list">
+                                <li><strong>1. Натисніть «▶ Запустити сортування»</strong> — покроковий процес сортування наживо.</li>
+                                <li><strong>2. Натисніть «🔀 Перемішати масив»</strong> — генерація нового випадкового набору.</li>
+                            </ul>
+                            <div class="algo-it-callout">
+                                🚀 <strong>Застосування в IT:</strong> Рушій V8 (Google Chrome, Node.js <code>Array.sort</code>), <code>std::sort</code> у C++ STL, сортування рядків у СУБД.
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
 
-        if (metricsEl) {
-            metricsEl.innerHTML = `
-                <div class="lab-metric-item">Елементів: <strong>${sortArray.length}</strong></div>
-                <div class="lab-metric-item">Середня складність: <strong class="highlight-purple">O(n log n)</strong></div>
-                <div class="lab-metric-item">Пам’ять (Stack): <strong class="highlight-green">O(log n)</strong></div>
-            `;
-        }
-
-        container.querySelector('#btn-start-sort')?.addEventListener('click', runSortStepByStep);
+        container.querySelector('#btn-start-sort')?.addEventListener('click', () => runSort(container));
         container.querySelector('#btn-shuffle-sort')?.addEventListener('click', () => {
+            if (isSorting) return;
             sortArray = sortArray.sort(() => Math.random() - 0.5);
-            initQuickSortView(container, metricsEl);
+            sortCompCount = 0;
+            sortSwapCount = 0;
+            sortStatusText = 'Очікує запуску (перемішано)';
+            initQuickSortView(container);
         });
     }
 
-    function runSortStepByStep() {
+    function runSort(container) {
         if (isSorting) return;
         isSorting = true;
-        const btn = document.getElementById('btn-start-sort');
+        sortCompCount = 0;
+        sortSwapCount = 0;
+
+        const btn = container.querySelector('#btn-start-sort');
+        const statusEl = container.querySelector('#sort-result-status');
+        const compsEl = container.querySelector('#sort-comps-val');
+        const swapsEl = container.querySelector('#sort-swaps-val');
+
         if (btn) {
             btn.disabled = true;
             btn.textContent = '● Сортування...';
         }
+        if (statusEl) statusEl.textContent = '● Процес порівняння та розбиття...';
 
-        const cols = document.querySelectorAll('.sorting-bar-col');
+        const cols = container.querySelectorAll('.sorting-bar-col');
         let arr = [...sortArray];
         let i = 0, j = 0;
 
@@ -184,6 +246,8 @@
                     const bar2 = cols[j + 1]?.querySelector('.sorting-bar');
                     bar1?.classList.add('is-comparing');
                     bar2?.classList.add('is-comparing');
+                    sortCompCount++;
+                    if (compsEl) compsEl.textContent = sortCompCount;
 
                     if (arr[j] > arr[j + 1]) {
                         bar1?.classList.add('is-swapping');
@@ -191,11 +255,13 @@
                         let temp = arr[j];
                         arr[j] = arr[j + 1];
                         arr[j + 1] = temp;
+                        sortSwapCount++;
+                        if (swapsEl) swapsEl.textContent = sortSwapCount;
 
                         cols[j].querySelector('.sorting-bar-val').textContent = arr[j];
-                        bar1.style.height = `${arr[j] * 2.5}px`;
+                        bar1.style.height = `${arr[j] * 2.3}px`;
                         cols[j + 1].querySelector('.sorting-bar-val').textContent = arr[j + 1];
-                        bar2.style.height = `${arr[j + 1] * 2.5}px`;
+                        bar2.style.height = `${arr[j + 1] * 2.3}px`;
                     }
                     j++;
                     setTimeout(step, 45);
@@ -208,6 +274,8 @@
             } else {
                 cols.forEach(c => c.querySelector('.sorting-bar').className = 'sorting-bar is-sorted');
                 isSorting = false;
+                sortStatusText = `✔ Масив відсортовано (${sortCompCount} порівнянь, ${sortSwapCount} обмінів)`;
+                if (statusEl) statusEl.textContent = sortStatusText;
                 if (btn) {
                     btn.disabled = false;
                     btn.textContent = '✔ Відсортовано!';
@@ -217,7 +285,9 @@
         step();
     }
 
-    // --- 2. Dijkstra Graph (Продвинутий 9-вершинний симулятор маршрутизації) ---
+    // ========================================================================
+    // 2. DIJKSTRA GRAPH (СПРОЩЕНА ПАНЕЛЬ РЕЗУЛЬТАТУ + ПОВНЕ ПОЯСНЕННЯ)
+    // ========================================================================
     let dijkstraNodes = [
         { id: 'A', name: 'A', label: 'Сервер (A)', x: 70, y: 175, isStart: true },
         { id: 'B', name: 'B', label: 'Шлюз ЦК (B)', x: 210, y: 75 },
@@ -242,7 +312,10 @@
 
     let dijkstraTarget = 'T';
     let dijkstraStart = 'A';
-    let draggedNode = null;
+    let dijkstraDraggedNodeId = null;
+    let dijkstraStartDragX = 0;
+    let dijkstraStartDragY = 0;
+    let dijkstraHasMoved = false;
 
     function solveDijkstra(startId, targetId) {
         const nodeIds = dijkstraNodes.map(n => n.id);
@@ -258,7 +331,6 @@
         const dist = {};
         const prev = {};
         const visited = new Set();
-        const visitOrder = [];
 
         nodeIds.forEach(id => {
             dist[id] = Infinity;
@@ -278,7 +350,6 @@
 
             if (!u || minDist === Infinity) break;
             visited.add(u);
-            visitOrder.push(u);
             if (u === targetId) break;
 
             for (const edge of adj[u]) {
@@ -304,36 +375,33 @@
             dist,
             prev,
             path,
-            totalDist: dist[targetId] !== Infinity ? dist[targetId] : 0,
-            visited
+            totalDist: dist[targetId] !== Infinity ? dist[targetId] : 0
         };
     }
 
-    function initDijkstraView(container, metricsEl) {
+    function initDijkstraView(container) {
         const result = solveDijkstra(dijkstraStart, dijkstraTarget);
+        const targetNode = dijkstraNodes.find(n => n.id === dijkstraTarget);
 
         container.innerHTML = `
-            <div class="algo-subnav">
-                <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
-                    <span style="font-size: 11px; font-weight: 800; color: #475569;">🎯 Ціль:</span>
-                    ${dijkstraNodes.filter(n => n.id !== dijkstraStart).map(n => `
-                        <button class="btn-lab-action ${dijkstraTarget === n.id ? 'btn-lab-action--active' : ''} btn-dijkstra-target" data-target="${n.id}">
-                            ${n.id} (${n.name})
-                        </button>
-                    `).join('')}
-                    <button class="btn-lab-action" id="btn-dijkstra-rand-weights">🎲 Нові ваги ребер</button>
-                    <button class="btn-lab-action" id="btn-dijkstra-reset-pos">🔄 Скинути сітку</button>
-                </div>
-                <div style="font-size: 11px; color: #059669; font-weight: 700;">
-                    Маршрут: <strong>${result.path.join(' ➔ ') || 'Не знайдено'}</strong> (Вага: <strong>${result.totalDist}</strong>)
-                </div>
-            </div>
-
             <div class="algo-stage-card">
                 <div class="algo-split-container">
-                    <!-- Ліве інтерактивне векторне полотно графа -->
-                    <div class="algo-canvas-panel" id="dijkstra-canvas-box">
-                        <svg id="dijkstra-svg" viewBox="0 0 850 340" style="width: 100%; height: 100%; cursor: default; user-select: none;">
+                    <!-- Ліва панель: інтерактивний граф мережі -->
+                    <div class="algo-canvas-panel">
+                        <div class="algo-subnav" style="width: 100%; box-sizing: border-box;">
+                            <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+                                <span style="font-size: 11px; font-weight: 800; color: #475569;">🎯 Оберіть ціль:</span>
+                                ${dijkstraNodes.filter(n => n.id !== dijkstraStart).map(n => `
+                                    <button class="btn-lab-action ${dijkstraTarget === n.id ? 'btn-lab-action--active' : ''} btn-dijkstra-target" data-target="${n.id}">
+                                        ${n.id} (${n.name})
+                                    </button>
+                                `).join('')}
+                                <button class="btn-lab-action" id="btn-dijkstra-rand-weights">🎲 Нові ваги ребер</button>
+                                <button class="btn-lab-action" id="btn-dijkstra-reset-pos">🔄 Скинути сітку</button>
+                            </div>
+                        </div>
+
+                        <svg id="dijkstra-svg" viewBox="0 0 850 330" style="width: 100%; height: 100%; cursor: default; user-select: none; flex: 1;">
                             <defs>
                                 <filter id="dijkstra-glow" x="-20%" y="-20%" width="140%" height="140%">
                                     <feGaussianBlur stdDeviation="3" result="blur" />
@@ -348,7 +416,6 @@
                                     const v = dijkstraNodes.find(n => n.id === vId);
                                     if (!u || !v) return '';
 
-                                    // Перевірка чи належить ребро найкоротшому шляху
                                     const inPath = result.path.length > 1 &&
                                         result.path.some((node, i) =>
                                             (result.path[i] === uId && result.path[i+1] === vId) ||
@@ -415,203 +482,157 @@
                                 }).join('')}
                             </g>
                         </svg>
-                        <div style="position: absolute; bottom: 8px; left: 12px; font-size: 10px; color: #94A3B8;">
-                            💡 Перетягуйте вузли мишкою по полотну для зміни топології мережі або клікайте для вибору цілі
+                        <div style="font-size: 10px; color: #94A3B8; margin-top: 4px;">
+                            💡 Перетягуйте вузли мишкою по полотну для зміни форми мережі або клікайте по колах для вибору цілі
                         </div>
                     </div>
 
-                    <!-- Правий інспектор алгоритму Дейкстри -->
+                    <!-- Права панель: інженерний інспектор Дейкстри -->
                     <div class="algo-side-inspector">
                         <div class="algo-inspector-head">
-                            <span class="algo-inspector-title">🧭 АНАЛІЗАТОР ДЕЙКСТРИ (MIN-HEAP)</span>
-                            <span class="algo-inspector-badge">Greedy O((V+E) log V)</span>
+                            <span class="algo-inspector-title">🕸️ АНАЛІЗАТОР ДЕЙКСТРИ</span>
+                            <span class="algo-inspector-badge">Shortest Path</span>
                         </div>
 
-                        <div style="background: #FFFFFF; border: 1px solid #E9D5FF; border-radius: 8px; padding: 8px 10px; margin-bottom: 6px;">
-                            <div style="font-size: 11px; font-weight: 700; color: #1E293B; margin-bottom: 3px;">
-                                Найкоротший шлях (${dijkstraStart} ➔ ${dijkstraTarget}):
-                            </div>
-                            <div style="font-family: ui-monospace, monospace; font-size: 12px; font-weight: 800; color: #7C3AED;">
-                                ${result.path.join(' ➔ ') || 'Шлях відсутній'}
-                            </div>
-                            <div style="font-size: 10.5px; color: #059669; font-weight: 700; margin-top: 4px;">
-                                Сумарна метрика вартості: ${result.totalDist} умовних одиниць
+                        <!-- Результат розрахунку -->
+                        <div class="algo-result-card">
+                            <div class="algo-result-label">Найкоротший шлях (${dijkstraStart} ➔ ${dijkstraTarget}):</div>
+                            <div class="algo-result-val">${result.path.join(' ➔ ') || 'Не знайдено'}</div>
+                            <div class="algo-result-sub">
+                                Сумарна довжина (вага): <strong>${result.totalDist} од.</strong> | Переходів: <strong>${Math.max(0, result.path.length - 1)}</strong>
                             </div>
                         </div>
 
-                        <!-- Таблиця черги пріоритетів (Priority Queue Table) -->
-                        <div style="font-size: 10px; font-weight: 800; color: #475569; margin-bottom: 2px;">
-                            СТАН ЧЕРГИ ВЕРШИН (DISTANCES & PREDECESSORS):
-                        </div>
-                        <div class="dijkstra-pq-wrap">
-                            <table class="dijkstra-pq-table">
-                                <thead>
-                                    <tr>
-                                        <th>Вузол</th>
-                                        <th>Роль у мережі</th>
-                                        <th>Метрика d[v]</th>
-                                        <th>Попередник</th>
-                                        <th>Стан</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${dijkstraNodes.map(n => {
-                                        const dVal = result.dist[n.id];
-                                        const pVal = result.prev[n.id] || '—';
-                                        const isStart = n.id === dijkstraStart;
-                                        const isTarget = n.id === dijkstraTarget;
-                                        const inPath = result.path.includes(n.id);
-                                        const isVisited = result.visited.has(n.id);
-
-                                        let rowCls = '';
-                                        if (isTarget) rowCls = 'dijkstra-row--target';
-                                        else if (inPath) rowCls = 'dijkstra-row--inpath';
-                                        else if (isVisited) rowCls = 'dijkstra-row--visited';
-
-                                        let statusBadge = '⏳ Черга';
-                                        if (isStart) statusBadge = '🟢 СТАРТ';
-                                        else if (isTarget && inPath) statusBadge = '🎯 ЗНАЙДЕНО';
-                                        else if (isVisited) statusBadge = '✔ Опрацьовано';
-
-                                        return `
-                                            <tr class="${rowCls}">
-                                                <td><strong>${n.id}</strong></td>
-                                                <td>${n.label}</td>
-                                                <td>${dVal !== Infinity ? dVal : '∞'}</td>
-                                                <td>${pVal}</td>
-                                                <td>${statusBadge}</td>
-                                            </tr>
-                                        `;
-                                    }).join('')}
-                                </tbody>
-                            </table>
+                        <!-- Блок 1: Принцип роботи та позначення -->
+                        <div class="algo-guide-box">
+                            <div class="algo-guide-title">📖 Принцип роботи та позначення</div>
+                            <div class="algo-guide-text">
+                                <strong>Алгоритм Дейкстри</strong> знаходить оптимальний маршрут у зваженому графі, жадібно обираючи найближчі невідвідані вузли та гарантуючи мінімальну суму ваг ребер.
+                            </div>
+                            <div class="algo-legend-row">
+                                <span class="algo-legend-pill">🟢 <strong>Вузол A:</strong> старт</span>
+                                <span class="algo-legend-pill">🔴 <strong>Вузол ${dijkstraTarget}:</strong> ціль</span>
+                                <span class="algo-legend-pill">🟣 <strong>Лінія:</strong> шлях</span>
+                                <span class="algo-legend-pill">🔢 <strong>Числа:</strong> пінг (мс)</span>
+                            </div>
                         </div>
 
-                        <div style="background: rgba(255,255,255,0.7); border: 1px solid #E2E8F0; border-radius: 6px; padding: 6px 8px; font-size: 9px; color: #475569; line-height: 1.35;">
-                            <strong>Релаксація ребер:</strong> для кожного сусіда перевіряється умова <code>if d[u] + w < d[v] then d[v] = d[u] + w</code>. Використовується в протоколах інтернет-маршрутизації OSPF/IS-IS та навігаторах.
+                        <!-- Блок 2: Керування та застосування в IT -->
+                        <div class="algo-guide-box">
+                            <div class="algo-guide-title">🎮 Керування та практика в IT</div>
+                            <ul class="algo-guide-list">
+                                <li><strong>1. Клікніть на будь-яке коло</strong> (або кнопки вгорі) для зміни цілі.</li>
+                                <li><strong>2. Перетягуйте вузли мишкою</strong> по полотну для зміни форми графа.</li>
+                                <li><strong>3. Натисніть «🎲 Нові ваги ребер»</strong> для симуляції навантаження ліній.</li>
+                            </ul>
+                            <div class="algo-it-callout">
+                                🚀 <strong>Застосування в IT:</strong> GPS-навігація (Google Maps, Waze), протоколи маршрутизації інтернету <strong>OSPF та IS-IS</strong> у роутерах Cisco / Juniper.
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         `;
 
-        if (metricsEl) {
-            metricsEl.innerHTML = `
-                <div class="lab-metric-item">Вершин V: <strong>${dijkstraNodes.length}</strong>, Ребер E: <strong>${dijkstraEdges.length}</strong></div>
-                <div class="lab-metric-item">Найкоротший шлях: <strong class="highlight-green">${result.totalDist}</strong></div>
-                <div class="lab-metric-item">Складність: <strong class="highlight-purple">O((V + E) log V)</strong></div>
-            `;
-        }
-
-        // Слухачі подій для цільових кнопок
+        // Обробники кнопок вибору цілі
         container.querySelectorAll('.btn-dijkstra-target').forEach(btn => {
             btn.onclick = () => {
                 dijkstraTarget = btn.getAttribute('data-target');
-                initDijkstraView(container, metricsEl);
+                initDijkstraView(container);
             };
         });
 
         // Випадкові ваги ребер
-        const randBtn = container.querySelector('#btn-dijkstra-rand-weights');
-        if (randBtn) {
-            randBtn.onclick = () => {
-                dijkstraEdges.forEach(e => {
-                    e[2] = Math.floor(Math.random() * 8) + 1; // 1..8
-                });
-                initDijkstraView(container, metricsEl);
-            };
-        }
+        container.querySelector('#btn-dijkstra-rand-weights')?.addEventListener('click', () => {
+            dijkstraEdges.forEach(e => {
+                e[2] = Math.floor(Math.random() * 8) + 1;
+            });
+            initDijkstraView(container);
+        });
 
-        // Скинути позиції вузлів
-        const resetBtn = container.querySelector('#btn-dijkstra-reset-pos');
-        if (resetBtn) {
-            resetBtn.onclick = () => {
-                dijkstraNodes = [
-                    { id: 'A', name: 'A', label: 'Сервер (A)', x: 70, y: 175, isStart: true },
-                    { id: 'B', name: 'B', label: 'Шлюз ЦК (B)', x: 210, y: 75 },
-                    { id: 'C', name: 'C', label: 'Комутатор 1 (C)', x: 210, y: 275 },
-                    { id: 'D', name: 'D', label: 'Маршрутизатор (D)', x: 400, y: 65 },
-                    { id: 'E', name: 'E', label: 'Проксі (E)', x: 400, y: 175 },
-                    { id: 'F', name: 'F', label: 'Комутатор 2 (F)', x: 400, y: 285 },
-                    { id: 'G', name: 'G', label: 'Хмара (G)', x: 590, y: 95 },
-                    { id: 'H', name: 'H', label: 'База даних (H)', x: 590, y: 255 },
-                    { id: 'T', name: 'T', label: 'IT-Лаб (T)', x: 770, y: 175, isTarget: true }
-                ];
-                initDijkstraView(container, metricsEl);
-            };
-        }
+        // Скинути позиції
+        container.querySelector('#btn-dijkstra-reset-pos')?.addEventListener('click', () => {
+            dijkstraNodes = [
+                { id: 'A', name: 'A', label: 'Сервер (A)', x: 70, y: 175, isStart: true },
+                { id: 'B', name: 'B', label: 'Шлюз ЦК (B)', x: 210, y: 75 },
+                { id: 'C', name: 'C', label: 'Комутатор 1 (C)', x: 210, y: 275 },
+                { id: 'D', name: 'D', label: 'Маршрутизатор (D)', x: 400, y: 65 },
+                { id: 'E', name: 'E', label: 'Проксі (E)', x: 400, y: 175 },
+                { id: 'F', name: 'F', label: 'Комутатор 2 (F)', x: 400, y: 285 },
+                { id: 'G', name: 'G', label: 'Хмара (G)', x: 590, y: 95 },
+                { id: 'H', name: 'H', label: 'База даних (H)', x: 590, y: 255 },
+                { id: 'T', name: 'T', label: 'IT-Лаб (T)', x: 770, y: 175, isTarget: true }
+            ];
+            initDijkstraView(container);
+        });
 
-        // Drag & Drop вузлів графа на SVG
+        // Drag & Drop вузлів графа
         const svg = container.querySelector('#dijkstra-svg');
         if (svg) {
-            let activeNodeId = null;
-            let startDragX = 0, startDragY = 0;
-            let hasMoved = false;
-
-            const getSvgCoords = (e) => {
-                const rect = svg.getBoundingClientRect();
-                const scaleX = 850 / rect.width;
-                const scaleY = 340 / rect.height;
-                return {
-                    x: (e.clientX - rect.left) * scaleX,
-                    y: (e.clientY - rect.top) * scaleY
-                };
-            };
-
             container.querySelectorAll('.dijkstra-node-group').forEach(g => {
                 g.addEventListener('mousedown', (e) => {
-                    activeNodeId = g.getAttribute('data-node-id');
-                    startDragX = e.clientX;
-                    startDragY = e.clientY;
-                    hasMoved = false;
+                    e.preventDefault();
                     e.stopPropagation();
+                    dijkstraDraggedNodeId = g.getAttribute('data-node-id');
+                    dijkstraStartDragX = e.clientX;
+                    dijkstraStartDragY = e.clientY;
+                    dijkstraHasMoved = false;
                 });
             });
 
-            svg.addEventListener('mousemove', (e) => {
-                if (!activeNodeId) return;
-                const dx = Math.abs(e.clientX - startDragX);
-                const dy = Math.abs(e.clientY - startDragY);
-                if (dx > 3 || dy > 3) hasMoved = true;
+            if (!window._dijkstraDragListenersAttached) {
+                window._dijkstraDragListenersAttached = true;
 
-                if (hasMoved) {
-                    const coords = getSvgCoords(e);
-                    const node = dijkstraNodes.find(n => n.id === activeNodeId);
-                    if (node) {
-                        node.x = Math.max(30, Math.min(820, coords.x));
-                        node.y = Math.max(30, Math.min(310, coords.y));
-                        initDijkstraView(container, metricsEl);
+                window.addEventListener('mousemove', (e) => {
+                    if (!dijkstraDraggedNodeId) return;
+                    const dSvg = document.getElementById('dijkstra-svg');
+                    if (!dSvg) return;
+
+                    const dx = Math.abs(e.clientX - dijkstraStartDragX);
+                    const dy = Math.abs(e.clientY - dijkstraStartDragY);
+                    if (dx > 3 || dy > 3) dijkstraHasMoved = true;
+
+                    if (dijkstraHasMoved) {
+                        const rect = dSvg.getBoundingClientRect();
+                        const scaleX = 850 / rect.width;
+                        const scaleY = 330 / rect.height;
+                        const x = (e.clientX - rect.left) * scaleX;
+                        const y = (e.clientY - rect.top) * scaleY;
+
+                        const node = dijkstraNodes.find(n => n.id === dijkstraDraggedNodeId);
+                        if (node) {
+                            node.x = Math.max(35, Math.min(815, x));
+                            node.y = Math.max(30, Math.min(295, y));
+                            const host = document.getElementById('algo-workspace-content');
+                            if (host) initDijkstraView(host);
+                        }
                     }
-                }
-            });
+                });
 
-            const onMouseUp = () => {
-                if (activeNodeId && !hasMoved) {
-                    // Клік по вузлу без перетягування = призначення ціллю
-                    if (activeNodeId !== dijkstraStart) {
-                        dijkstraTarget = activeNodeId;
-                        initDijkstraView(container, metricsEl);
+                window.addEventListener('mouseup', () => {
+                    if (!dijkstraDraggedNodeId) return;
+                    if (!dijkstraHasMoved) {
+                        // Звичайний клік по вершині: обираємо як нову ціль
+                        if (dijkstraDraggedNodeId !== dijkstraStart) {
+                            dijkstraTarget = dijkstraDraggedNodeId;
+                            const host = document.getElementById('algo-workspace-content');
+                            if (host) initDijkstraView(host);
+                        }
                     }
-                }
-                activeNodeId = null;
-                hasMoved = false;
-            };
-
-            window.addEventListener('mouseup', onMouseUp, { once: true });
+                    dijkstraDraggedNodeId = null;
+                    dijkstraHasMoved = false;
+                });
+            }
         }
     }
 
-    // --- 3. Binary Search Tree (BST & Структури даних з вставкою, пошуком та обходами) ---
+    // ========================================================================
+    // 3. BINARY SEARCH TREE (BST — ДЕРЕВО БІНАРНОГО ПОШУКУ)
+    // ========================================================================
     let bstKeys = [50, 30, 70, 20, 40, 60, 80, 35, 65];
     let bstSearchTarget = 35;
     let bstActivePath = [50, 30, 40, 35];
     let bstFoundTarget = 35;
-    let bstComparisonLog = [
-        '1. Корінь (50): 35 < 50 ➔ ідемо ліворуч',
-        '2. Вузол (30): 35 > 30 ➔ ідемо праворуч',
-        '3. Вузол (40): 35 < 40 ➔ ідемо ліворуч',
-        '4. Вузол (35): 35 == 35 ➔ елемент успішно знайдено!'
-    ];
     let bstTraversalPills = [20, 30, 35, 40, 50, 60, 65, 70, 80];
     let bstTraversalName = 'In-Order (Сортована послідовність L-N-R)';
 
@@ -640,12 +661,11 @@
 
     function computeBstPositions(root) {
         if (!root) return;
-        // Рекурсивне розміщення вузлів на полотні 850 x 310
         function layout(node, depth, minX, maxX) {
             if (!node) return;
             node.depth = depth;
             node.x = (minX + maxX) / 2;
-            node.y = 35 + depth * 65; // рівні: 35, 100, 165, 230, 295
+            node.y = 35 + depth * 62;
             layout(node.left, depth + 1, minX, node.x);
             layout(node.right, depth + 1, node.x, maxX);
         }
@@ -705,14 +725,13 @@
         return res;
     }
 
-    function initBstView(container, metricsEl) {
+    function initBstView(container) {
         const root = buildBstFromKeys(bstKeys);
         computeBstPositions(root);
         const allNodes = getBstNodesList(root);
         const treeHeight = getBstHeight(root);
         const inOrderArr = getBstInOrder(root);
 
-        // Збір зв'язків між батьком та нащадками
         const edges = [];
         function collectEdges(node) {
             if (!node) return;
@@ -728,32 +747,32 @@
         collectEdges(root);
 
         container.innerHTML = `
-            <div class="algo-subnav">
-                <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
-                    <span style="font-size: 11px; font-weight: 800; color: #475569;">➕ Число:</span>
-                    <input type="number" id="bst-input-val" value="${Math.floor(Math.random() * 85) + 10}" min="1" max="99"
-                           style="width: 52px; padding: 3px 6px; font-size: 11px; font-weight: 800; border: 1.5px solid #CBD5E1; border-radius: 5px; font-family: ui-monospace, monospace;">
-                    <button class="btn-lab-action btn-lab-action--primary" id="btn-bst-add">➕ Вставити</button>
-                    <button class="btn-lab-action" id="btn-bst-find">🔍 Знайти</button>
-
-                    <span style="font-size: 11px; color: #CBD5E1; margin: 0 4px;">|</span>
-                    <button class="btn-lab-action" id="btn-bst-inorder">📋 In-Order (Сортування)</button>
-                    <button class="btn-lab-action" id="btn-bst-preorder">Pre-Order</button>
-                    <button class="btn-lab-action" id="btn-bst-postorder">Post-Order</button>
-
-                    <span style="font-size: 11px; color: #CBD5E1; margin: 0 4px;">|</span>
-                    <button class="btn-lab-action" id="btn-bst-preset-std">🌳 9 вузлів</button>
-                    <button class="btn-lab-action" id="btn-bst-preset-large">🌲 13 вузлів</button>
-                    <button class="btn-lab-action" id="btn-bst-preset-linear">📉 Вироджене O(N)</button>
-                    <button class="btn-lab-action" id="btn-bst-reset">🧹 Очистити</button>
-                </div>
-            </div>
-
             <div class="algo-stage-card">
                 <div class="algo-split-container">
-                    <!-- Ліве полотно BST -->
+                    <!-- Ліва панель: інтерактивне бінарне дерево -->
                     <div class="algo-canvas-panel">
-                        <svg viewBox="0 0 850 330" style="width: 100%; height: 100%; user-select: none;">
+                        <div class="algo-subnav" style="width: 100%; box-sizing: border-box;">
+                            <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+                                <span style="font-size: 11px; font-weight: 800; color: #475569;">➕ Число:</span>
+                                <input type="number" id="bst-input-val" value="${Math.floor(Math.random() * 85) + 10}" min="1" max="99"
+                                       style="width: 48px; padding: 3px 5px; font-size: 11px; font-weight: 800; border: 1.5px solid #CBD5E1; border-radius: 5px; font-family: ui-monospace, monospace;">
+                                <button class="btn-lab-action btn-lab-action--primary" id="btn-bst-add">➕ Вставити</button>
+                                <button class="btn-lab-action" id="btn-bst-find">🔍 Знайти</button>
+
+                                <span style="font-size: 11px; color: #CBD5E1; margin: 0 2px;">|</span>
+                                <button class="btn-lab-action" id="btn-bst-inorder">📋 In-Order</button>
+                                <button class="btn-lab-action" id="btn-bst-preorder">Pre-Order</button>
+                                <button class="btn-lab-action" id="btn-bst-postorder">Post-Order</button>
+
+                                <span style="font-size: 11px; color: #CBD5E1; margin: 0 2px;">|</span>
+                                <button class="btn-lab-action" id="btn-bst-preset-std">🌳 9 вузлів</button>
+                                <button class="btn-lab-action" id="btn-bst-preset-large">🌲 13 вузлів</button>
+                                <button class="btn-lab-action" id="btn-bst-preset-linear">📉 Вироджене</button>
+                                <button class="btn-lab-action" id="btn-bst-reset">🧹 Очистити</button>
+                            </div>
+                        </div>
+
+                        <svg viewBox="0 0 850 310" style="width: 100%; height: 100%; user-select: none; flex: 1;">
                             <defs>
                                 <filter id="bst-glow" x="-20%" y="-20%" width="140%" height="140%">
                                     <feGaussianBlur stdDeviation="3" result="blur" />
@@ -820,7 +839,7 @@
                             </g>
                         </svg>
 
-                        <!-- Нижня стрічка сортованого масиву / результату обходу -->
+                        <!-- Нижня стрічка сортованого масиву -->
                         <div class="bst-traversal-bar">
                             <span style="font-size: 10px; font-weight: 800; color: #475569; white-space: nowrap;">
                                 ${bstTraversalName}:
@@ -833,105 +852,75 @@
                         </div>
                     </div>
 
-                    <!-- Правий інспектор дерева BST -->
+                    <!-- Права панель: інженерний інспектор BST -->
                     <div class="algo-side-inspector">
                         <div class="algo-inspector-head">
-                            <span class="algo-inspector-title">🌲 АНАЛІЗАТОР ДЕРЕВА ПОШУКУ (BST)</span>
+                            <span class="algo-inspector-title">🌳 АНАЛІЗАТОР ДЕРЕВА ПОШУКУ</span>
                             <span class="algo-inspector-badge">O(log n) Search</span>
                         </div>
 
-                        <div style="background: #FFFFFF; border: 1px solid #E9D5FF; border-radius: 8px; padding: 7px 10px; margin-bottom: 5px;">
-                            <div style="font-size: 10.5px; font-weight: 700; color: #1E293B; margin-bottom: 2px;">
-                                Траєкторія пошуку/вставки:
-                            </div>
-                            <div style="font-family: ui-monospace, monospace; font-size: 11.5px; font-weight: 800; color: #7C3AED;">
-                                ${bstActivePath.join(' ➔ ') || '—'}
-                            </div>
-                            <div style="font-size: 10px; color: ${bstFoundTarget !== null ? '#059669' : bstActivePath.length > 5 ? '#7C3AED' : '#DC2626'}; font-weight: 700; margin-top: 3px;">
-                                ${bstFoundTarget !== null ? `✔ Ключ ${bstFoundTarget} знайдено (або вставлено)` : bstActivePath.length > 5 ? `✔ Обхід завершено: опрацьовано ${bstTraversalPills.length} вузлів` : '❌ Ключ не знайдено в дереві'}
+                        <!-- Результат пошуку -->
+                        <div class="algo-result-card">
+                            <div class="algo-result-label">Траєкторія порівнянь:</div>
+                            <div class="algo-result-val">${bstActivePath.join(' ➔ ') || '—'}</div>
+                            <div class="algo-result-sub">
+                                ${bstFoundTarget !== null ? `✔ Ключ ${bstFoundTarget} знайдено` : `✔ Повний обхід: ${bstTraversalPills.length} вузлів`} | Порівнянь: <strong>${bstActivePath.length}</strong>
                             </div>
                         </div>
 
-                        <!-- Лог покрокових порівнянь алгоритму -->
-                        <div style="font-size: 10px; font-weight: 800; color: #475569; margin-bottom: 2px;">
-                            ЛОГ ПОРІВНЯНЬ (КЛЮЧ vs ВУЗОЛ):
-                        </div>
-                        <div class="bst-steps-log">
-                            ${bstComparisonLog.map((log, idx) => `
-                                <div class="bst-step-item">
-                                    <span class="bst-step-num">#${idx+1}</span>
-                                    <span>${log}</span>
-                                </div>
-                            `).join('')}
-                        </div>
-
-                        <!-- Властивості та метрики дерева -->
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: 4px 0;">
-                            <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 5px; padding: 4px 6px; font-size: 9.5px;">
-                                Вузлів у дереві: <strong>${allNodes.length}</strong>
+                        <!-- Блок 1: Принцип роботи та дерево -->
+                        <div class="algo-guide-box">
+                            <div class="algo-guide-title">📖 Принцип роботи та дерево</div>
+                            <div class="algo-guide-text">
+                                <strong>Бінарне дерево пошуку (BST)</strong> зберігає ключі впорядковано: ліві нащадки менші, праві — більші. Це скорочує пошук до <strong>O(log n)</strong>, відсікаючи 50% даних на кожному кроці.
                             </div>
-                            <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 5px; padding: 4px 6px; font-size: 9.5px;">
-                                Висота дерева h: <strong>${treeHeight}</strong>
-                            </div>
-                            <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 5px; padding: 4px 6px; font-size: 9.5px;">
-                                Баланс: <strong>${treeHeight <= Math.ceil(Math.log2(allNodes.length + 1)) + 1 ? '✔ Збалансоване' : '⚠️ Вироджене'}</strong>
-                            </div>
-                            <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 5px; padding: 4px 6px; font-size: 9.5px;">
-                                Складність: <strong class="highlight-purple">O(log n)</strong>
+                            <div class="algo-legend-row">
+                                <span class="algo-legend-pill">🟣 <strong>Фіолетові:</strong> шлях порівнянь</span>
+                                <span class="algo-legend-pill">🟢 <strong>Зелений:</strong> знайдений ключ</span>
+                                <span class="algo-legend-pill">📋 <strong>Стрічка:</strong> In-Order обхід</span>
                             </div>
                         </div>
 
-                        <div style="background: rgba(255,255,255,0.7); border: 1px solid #E2E8F0; border-radius: 6px; padding: 6px 8px; font-size: 9px; color: #475569; line-height: 1.35;">
-                            <strong>Фундаментальний інваріант:</strong> для будь-якого вузла X усі ключі в лівому піддереві <code>< X</code>, а в правому <code>> X</code>. In-Order обхід BST автоматично повертає повністю відсортований масив. Лежить в основі B-Tree індексів реляційних СУБД.
+                        <!-- Блок 2: Керування та застосування в IT -->
+                        <div class="algo-guide-box">
+                            <div class="algo-guide-title">🎮 Керування та практика в IT</div>
+                            <ul class="algo-guide-list">
+                                <li><strong>1. Введіть число та натисніть «➕ Вставити»</strong> або оберіть пресет.</li>
+                                <li><strong>2. Клікніть по вузлу</strong> для демонстрації траєкторії пошуку.</li>
+                                <li><strong>3. Спробуйте «📋 In-Order»</strong> (сортування) або <strong>«📉 Вироджене»</strong>.</li>
+                            </ul>
+                            <div class="algo-it-callout">
+                                🚀 <strong>Застосування в IT:</strong> Індекси баз даних B-Tree (PostgreSQL, MySQL InnoDB), файлові системи NTFS/APFS, <code>std::map</code> у C++.
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         `;
 
-        if (metricsEl) {
-            metricsEl.innerHTML = `
-                <div class="lab-metric-item">Вузлів N: <strong>${allNodes.length}</strong>, Висота h: <strong>${treeHeight}</strong></div>
-                <div class="lab-metric-item">Кроки пошуку: <strong class="highlight-green">${bstActivePath.length} порівняння</strong></div>
-                <div class="lab-metric-item">Складність: <strong class="highlight-purple">O(log n)</strong></div>
-            `;
-        }
-
-        // Пошук вузла за значенням
         function executeSearch(targetVal) {
             bstSearchTarget = targetVal;
             bstActivePath = [];
-            bstComparisonLog = [];
             bstFoundTarget = null;
 
             let curr = root;
-            let step = 1;
             while (curr) {
                 bstActivePath.push(curr.val);
                 if (targetVal === curr.val) {
-                    bstComparisonLog.push(`Вузол (${curr.val}): ${targetVal} == ${curr.val} ➔ ЕЛЕМЕНТ ЗНАЙДЕНО!`);
                     bstFoundTarget = curr.val;
                     break;
                 } else if (targetVal < curr.val) {
-                    bstComparisonLog.push(`Вузол (${curr.val}): ${targetVal} < ${curr.val} ➔ ідемо ліворуч`);
                     curr = curr.left;
                 } else {
-                    bstComparisonLog.push(`Вузол (${curr.val}): ${targetVal} > ${curr.val} ➔ ідемо праворуч`);
                     curr = curr.right;
                 }
-                step++;
-            }
-
-            if (!bstFoundTarget) {
-                bstComparisonLog.push(`Елемент ${targetVal} відсутній у цьому дереві`);
             }
 
             bstTraversalPills = getBstInOrder(buildBstFromKeys(bstKeys));
             bstTraversalName = 'In-Order (Сортована послідовність L-N-R)';
-            initBstView(container, metricsEl);
+            initBstView(container);
         }
 
-        // Вставка нового вузла
         function executeInsert(val) {
             if (bstKeys.includes(val)) {
                 executeSearch(val);
@@ -940,24 +929,15 @@
 
             bstSearchTarget = val;
             bstActivePath = [];
-            bstComparisonLog = [];
 
             let curr = root;
             while (curr) {
                 bstActivePath.push(curr.val);
                 if (val < curr.val) {
-                    bstComparisonLog.push(`Вузол (${curr.val}): ${val} < ${curr.val} ➔ ліворуч`);
-                    if (!curr.left) {
-                        bstComparisonLog.push(`Вставка нового вузла ${val} ліворуч від ${curr.val}`);
-                        break;
-                    }
+                    if (!curr.left) break;
                     curr = curr.left;
                 } else {
-                    bstComparisonLog.push(`Вузол (${curr.val}): ${val} > ${curr.val} ➔ праворуч`);
-                    if (!curr.right) {
-                        bstComparisonLog.push(`Вставка нового вузла ${val} праворуч від ${curr.val}`);
-                        break;
-                    }
+                    if (!curr.right) break;
                     curr = curr.right;
                 }
             }
@@ -967,10 +947,10 @@
             bstFoundTarget = val;
             bstTraversalPills = getBstInOrder(buildBstFromKeys(bstKeys));
             bstTraversalName = 'In-Order (Сортована послідовність L-N-R)';
-            initBstView(container, metricsEl);
+            initBstView(container);
         }
 
-        // Обробники кнопок
+        // Кнопки дій
         const btnAdd = container.querySelector('#btn-bst-add');
         const inputVal = container.querySelector('#bst-input-val');
         if (btnAdd && inputVal) {
@@ -988,7 +968,6 @@
             };
         }
 
-        // Клік по будь-якому вузлу на полотні шукає його
         container.querySelectorAll('.bst-node-group').forEach(g => {
             g.onclick = () => {
                 const val = parseInt(g.getAttribute('data-val'), 10);
@@ -996,142 +975,165 @@
             };
         });
 
-        // Обходи
-        const btnIn = container.querySelector('#btn-bst-inorder');
-        if (btnIn) {
-            btnIn.onclick = () => {
-                bstTraversalPills = inOrderArr;
-                bstTraversalName = 'In-Order Обхід (L-N-R, Сортований масив)';
-                bstActivePath = inOrderArr;
-                bstFoundTarget = null;
-                bstComparisonLog = ['In-Order обхід лівого піддерева, кореня та правого піддерева повертає строго зростаючу послідовність!'];
-                initBstView(container, metricsEl);
-            };
-        }
+        container.querySelector('#btn-bst-inorder')?.addEventListener('click', () => {
+            bstTraversalPills = inOrderArr;
+            bstTraversalName = 'In-Order Обхід (L-N-R, Сортований ряд)';
+            bstActivePath = inOrderArr;
+            bstFoundTarget = null;
+            initBstView(container);
+        });
 
-        const btnPre = container.querySelector('#btn-bst-preorder');
-        if (btnPre) {
-            btnPre.onclick = () => {
-                const pre = getBstPreOrder(root);
-                bstTraversalPills = pre;
-                bstTraversalName = 'Pre-Order Обхід (N-L-R, Прямий порядок)';
-                bstActivePath = pre;
-                bstFoundTarget = null;
-                bstComparisonLog = ['Pre-Order відвідує спочатку корінь N, потім ліве L, потім праве піддерево R (серіалізація структури дерева).'];
-                initBstView(container, metricsEl);
-            };
-        }
+        container.querySelector('#btn-bst-preorder')?.addEventListener('click', () => {
+            const pre = getBstPreOrder(root);
+            bstTraversalPills = pre;
+            bstTraversalName = 'Pre-Order Обхід (N-L-R, Прямий порядок)';
+            bstActivePath = pre;
+            bstFoundTarget = null;
+            initBstView(container);
+        });
 
-        const btnPost = container.querySelector('#btn-bst-postorder');
-        if (btnPost) {
-            btnPost.onclick = () => {
-                const post = getBstPostOrder(root);
-                bstTraversalPills = post;
-                bstTraversalName = 'Post-Order Обхід (L-R-N, Зворотний порядок)';
-                bstActivePath = post;
-                bstFoundTarget = null;
-                bstComparisonLog = ['Post-Order відвідує спочатку нащадків L та R, і лише потім корінь N (використовується для видалення дерева чи обчислення виразів).'];
-                initBstView(container, metricsEl);
-            };
-        }
+        container.querySelector('#btn-bst-postorder')?.addEventListener('click', () => {
+            const post = getBstPostOrder(root);
+            bstTraversalPills = post;
+            bstTraversalName = 'Post-Order Обхід (L-R-N, Зворотний порядок)';
+            bstActivePath = post;
+            bstFoundTarget = null;
+            initBstView(container);
+        });
 
-        // Пресети
-        const pStd = container.querySelector('#btn-bst-preset-std');
-        if (pStd) {
-            pStd.onclick = () => {
-                bstKeys = [50, 30, 70, 20, 40, 60, 80, 35, 65];
-                bstTraversalPills = getBstInOrder(buildBstFromKeys(bstKeys));
-                executeSearch(35);
-            };
-        }
+        container.querySelector('#btn-bst-preset-std')?.addEventListener('click', () => {
+            bstKeys = [50, 30, 70, 20, 40, 60, 80, 35, 65];
+            executeSearch(35);
+        });
 
-        const pLarge = container.querySelector('#btn-bst-preset-large');
-        if (pLarge) {
-            pLarge.onclick = () => {
-                bstKeys = [50, 25, 75, 15, 35, 65, 85, 10, 20, 30, 40, 60, 90];
-                bstTraversalPills = getBstInOrder(buildBstFromKeys(bstKeys));
-                executeSearch(40);
-            };
-        }
+        container.querySelector('#btn-bst-preset-large')?.addEventListener('click', () => {
+            bstKeys = [50, 25, 75, 15, 35, 65, 85, 10, 20, 30, 40, 60, 90];
+            executeSearch(40);
+        });
 
-        const pLinear = container.querySelector('#btn-bst-preset-linear');
-        if (pLinear) {
-            pLinear.onclick = () => {
-                bstKeys = [15, 25, 35, 45, 55, 65, 75];
-                bstTraversalPills = getBstInOrder(buildBstFromKeys(bstKeys));
-                executeSearch(75);
-            };
-        }
+        container.querySelector('#btn-bst-preset-linear')?.addEventListener('click', () => {
+            bstKeys = [15, 25, 35, 45, 55, 65, 75];
+            executeSearch(75);
+        });
 
-        const pReset = container.querySelector('#btn-bst-reset');
-        if (pReset) {
-            pReset.onclick = () => {
-                bstKeys = [50];
-                bstTraversalPills = [50];
-                executeSearch(50);
-            };
-        }
+        container.querySelector('#btn-bst-reset')?.addEventListener('click', () => {
+            bstKeys = [50];
+            executeSearch(50);
+        });
     }
-    // --- 4. A* Maze Grid ---
+
+    // ========================================================================
+    // 4. A* MAZE GRID (ЛАБІРИНТ ТА ЕВРИСТИЧНИЙ ПОШУК A-STAR)
+    // ========================================================================
     const MAZE_COLS = 16;
     const MAZE_ROWS = 7;
     let mazeWalls = new Set(['3,1', '3,2', '3,3', '3,4', '7,2', '7,3', '7,4', '7,5', '11,1', '11,2', '11,3', '11,4']);
     let mazePath = [];
+    let mazeStatusText = 'Очікує запуску пошуку';
 
-    function initMazeView(container, metricsEl) {
+    function initMazeView(container) {
         container.innerHTML = `
-            <div class="algo-subnav">
-                <div style="display: flex; gap: 8px; align-items: center;">
-                    <button class="btn-lab-action btn-lab-action--primary" id="btn-run-astar">▶ Знайти шлях (Алгоритм A*)</button>
-                    <button class="btn-lab-action" id="btn-clear-walls">🧹 Очистити стіни</button>
-                    <button class="btn-lab-action" id="btn-preset-maze">🎲 Стандартні стіни</button>
-                </div>
-                <div style="font-size: 11.5px; color: #64748B;">
-                    👆 <strong>Клікайте по клітинках</strong>, щоб ставити або прибирати власні стіни-перешкоди!
-                </div>
-            </div>
-
             <div class="algo-stage-card">
-                <div class="maze-grid-container" id="maze-grid">
-                    ${Array.from({ length: MAZE_ROWS }).map((_, r) => `
-                        <div class="maze-row">
-                            ${Array.from({ length: MAZE_COLS }).map((_, c) => {
-                                const key = `${c},${r}`;
-                                const isStart = c === 1 && r === 3;
-                                const isTarget = c === 14 && r === 3;
-                                const isWall = mazeWalls.has(key);
-                                const isPath = mazePath.includes(key) && !isStart && !isTarget;
-
-                                let cls = 'maze-cell';
-                                let text = '';
-                                if (isStart) { cls += ' maze-cell--start'; text = 'A'; }
-                                else if (isTarget) { cls += ' maze-cell--target'; text = 'B'; }
-                                else if (isWall) { cls += ' maze-cell--wall'; }
-                                else if (isPath) { cls += ' maze-cell--path'; }
-
-                                return `<div class="${cls}" data-c="${c}" data-r="${r}">${text}</div>`;
-                            }).join('')}
+                <div class="algo-split-container">
+                    <!-- Ліва панель: інтерактивна сітка лабіринту -->
+                    <div class="algo-canvas-panel">
+                        <div class="algo-subnav" style="width: 100%; box-sizing: border-box;">
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <button class="btn-lab-action btn-lab-action--primary" id="btn-run-astar">
+                                    ▶ Знайти шлях (A*)
+                                </button>
+                                <button class="btn-lab-action" id="btn-clear-walls">
+                                    🧹 Очистити стіни
+                                </button>
+                                <button class="btn-lab-action" id="btn-preset-maze">
+                                    🎲 Стандартний лабіринт
+                                </button>
+                            </div>
+                            <div style="font-size: 11px; color: #475569; font-weight: 700;">
+                                Стін-перешкод: <strong>${mazeWalls.size}</strong> | Шлях: <strong>${mazePath.length ? mazePath.length + ' кроків' : '—'}</strong>
+                            </div>
                         </div>
-                    `).join('')}
+
+                        <div class="maze-grid-container" id="maze-grid" style="flex: 1;">
+                            ${Array.from({ length: MAZE_ROWS }).map((_, r) => `
+                                <div class="maze-row">
+                                    ${Array.from({ length: MAZE_COLS }).map((_, c) => {
+                                        const key = `${c},${r}`;
+                                        const isStart = c === 1 && r === 3;
+                                        const isTarget = c === 14 && r === 3;
+                                        const isWall = mazeWalls.has(key);
+                                        const isPath = mazePath.includes(key) && !isStart && !isTarget;
+
+                                        let cls = 'maze-cell';
+                                        let text = '';
+                                        if (isStart) { cls += ' maze-cell--start'; text = 'A'; }
+                                        else if (isTarget) { cls += ' maze-cell--target'; text = 'B'; }
+                                        else if (isWall) { cls += ' maze-cell--wall'; }
+                                        else if (isPath) { cls += ' maze-cell--path'; }
+
+                                        return `<div class="${cls}" data-c="${c}" data-r="${r}">${text}</div>`;
+                                    }).join('')}
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <div style="font-size: 10px; color: #94A3B8; margin-top: 6px;">
+                            👆 Клікайте мишкою по будь-яких клітинках сітки, щоб будувати чи видаляти власні стіни-перешкоди!
+                        </div>
+                    </div>
+
+                    <!-- Права панель: інженерний інспектор A* -->
+                    <div class="algo-side-inspector">
+                        <div class="algo-inspector-head">
+                            <span class="algo-inspector-title">🧭 АНАЛІЗАТОР ЛАБІРИНТУ (A*)</span>
+                            <span class="algo-inspector-badge">Heuristic Pathfinding</span>
+                        </div>
+
+                        <!-- Результат пошуку -->
+                        <div class="algo-result-card">
+                            <div class="algo-result-label">Результат пошуку шляху:</div>
+                            <div class="algo-result-val">${mazePath.length ? `Шлях знайдено (${mazePath.length} кроків)` : mazeStatusText}</div>
+                            <div class="algo-result-sub">
+                                Евристика: <strong>Manhattan h(n)</strong> | Вартість: <strong>f(n) = g(n) + h(n)</strong>
+                            </div>
+                        </div>
+
+                        <!-- Блок 1: Принцип роботи та лабіринт -->
+                        <div class="algo-guide-box">
+                            <div class="algo-guide-title">📖 Принцип роботи та лабіринт</div>
+                            <div class="algo-guide-text">
+                                <strong>Алгоритм A* (A-Star)</strong> знаходить оптимальний шлях на сітці, використовуючи евристичну оцінку наближення до фінішу. Він обстежує лише перспективні клітинки, оминаючи перешкоди.
+                            </div>
+                            <div class="algo-legend-row">
+                                <span class="algo-legend-pill">🟢 <strong>Клітинка A:</strong> старт</span>
+                                <span class="algo-legend-pill">🔴 <strong>Клітинка B:</strong> фініш</span>
+                                <span class="algo-legend-pill">🟣 <strong>Пульсація:</strong> маршрут</span>
+                                <span class="algo-legend-pill">⬛ <strong>Блоки:</strong> стіни</span>
+                            </div>
+                        </div>
+
+                        <!-- Блок 2: Керування та застосування в IT -->
+                        <div class="algo-guide-box">
+                            <div class="algo-guide-title">🎮 Керування та практика в IT</div>
+                            <ul class="algo-guide-list">
+                                <li><strong>1. Клікайте по білих клітинках</strong> сітки для встановлення стін.</li>
+                                <li><strong>2. Клікайте по стінах</strong> для відкриття нових проходів.</li>
+                                <li><strong>3. Натисніть «▶ Знайти шлях»</strong> або оберіть готовий лабіринт.</li>
+                            </ul>
+                            <div class="algo-it-callout">
+                                🚀 <strong>Застосування в IT:</strong> ШІ у відеоіграх (StarCraft, GTA — навігація юнітів), логістичні дрони Amazon, автономні роботи-пилососи.
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
 
-        if (metricsEl) {
-            metricsEl.innerHTML = `
-                <div class="lab-metric-item">Сітка: <strong>16 × 7 клітинок</strong></div>
-                <div class="lab-metric-item">Стін встановлено: <strong>${mazeWalls.size}</strong></div>
-                <div class="lab-metric-item">Евристика: <strong class="highlight-green">Manhattan Distance h(n)</strong></div>
-                <div class="lab-metric-item">Складність A*: <strong class="highlight-purple">O(b^d)</strong></div>
-            `;
-        }
-
-        // Клік по клітинках для встановлення стін
         container.querySelectorAll('.maze-cell').forEach(cell => {
             cell.addEventListener('click', function () {
                 const c = parseInt(this.getAttribute('data-c'), 10);
                 const r = parseInt(this.getAttribute('data-r'), 10);
-                if ((c === 1 && r === 3) || (c === 14 && r === 3)) return; // не змінювати старт/ціль
+                if ((c === 1 && r === 3) || (c === 14 && r === 3)) return;
 
                 const key = `${c},${r}`;
                 if (mazeWalls.has(key)) {
@@ -1140,89 +1142,109 @@
                     mazeWalls.add(key);
                 }
                 mazePath = [];
-                initMazeView(container, metricsEl);
+                mazeStatusText = 'Стіни змінено (натисніть «Знайти шлях»)';
+                initMazeView(container);
             });
-        });
-
-        container.querySelector('#btn-run-astar')?.addEventListener('click', () => {
-            runAStarSearch(container, metricsEl);
         });
 
         container.querySelector('#btn-clear-walls')?.addEventListener('click', () => {
             mazeWalls.clear();
             mazePath = [];
-            initMazeView(container, metricsEl);
+            mazeStatusText = 'Стіни очищено';
+            initMazeView(container);
         });
 
         container.querySelector('#btn-preset-maze')?.addEventListener('click', () => {
             mazeWalls = new Set(['3,1', '3,2', '3,3', '3,4', '7,2', '7,3', '7,4', '7,5', '11,1', '11,2', '11,3', '11,4']);
             mazePath = [];
-            initMazeView(container, metricsEl);
+            mazeStatusText = 'Встановлено стандартні перешкоди';
+            initMazeView(container);
         });
+
+        container.querySelector('#btn-run-astar')?.addEventListener('click', () => runAStar(container));
     }
 
-    // Спрощена реалізація A* (BFS/Manhattan) для сітки
-    function runAStarSearch(container, metricsEl) {
+    function runAStar(container) {
         const start = { c: 1, r: 3 };
         const target = { c: 14, r: 3 };
 
-        let queue = [[start]];
-        let visited = new Set([`1,3`]);
-        let foundPath = null;
+        function heuristic(a, b) {
+            return Math.abs(a.c - b.c) + Math.abs(a.r - b.r);
+        }
 
-        while (queue.length > 0) {
-            const path = queue.shift();
-            const curr = path[path.length - 1];
+        const openSet = [{ ...start, g: 0, f: heuristic(start, target) }];
+        const cameFrom = {};
+        const gScore = {};
+        gScore[`${start.c},${start.r}`] = 0;
 
-            if (curr.c === target.c && curr.r === target.r) {
-                foundPath = path;
+        const closedSet = new Set();
+        let found = false;
+
+        while (openSet.length > 0) {
+            openSet.sort((a, b) => a.f - b.f);
+            const current = openSet.shift();
+            const currKey = `${current.c},${current.r}`;
+
+            if (current.c === target.c && current.r === target.r) {
+                found = true;
                 break;
             }
 
+            closedSet.add(currKey);
+
             const neighbors = [
-                { c: curr.c + 1, r: curr.r },
-                { c: curr.c, r: curr.r + 1 },
-                { c: curr.c, r: curr.r - 1 },
-                { c: curr.c - 1, r: curr.r }
+                { c: current.c + 1, r: current.r },
+                { c: current.c - 1, r: current.r },
+                { c: current.c, r: current.r + 1 },
+                { c: current.c, r: current.r - 1 }
             ];
 
-            // Сортування за евристикою Мангеттена (найближчі до цілі розглядаються першими)
-            neighbors.sort((a, b) => {
-                const da = Math.abs(a.c - target.c) + Math.abs(a.r - target.r);
-                const db = Math.abs(b.c - target.c) + Math.abs(b.r - target.r);
-                return da - db;
-            });
+            for (const n of neighbors) {
+                if (n.c < 0 || n.c >= MAZE_COLS || n.r < 0 || n.r >= MAZE_ROWS) continue;
+                const nKey = `${n.c},${n.r}`;
+                if (mazeWalls.has(nKey) || closedSet.has(nKey)) continue;
 
-            for (let nb of neighbors) {
-                const key = `${nb.c},${nb.r}`;
-                if (nb.c >= 0 && nb.c < MAZE_COLS && nb.r >= 0 && nb.r < MAZE_ROWS && !mazeWalls.has(key) && !visited.has(key)) {
-                    visited.add(key);
-                    queue.push([...path, nb]);
+                const tentativeG = gScore[currKey] + 1;
+                if (tentativeG < (gScore[nKey] !== undefined ? gScore[nKey] : Infinity)) {
+                    cameFrom[nKey] = current;
+                    gScore[nKey] = tentativeG;
+                    const f = tentativeG + heuristic(n, target);
+                    if (!openSet.some(o => o.c === n.c && o.r === n.r)) {
+                        openSet.push({ ...n, g: tentativeG, f });
+                    }
                 }
             }
         }
 
-        if (foundPath) {
-            mazePath = foundPath.map(p => `${p.c},${p.r}`);
+        if (found) {
+            mazePath = [];
+            let curr = target;
+            while (curr && !(curr.c === start.c && curr.r === start.r)) {
+                mazePath.unshift(`${curr.c},${curr.r}`);
+                curr = cameFrom[`${curr.c},${curr.r}`];
+            }
+            mazeStatusText = `✔ Оптимальний маршрут знайдено (${mazePath.length} кроків)`;
         } else {
-            alert('Шлях заблоковано стінами! Спробуйте прибрати деякі перешкоди.');
+            mazePath = [];
+            mazeStatusText = '❌ Шлях заблоковано стінами! Спробуйте прибрати зайві блоки.';
         }
-        initMazeView(container, metricsEl);
+        initMazeView(container);
     }
-
     // ========================================================================
     // ЛАБОРАТОРІЯ 02: БАЗИ ДАНИХ & РЕЛЯЦІЙНА ER-МОДЕЛЬ (10 ТАБЛИЦЬ)
     // ========================================================================
     const DB_10_TABLES = [
-        // КОЛОНКА 1: БАЗОВІ ДОВІДНИКИ (x: 35, w: 260)
+        // КОЛОНКА 1: БАЗОВІ ДОВІДНИКИ (x: 25, w: 275)
         {
             id: 'specialties',
             name: 'specialties',
             label: 'Спеціальності',
             icon: '📂',
-            x: 35, y: 15, w: 260, h: 115,
+            x: 25, y: 15, w: 275, h: 135,
             tier: 'Довідник',
-            desc: 'Базовий класифікатор освітніх програм (122 Комп’ютерні науки, ОПП «ПР»)',
+            desc: 'Базовий класифікатор освітніх програм коледжу. Регламентує стандарти підготовки фахових молодших бакалаврів.',
+            dataDesc: 'Код спеціальності (122), офіційна назва («Комп’ютерні науки»), освітня кваліфікація.',
+            relDesc: 'Батьківська таблиця (1:N) для академічних груп (academic_groups) та навчального плану (curriculum).',
             cols: [
                 { name: 'id', type: 'INT PK', isPk: true },
                 { name: 'code', type: 'VARCHAR(10)' },
@@ -1235,9 +1257,11 @@
             name: 'departments',
             label: 'Кафедри & ЦК',
             icon: '🏛️',
-            x: 35, y: 150, w: 260, h: 115,
+            x: 25, y: 175, w: 275, h: 135,
             tier: 'Довідник',
-            desc: 'Циклові комісії коледжу та закріплені аудиторні корпуси',
+            desc: 'Обліковує випускові циклові комісії та кафедри коледжу, відповідальні за навчально-методичний процес.',
+            dataDesc: 'Назва ЦК («Програмна інженерія»), ID голови комісії (head_teacher_id) та закріплені кабінети.',
+            relDesc: 'Зв’язок 1:1 з головою комісії (teachers) та 1:N до викладачів циклової комісії (teachers).',
             cols: [
                 { name: 'id', type: 'INT PK', isPk: true },
                 { name: 'name', type: 'VARCHAR(150)' },
@@ -1250,9 +1274,11 @@
             name: 'classrooms',
             label: 'Аудиторії & Лаб.',
             icon: '🖥️',
-            x: 35, y: 285, w: 260, h: 115,
+            x: 25, y: 335, w: 275, h: 135,
             tier: 'Довідник',
-            desc: 'Матеріальна база: комп’ютерні класи, сервери та мультимедійні лекторії',
+            desc: 'Матеріальна база: спеціалізовані комп’ютерні класи, мережеві лабораторії та мультимедійні лекторії.',
+            dataDesc: 'Номер аудиторії (напр. ауд. 402), місткість місць (seats_count) та прапорець ПК (pc_equipped).',
+            relDesc: 'Постачає доступні аудиторії у розклад занять (schedules) для уникнення накладок при плануванні пар.',
             cols: [
                 { name: 'id', type: 'INT PK', isPk: true },
                 { name: 'room_num', type: 'VARCHAR(20)' },
@@ -1261,15 +1287,17 @@
             ]
         },
 
-        // КОЛОНКА 2: АКАДЕМІЧНА СТРУКТУРА (x: 415, w: 265)
+        // КОЛОНКА 2: АКАДЕМІЧНА СТРУКТУРА (x: 415, w: 275)
         {
             id: 'academic_groups',
             name: 'academic_groups',
             label: 'Академічні групи',
             icon: '👥',
-            x: 415, y: 15, w: 265, h: 115,
+            x: 415, y: 15, w: 275, h: 135,
             tier: 'Контингент',
-            desc: 'Навчальні групи студентів спеціальності 122 (напр. ПР-21, ПР-22)',
+            desc: 'Формує навчальні колективи студентів за фахом та роком вступу (наприклад: ПР-21, ПР-22, ПР-23).',
+            dataDesc: 'Шифр групи (group_code), номер курсу (study_year) та зовнішній ключ спеціальності (specialty_id).',
+            relDesc: 'Належить спеціальності (specialties); є батьківською для студентів (students) та розкладу (schedules).',
             cols: [
                 { name: 'id', type: 'INT PK', isPk: true },
                 { name: 'specialty_id', type: 'INT FK', isFk: true },
@@ -1282,9 +1310,11 @@
             name: 'teachers',
             label: 'Викладачі ЦК',
             icon: '👨‍🏫',
-            x: 415, y: 150, w: 265, h: 115,
+            x: 415, y: 175, w: 275, h: 135,
             tier: 'Кадри',
-            desc: 'Педагогічний склад фахових дисциплін інженерії програмного забезпечення',
+            desc: 'Штат викладачів комп’ютерних дисциплін. Забезпечує проведення лекцій, лабораторних практикумів та сесій.',
+            dataDesc: 'ПІБ викладача, педагогічна категорія / вчене звання (academic_rank) та зв’язок із ЦК (department_id).',
+            relDesc: 'Належить до ЦК (departments); призначається на пари у розкладі (schedules); очолює ЦК.',
             cols: [
                 { name: 'id', type: 'INT PK', isPk: true },
                 { name: 'department_id', type: 'INT FK', isFk: true },
@@ -1297,9 +1327,11 @@
             name: 'disciplines',
             label: 'Дисципліни',
             icon: '📚',
-            x: 415, y: 285, w: 265, h: 115,
+            x: 415, y: 335, w: 275, h: 135,
             tier: 'Навч. каталог',
-            desc: 'Каталог навчальних курсів: Алгоритми, Бази даних, Комп’ютерні мережі, ШІ',
+            desc: 'Каталог фахових освітніх компонентів: Алгоритми, Бази даних, Комп’ютерні мережі, ШІ та Data Science.',
+            dataDesc: 'Назва дисципліни (title), аудиторний обсяг годин (total_hours) та кредити ECTS (ects_credits).',
+            relDesc: 'Включається у навчальний план (curriculum) та є основою для формування розкладу занять (schedules).',
             cols: [
                 { name: 'id', type: 'INT PK', isPk: true },
                 { name: 'title', type: 'VARCHAR(120)' },
@@ -1308,15 +1340,17 @@
             ]
         },
 
-        // КОЛОНКА 3: ОПЕРАЦІЙНІ ТАБЛИЦІ (x: 800, w: 265)
+        // КОЛОНКА 3: ОПЕРАЦІЙНІ ТАБЛИЦІ (x: 805, w: 275)
         {
             id: 'students',
             name: 'students',
             label: 'Студенти',
             icon: '🎓',
-            x: 800, y: 15, w: 265, h: 115,
+            x: 805, y: 15, w: 275, h: 135,
             tier: 'Контингент',
-            desc: 'Здобувачі фахової передвищої освіти, закріплені за академічною групою',
+            desc: 'Персональний облік контингенту здобувачів освіти коледжу, їхнього академічного рейтингу та груп.',
+            dataDesc: 'Повне ПІБ студента, поточний рейтинговий бал успішності (rating_score) та ID групи (group_id).',
+            relDesc: 'Входить до академічної групи (academic_groups); отримує оцінки в екзаменаційному журналі (exam_grades).',
             cols: [
                 { name: 'id', type: 'INT PK', isPk: true },
                 { name: 'group_id', type: 'INT FK', isFk: true },
@@ -1329,9 +1363,11 @@
             name: 'curriculum',
             label: 'Навчальний план',
             icon: '📋',
-            x: 800, y: 150, w: 265, h: 115,
+            x: 805, y: 175, w: 275, h: 135,
             tier: 'ОПП Стандарт',
-            desc: 'Зв’язок спеціальності та дисциплін із розподілом по семестрах',
+            desc: 'Регламентує навчальну траєкторію: встановлює, які дисципліни вивчаються на спеціальності за семестрами.',
+            dataDesc: 'Номер навчального семестру (1..8), зовнішні ключі спеціальності (specialty_id) та дисципліни (discipline_id).',
+            relDesc: 'Асоціативна таблиця 3NF: розв’язує зв’язок Many-to-Many між спеціальностями та дисциплінами без надмірності.',
             cols: [
                 { name: 'id', type: 'INT PK', isPk: true },
                 { name: 'specialty_id', type: 'INT FK', isFk: true },
@@ -1344,9 +1380,11 @@
             name: 'schedules',
             label: 'Розклад пар',
             icon: '🗓️',
-            x: 800, y: 285, w: 265, h: 125,
+            x: 805, y: 330, w: 275, h: 146,
             tier: 'Процес',
-            desc: 'Вузлова сутність: поєднує викладача, групу, аудиторію та предмет у часі',
+            desc: 'Головний диспетчер занять: координує пару викладача, студентську групу, предмет та аудиторію в часі.',
+            dataDesc: 'Зовнішні ключі group_id, discipline_id, teacher_id, room_id та номер пари в розкладі.',
+            relDesc: 'Координує 4 довідники (група, викладач, предмет, аудиторія) та є джерелом занять для журналу оцінок (exam_grades).',
             cols: [
                 { name: 'id', type: 'INT PK', isPk: true },
                 { name: 'group_id', type: 'INT FK', isFk: true },
@@ -1356,15 +1394,17 @@
             ]
         },
 
-        // КОЛОНКА 4: ТРАНЗАКЦІЙНИЙ ЖУРНАЛ (x: 1185, w: 380)
+        // КОЛОНКА 4: ТРАНЗАКЦІЙНИЙ ЖУРНАЛ (x: 1195, w: 380)
         {
             id: 'exam_grades',
             name: 'exam_grades',
             label: 'Відомості & Оцінки',
             icon: '📝',
-            x: 1185, y: 15, w: 380, h: 180,
+            x: 1195, y: 15, w: 380, h: 178,
             tier: 'Транзакції',
-            desc: 'Центральний транзакційний журнал: фіксує підсумкові бали студента за пару чи сесію',
+            desc: 'Центральний транзакційний журнал: фіксує підсумкові бали студентів за екзамени, заліки та захисти проєктів.',
+            dataDesc: 'ID студента (student_id), заняття (schedule_id), бал за 100-бальною шкалою (score) та дата (exam_date).',
+            relDesc: 'Транзакційно поєднує студента (students) та подію в розкладі (schedules) з повною ACID-гарантією цілісності.',
             cols: [
                 { name: 'id', type: 'INT PK', isPk: true },
                 { name: 'student_id', type: 'INT FK', isFk: true },
@@ -1396,30 +1436,22 @@
 
     function renderDbLab(stage) {
         stage.innerHTML = `
-            <div class="lab-toolbar">
-                <div class="lab-toolbar-info">
-                    <span class="lab-toolbar-badge">ЛАБОРАТОРІЯ 02</span>
-                    <span class="lab-toolbar-title">Реляційна база даних: Архітектура 10 таблиць & Зв’язки</span>
-                    <span class="lab-toolbar-desc">· 3-тя нормальна форма (3NF). Наведіть курсор або клікніть по таблиці для підсвічування залежностей</span>
-                </div>
-                <div class="lab-toolbar-actions">
-                    <button class="btn-lab-action btn-lab-action--active" id="btn-er-reset-focus">🔄 Скинути фокус</button>
-                </div>
-            </div>
-
-            <div class="lab-workspace">
+            <div class="lab-workspace" style="padding: 10px 14px;">
                 <div class="db-studio-layout">
                     <div class="db-er-stage">
                         <div class="db-er-header">
-                            <span class="db-er-badge">🗄️ СХЕМА БД: 10 РЕЛЯЦІЙНИХ ТАБЛИЦЬ (POSTGRESQL 16 / MYSQL 8.0 INNODB)</span>
-                            <span class="db-er-active-summary" id="er-active-summary">
-                                Всі зв’язки: <strong>12 активних зовнішніх ключів (FK)</strong>
-                            </span>
+                            <span class="db-er-badge">🗄️ СХЕМА БД: 10 РЕЛЯЦІЙНИХ ТАБЛИЦЬ (POSTGRESQL 16 / MYSQL 8.0 INNODB · 3NF)</span>
+                            <div class="db-er-header-actions">
+                                <span class="db-er-active-summary" id="er-active-summary">
+                                    Всі зв’язки: <strong>12 активних зовнішніх ключів (FK)</strong>
+                                </span>
+                                <button class="btn-er-header-reset" id="btn-er-reset-focus">🔄 Скинути фокус</button>
+                            </div>
                         </div>
 
-                        <!-- Повноформатне полотно ER-схеми в єдиному масштабованому SVG просторі -->
+                        <!-- Повноформатне полотно ER-схеми в масштабованому SVG просторі -->
                         <div class="db-er-canvas-container" id="db-er-canvas">
-                            <svg class="db-er-svg-canvas" id="db-er-svg-canvas" viewBox="0 0 1600 425" preserveAspectRatio="xMidYMid meet">
+                            <svg class="db-er-svg-canvas" id="db-er-svg-canvas" viewBox="0 0 1600 485" preserveAspectRatio="xMidYMid meet">
                                 <defs>
                                     <filter id="er-glow" x="-20%" y="-20%" width="140%" height="140%">
                                         <feGaussianBlur stdDeviation="3.5" result="blur" />
@@ -1457,37 +1489,14 @@
                                         </foreignObject>
                                     `).join('')}
 
-                                    <!-- Інспектор поточної реляційної моделі (Колонка 4, знизу) -->
-                                    <foreignObject x="1185" y="215" width="380" height="195" class="db-fo-inspector">
+                                    <!-- Інформаційне вікно опису структури та ролі таблиці (Колонка 4, знизу) -->
+                                    <foreignObject x="1195" y="206" width="380" height="270" class="db-fo-inspector">
                                         <div class="db-info-panel-card" id="db-info-panel">
-                                            <div class="db-info-head">
-                                                <span class="db-info-title">📊 Інспектор реляцій</span>
-                                                <span class="db-info-badge" id="db-info-badge">3NF Модель</span>
-                                            </div>
-                                            <div class="db-info-body" id="db-info-body">
-                                                <div class="db-info-desc" id="db-info-desc">
-                                                    Наведіть на будь-яку таблицю або клікніть для дослідження зв’язків та зовнішніх ключів.
-                                                </div>
-                                                <div class="db-info-highlight" id="db-info-sub">
-                                                    🔗 Загалом: <strong>12 зв’язків (1:N) між 10 таблицями</strong>
-                                                </div>
-                                            </div>
-                                            <div class="db-info-metrics">
-                                                <div class="db-metric-pill">✔ 3NF Нормалізовано</div>
-                                                <div class="db-metric-pill">⚡ 10 B-Tree PK</div>
-                                                <div class="db-metric-pill">🔒 ACID Гарантія</div>
-                                                <div class="db-metric-pill">🛡️ RESTRICT/CASCADE</div>
-                                            </div>
+                                            <!-- Рендериться динамічно -->
                                         </div>
                                     </foreignObject>
                                 </g>
                             </svg>
-                        </div>
-
-                        <div class="db-er-footer-bar">
-                            <span>Архітектура СУБД: <strong>PostgreSQL 16 & MySQL 8.0 InnoDB</strong></span>
-                            <span>Нормалізація: <strong>3-тя нормальна форма (3NF, усунуто надмірність)</strong></span>
-                            <span>Цілісність даних: <strong>FOREIGN KEY (ON DELETE RESTRICT / CASCADE)</strong></span>
                         </div>
                     </div>
                 </div>
@@ -1495,6 +1504,7 @@
         `;
 
         setupDbEventListeners(stage);
+        updateDbFocus(stage);
         drawDbLinks(stage);
     }
 
@@ -1553,9 +1563,7 @@
         const activeTableId = lockedTableId || hoveredTableId;
         const cards = stage.querySelectorAll('.db-table-card');
         const badge = stage.querySelector('#er-active-summary');
-        const infoBadge = stage.querySelector('#db-info-badge');
-        const infoDesc = stage.querySelector('#db-info-desc');
-        const infoSub = stage.querySelector('#db-info-sub');
+        const infoPanel = stage.querySelector('#db-info-panel');
 
         if (!activeTableId) {
             cards.forEach(c => {
@@ -1565,9 +1573,29 @@
                 if (b && t) b.textContent = t.tier;
             });
             if (badge) badge.innerHTML = `Всі зв’язки: <strong>12 активних зовнішніх ключів (FK)</strong>`;
-            if (infoBadge) infoBadge.textContent = '3NF Модель';
-            if (infoDesc) infoDesc.textContent = 'Наведіть на будь-яку таблицю або клікніть для дослідження зв’язків та зовнішніх ключів.';
-            if (infoSub) infoSub.innerHTML = `🔗 Загалом: <strong>12 зв’язків (1:N) між 10 таблицями</strong>`;
+
+            if (infoPanel) {
+                infoPanel.innerHTML = `
+                    <div class="db-info-head">
+                        <span class="db-info-title">🗄️ Опис структури таблиць БД</span>
+                        <span class="db-info-badge">3NF Модель</span>
+                    </div>
+                    <div class="db-info-body">
+                        <div class="db-info-desc">
+                            Наведіть курсор або клікніть на будь-яку з 10 таблиць, щоб дослідити:
+                        </div>
+                        <ul class="db-info-list">
+                            <li>🎯 <strong>Призначення:</strong> яку бізнес-роль таблиця виконує в системі коледжу;</li>
+                            <li>💾 <strong>Збережені дані:</strong> які саме атрибути, поля та типи в ній фіксуються;</li>
+                            <li>🔗 <strong>Реляційні зв’язки:</strong> зовнішні ключі (FK), батьківські та дочірні таблиці.</li>
+                        </ul>
+                        <div class="db-info-highlight">
+                            💡 Архітектура: <strong>10 реляційних таблиць</strong> та <strong>12 зв'язків (1:N, 1:1)</strong>
+                        </div>
+                    </div>
+                `;
+            }
+
             drawDbLinks(stage);
             return;
         }
@@ -1607,15 +1635,35 @@
         if (badge && activeTable) {
             badge.innerHTML = `Фокус: <strong>${activeTable.name} (${activeRelIds.length} зв’язків)</strong>`;
         }
-        if (infoBadge && activeTable) {
-            infoBadge.textContent = activeTable.name;
-        }
-        if (infoDesc && activeTable) {
-            infoDesc.innerHTML = `<strong>${activeTable.label} (${activeTable.name})</strong>: ${activeTable.desc}`;
-        }
-        if (infoSub && activeTable) {
-            const relNames = Array.from(relatedIds).map(id => `<code>${id}</code>`).join(', ');
-            infoSub.innerHTML = `🔗 Суміжні таблиці (${relatedIds.size}): ${relNames}`;
+
+        if (infoPanel && activeTable) {
+            const isLocked = lockedTableId === activeTableId;
+            const relBadges = Array.from(relatedIds).map(id => {
+                const rt = DB_10_TABLES.find(x => x.id === id);
+                return `<span class="db-info-rel-pill">${rt ? rt.icon : '🔗'} ${id}</span>`;
+            }).join('');
+
+            infoPanel.innerHTML = `
+                <div class="db-info-head">
+                    <span class="db-info-title">${activeTable.icon} <code>${activeTable.name}</code> (${activeTable.label})</span>
+                    <span class="db-info-badge">${isLocked ? '📌 ЗАКРІПЛЕНО' : activeTable.tier}</span>
+                </div>
+                <div class="db-info-body">
+                    <div class="db-info-section">
+                        <span class="db-info-section-title">🎯 Що робить (Призначення):</span>
+                        <div class="db-info-text">${activeTable.desc}</div>
+                    </div>
+                    <div class="db-info-section">
+                        <span class="db-info-section-title">💾 Які дані зберігає:</span>
+                        <div class="db-info-text">${activeTable.dataDesc}</div>
+                    </div>
+                    <div class="db-info-section">
+                        <span class="db-info-section-title">🔗 Реляційні зв’язки (${relatedIds.size}):</span>
+                        <div class="db-info-text" style="margin-bottom: 2px;">${activeTable.relDesc}</div>
+                        <div class="db-info-rel-wrap">${relBadges}</div>
+                    </div>
+                </div>
+            `;
         }
 
         drawDbLinks(stage, activeRelIds);
@@ -1641,70 +1689,70 @@
 
             if (rel.id === 'r_spec_groups') {
                 // specialties -> academic_groups (пряма горизонтальна)
-                x1 = t1.x + t1.w; y1 = t1.y + 60;
-                x2 = t2.x; y2 = t2.y + 60;
+                x1 = t1.x + t1.w; y1 = t1.y + 70;
+                x2 = t2.x; y2 = t2.y + 70;
                 d = `M ${x1} ${y1} L ${x2} ${y2}`;
             } else if (rel.id === 'r_groups_stud') {
                 // academic_groups -> students (пряма горизонтальна)
-                x1 = t1.x + t1.w; y1 = t1.y + 60;
-                x2 = t2.x; y2 = t2.y + 60;
+                x1 = t1.x + t1.w; y1 = t1.y + 70;
+                x2 = t2.x; y2 = t2.y + 70;
                 d = `M ${x1} ${y1} L ${x2} ${y2}`;
             } else if (rel.id === 'r_dept_teach') {
                 // departments -> teachers (пряма горизонтальна)
-                x1 = t1.x + t1.w; y1 = t1.y + 55;
-                x2 = t2.x; y2 = t2.y + 55;
+                x1 = t1.x + t1.w; y1 = t1.y + 65;
+                x2 = t2.x; y2 = t2.y + 65;
                 d = `M ${x1} ${y1} L ${x2} ${y2}`;
             } else if (rel.id === 'r_disc_sched') {
                 // disciplines -> schedules (пряма горизонтальна)
-                x1 = t1.x + t1.w; y1 = t1.y + 60;
-                x2 = t2.x; y2 = t2.y + 60;
+                x1 = t1.x + t1.w; y1 = t1.y + 70;
+                x2 = t2.x; y2 = t2.y + 75;
                 d = `M ${x1} ${y1} L ${x2} ${y2}`;
             } else if (rel.id === 'r_stud_grades') {
                 // students -> exam_grades (плавна крива вниз-вправо)
-                x1 = t1.x + t1.w; y1 = t1.y + 60;
-                x2 = t2.x; y2 = t2.y + 65;
+                x1 = t1.x + t1.w; y1 = t1.y + 70;
+                x2 = t2.x; y2 = t2.y + 70;
                 const dx = (x2 - x1) * 0.45;
                 d = `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`;
             } else if (rel.id === 'r_sched_grades') {
                 // schedules -> exam_grades (плавна крива вгору-вправо)
-                x1 = t1.x + t1.w; y1 = t1.y + 55;
+                x1 = t1.x + t1.w; y1 = t1.y + 65;
                 x2 = t2.x; y2 = t2.y + 125;
                 const dx = (x2 - x1) * 0.45;
                 d = `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`;
             } else if (rel.id === 'r_teach_sched') {
                 // teachers -> schedules (плавна крива вниз-вправо)
-                x1 = t1.x + t1.w; y1 = t1.y + 65;
-                x2 = t2.x; y2 = t2.y + 40;
+                x1 = t1.x + t1.w; y1 = t1.y + 70;
+                x2 = t2.x; y2 = t2.y + 45;
                 const dx = (x2 - x1) * 0.45;
                 d = `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`;
             } else if (rel.id === 'r_disc_curr') {
                 // disciplines -> curriculum (плавна крива вгору-вправо)
-                x1 = t1.x + t1.w; y1 = t1.y + 40;
-                x2 = t2.x; y2 = t2.y + 80;
+                x1 = t1.x + t1.w; y1 = t1.y + 45;
+                x2 = t2.x; y2 = t2.y + 90;
                 const dx = (x2 - x1) * 0.45;
                 d = `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`;
             } else if (rel.id === 'r_spec_curr') {
                 // specialties -> curriculum (плавна дуга через простір між колонками)
-                x1 = t1.x + t1.w; y1 = t1.y + 35;
-                x2 = t2.x; y2 = t2.y + 45;
+                x1 = t1.x + t1.w; y1 = t1.y + 45;
+                x2 = t2.x; y2 = t2.y + 50;
                 const dx = (x2 - x1) * 0.35;
                 d = `M ${x1} ${y1} C ${x1 + dx} ${y1 - 10}, ${x2 - dx} ${y2 - 10}, ${x2} ${y2}`;
             } else if (rel.id === 'r_groups_sched') {
                 // academic_groups -> schedules (дуга через міжряддя)
-                x1 = t1.x + t1.w; y1 = t1.y + 85;
-                x2 = t2.x; y2 = t2.y + 25;
+                x1 = t1.x + t1.w; y1 = t1.y + 95;
+                x2 = t2.x; y2 = t2.y + 30;
                 const dx = (x2 - x1) * 0.35;
                 d = `M ${x1} ${y1} C ${x1 + dx} ${y1 + 35}, ${x2 - dx} ${y2 - 35}, ${x2} ${y2}`;
             } else if (rel.id === 'r_rooms_sched') {
                 // classrooms -> schedules (дуга вздовж нижнього каналу)
-                x1 = t1.x + t1.w; y1 = t1.y + 60;
-                x2 = t2.x; y2 = t2.y + 90;
+                x1 = t1.x + t1.w; y1 = t1.y + 70;
+                x2 = t2.x; y2 = t2.y + 115;
                 const dx = (x2 - x1) * 0.35;
                 d = `M ${x1} ${y1} C ${x1 + dx} ${y1 + 30}, ${x2 - dx} ${y2 + 30}, ${x2} ${y2}`;
             } else if (rel.id === 'r_teach_dept') {
                 // teachers -> departments (двосторонній зв’язок)
-                x1 = t1.x; y1 = t1.y + 80;
-                x2 = t2.x + t2.w; y2 = t2.y + 80;
+                x1 = t1.x; y1 = t1.y + 90;
+                x2 = t2.x + t2.w; y2 = t2.y + 90;
                 d = `M ${x1} ${y1} L ${x2} ${y2}`;
             }
 
@@ -1796,76 +1844,68 @@
     let gradientEpoch = 0;
     let gradientTimer = null;
     let probeMouseX = null; // Позиція мишки для лазерного інспектора прогнозу
+    let instantCalcDone = false; // Прапорець миттєвого прорахунку всіх точок
 
     let draggedEntity = null; // Drag & drop стан
 
     function renderAiLab(stage) {
         stage.innerHTML = `
-            <div class="lab-toolbar">
-                <div class="lab-toolbar-info">
-                    <span class="lab-toolbar-badge">ЛАБОРАТОРІЯ 03</span>
-                    <span class="lab-toolbar-title">Штучний інтелект & Машинне навчання</span>
-                    <span class="lab-toolbar-desc">· K-Means з динамічним радіусом охоплення та Поліноміальна регресія з аналізом перенавчання</span>
+            <div class="ai-workspace-layout">
+                <!-- Повноформатна верхня панель перемикання 2 режимів ШІ (на всю ширину) -->
+                <div class="ai-navbar-full">
+                    <div class="ai-nav-card ${aiSubmode === 'kmeans' ? 'ai-nav-card--active' : ''}" data-aimode="kmeans">
+                        <span class="ai-nav-card__icon">🧠</span>
+                        <div class="ai-nav-card__body">
+                            <span class="ai-nav-card__title">K-Means Кластеризація</span>
+                            <span class="ai-nav-card__desc">Покрокове обчислення Евклідових відстаней, центри мас та межі кластерів</span>
+                        </div>
+                    </div>
+                    <div class="ai-nav-card ${aiSubmode === 'regression' ? 'ai-nav-card--active' : ''}" data-aimode="regression">
+                        <span class="ai-nav-card__icon">📈</span>
+                        <div class="ai-nav-card__body">
+                            <span class="ai-nav-card__title">Поліноміальна регресія</span>
+                            <span class="ai-nav-card__desc">Апроксимація IT-ринку праці, градієнтний спуск та аналіз перенавчання (Overfitting)</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="lab-toolbar-actions">
-                    <button class="btn-lab-action ${aiSubmode === 'kmeans' ? 'btn-lab-action--active' : ''}" id="btn-ai-mode-kmeans">
-                        🧠 K-Means (Обчислення відстаней)
-                    </button>
-                    <button class="btn-lab-action ${aiSubmode === 'regression' ? 'btn-lab-action--active' : ''}" id="btn-ai-mode-reg">
-                        📈 ML Регресія (Прогнозування доходу)
-                    </button>
-                </div>
-            </div>
 
-            <div class="lab-workspace">
-                <div class="ai-workspace-layout" id="ai-workspace-content">
+                <!-- Робоча сцена активного режиму ШІ -->
+                <div class="ai-stage-card" id="ai-workspace-content">
                     <!-- Залежно від aiSubmode -->
-                </div>
-            </div>
-
-            <div class="lab-footer">
-                <div class="lab-footer-metrics" id="ai-footer-metrics">
-                    <!-- Метрики моделі -->
-                </div>
-                <div class="lab-footer-discipline">
-                    <span>Дисципліна:</span>
-                    <strong>«Штучний інтелект» / «Інтелектуальний аналіз даних (Machine Learning)»</strong>
                 </div>
             </div>
         `;
 
-        stage.querySelector('#btn-ai-mode-kmeans')?.addEventListener('click', () => {
-            aiSubmode = 'kmeans';
-            if (isKScanning) { clearInterval(kScanTimer); isKScanning = false; }
-            if (isTrainingGradient) { clearInterval(gradientTimer); isTrainingGradient = false; }
-            renderAiLab(stage);
+        stage.querySelectorAll('.ai-nav-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const mode = card.getAttribute('data-aimode');
+                if (mode && mode !== aiSubmode) {
+                    aiSubmode = mode;
+                    if (isKScanning) { clearInterval(kScanTimer); isKScanning = false; }
+                    if (isTrainingGradient) { clearInterval(gradientTimer); isTrainingGradient = false; }
+                    renderAiLab(stage);
+                }
+            });
         });
 
-        stage.querySelector('#btn-ai-mode-reg')?.addEventListener('click', () => {
-            aiSubmode = 'regression';
-            if (isKScanning) { clearInterval(kScanTimer); isKScanning = false; }
-            renderAiLab(stage);
-        });
-
-        renderAiSubmodeContent();
+        renderAiSubmodeContent(stage);
     }
 
-    function renderAiSubmodeContent() {
-        const container = document.getElementById('ai-workspace-content');
-        const metricsEl = document.getElementById('ai-footer-metrics');
+    function renderAiSubmodeContent(stage) {
+        const container = stage ? stage.querySelector('#ai-workspace-content') : document.getElementById('ai-workspace-content');
         if (!container) return;
 
         if (aiSubmode === 'kmeans') {
-            renderKMeansAdvanced(container, metricsEl);
+            renderKMeansAdvanced(container);
         } else {
-            renderRegressionAdvanced(container, metricsEl);
+            renderRegressionAdvanced(container);
         }
     }
 
     // ========================================================================
     // 3.1. K-MEANS: ПОКРОКОВЕ ОБЧИСЛЕННЯ ВІДСТАНЕЙ + ДИНАМІЧНИЙ РАДІУС ОХОПЛЕННЯ
     // ========================================================================
-    function renderKMeansAdvanced(container, metricsEl) {
+    function renderKMeansAdvanced(container) {
         const activePt = kPoints[activeKPointIdx] || kPoints[0];
 
         // Точний математичний розрахунок відстаней від activePt до 3 центроїдів
@@ -1875,145 +1915,207 @@
 
         const minD = Math.min(d1, d2, d3);
         const bestClusterIdx = minD === d1 ? 0 : minD === d2 ? 1 : 2;
-        activePt.cluster = bestClusterIdx;
+        if (!instantCalcDone) {
+            activePt.cluster = bestClusterIdx;
+        }
 
         // ДИНАМІЧНИЙ РОЗРАХУНОК РАДІУСА: збільшується на відстань найвіддаленішої точки кластера!
         const dynamicRadii = kCentroids.map((c, cIdx) => {
             const ptsInCluster = kPoints.filter(p => p.cluster === cIdx);
             if (ptsInCluster.length > 0) {
                 const maxD = Math.max(...ptsInCluster.map(p => Math.hypot(p.x - c.x, p.y - c.y)));
-                return Math.max(35, maxD + 18); // +18px щоб точка гарантовано була всередині
+                return Math.max(38, maxD + 20); // +20px щоб точка гарантовано була всередині
             }
-            return 35;
+            return 38;
         });
 
+        // Інерція втрат J = sum d^2
+        const inertia = kPoints.reduce((sum, p) => {
+            const c = kCentroids[p.cluster];
+            return sum + Math.pow(p.x - c.x, 2) + Math.pow(p.y - c.y, 2);
+        }, 0) / 1000;
+
+        const clusterCounts = [
+            kPoints.filter(p => p.cluster === 0).length,
+            kPoints.filter(p => p.cluster === 1).length,
+            kPoints.filter(p => p.cluster === 2).length
+        ];
+
         container.innerHTML = `
-            <div class="algo-subnav">
+            <div class="algo-subnav" style="width: 100%; box-sizing: border-box; margin-bottom: 8px;">
                 <div style="display: flex; gap: 8px; align-items: center;">
-                    <button class="btn-lab-action ${isKScanning ? 'btn-lab-action--active' : 'btn-lab-action--primary'}" id="btn-k-autoscan">
-                        ${isKScanning ? '⏸ Зупинити сканування' : '▶ Авто-обчислення точок'}
+                    <button class="btn-lab-action btn-lab-action--primary" id="btn-k-instant-calc" title="Миттєво закріпити всі точки за найближчими центроїдами">
+                        ⚡ Прорахувати всі точки
                     </button>
-                    <button class="btn-lab-action" id="btn-k-next-point">👣 Наступна точка (P${activeKPointIdx + 1})</button>
+                    <button class="btn-lab-action ${isKScanning ? 'btn-lab-action--active' : ''}" id="btn-k-autoscan">
+                        ${isKScanning ? '⏸ Зупинити' : '▶ Авто-обчислення'}
+                    </button>
+                    <button class="btn-lab-action" id="btn-k-next-point">👣 Наступна (P${activeKPointIdx + 1})</button>
                     <button class="btn-lab-action" id="btn-k-recalc-centroids">🎯 Оновити центри мас</button>
-                    <button class="btn-lab-action" id="btn-k-shuffle">🎲 Випадкові точки</button>
+                    <button class="btn-lab-action" id="btn-k-shuffle">🎲 Нова вибірка</button>
                 </div>
-                <div style="font-size: 11px; color: #64748B;">
-                    👆 <strong>Клікайте на будь-яку точку</strong> або <strong>перетягуйте мишкою центроїди та точки</strong>!
+                <div style="font-size: 11.5px; color: #475569; font-weight: 700;">
+                    Вибірка: <strong>${kPoints.length} точок</strong> | Інерція втрат J: <strong>${inertia.toFixed(1)}</strong>
                 </div>
             </div>
 
-            <div class="ai-lab-split-stage">
+            <div class="ai-split-container">
                 <!-- Ліва частина: Векторна SVG сцена з Drag & Drop -->
-                <div class="ai-interactive-canvas-box" id="ai-canvas-box">
-                    <span class="ai-drag-hint-badge">💡 Радіус кластера автоматично охоплює найвіддаленішу точку</span>
-                    <svg id="ai-kmeans-svg" viewBox="0 0 740 340" style="width: 100%; height: 100%; max-height: 340px;">
-                        <!-- Сітка -->
-                        ${renderSvgGrid(740, 340)}
+                <div class="ai-canvas-panel">
+                    <div class="ai-interactive-canvas-box" id="ai-canvas-box">
+                        <span class="ai-drag-hint-badge">💡 Радіус кластера охоплює найвіддаленішу точку вибірки</span>
+                        <svg id="ai-kmeans-svg" viewBox="0 0 740 350" style="width: 100%; height: 100%; max-height: 350px;">
+                            <!-- Сітка -->
+                            ${renderSvgGrid(740, 350)}
 
-                        <!-- ДИНАМІЧНІ АРЕАЛИ: радіус строго до найдальшої точки кластера! -->
-                        ${kCentroids.map((c, cIdx) => `
-                            <circle cx="${c.x}" cy="${c.y}" r="${dynamicRadii[cIdx]}" fill="${c.col}" fill-opacity="0.08" stroke="${c.col}" stroke-opacity="0.35" stroke-dasharray="4 3" style="transition: r 0.25s ease;" />
-                        `).join('')}
+                            <!-- ДИНАМІЧНІ АРЕАЛИ: радіус строго до найдальшої точки кластера! -->
+                            ${kCentroids.map((c, cIdx) => `
+                                <circle cx="${c.x}" cy="${c.y}" r="${dynamicRadii[cIdx]}" fill="${c.col}" fill-opacity="0.08" stroke="${c.col}" stroke-opacity="0.38" stroke-dasharray="5 4" style="transition: r 0.25s ease;" />
+                            `).join('')}
 
-                        <!-- 3 Промені обчислення відстаней від активної точки до 3 центроїдів -->
-                        ${renderDistRay(activePt.x, activePt.y, kCentroids[0].x, kCentroids[0].y, d1, d1 === minD, '#7C3AED', 'd₁')}
-                        ${renderDistRay(activePt.x, activePt.y, kCentroids[1].x, kCentroids[1].y, d2, d2 === minD, '#10B981', 'd₂')}
-                        ${renderDistRay(activePt.x, activePt.y, kCentroids[2].x, kCentroids[2].y, d3, d3 === minD, '#3B82F6', 'd₃')}
+                            <!-- 3 Промені обчислення відстаней від активної точки до 3 центроїдів -->
+                            ${renderDistRay(activePt.x, activePt.y, kCentroids[0].x, kCentroids[0].y, d1, d1 === minD, '#7C3AED', 'd₁')}
+                            ${renderDistRay(activePt.x, activePt.y, kCentroids[1].x, kCentroids[1].y, d2, d2 === minD, '#10B981', 'd₂')}
+                            ${renderDistRay(activePt.x, activePt.y, kCentroids[2].x, kCentroids[2].y, d3, d3 === minD, '#3B82F6', 'd₃')}
 
-                        <!-- Точки вибірки даних (Draggable) -->
-                        ${kPoints.map((p, idx) => {
-                            const isSelected = idx === activeKPointIdx;
-                            const clusterCol = p.cluster === 0 ? '#7C3AED' : p.cluster === 1 ? '#10B981' : '#3B82F6';
-                            return `
-                                <g class="ai-svg-node-draggable" data-type="point" data-idx="${idx}">
-                                    ${isSelected ? `<circle cx="${p.x}" cy="${p.y}" r="14" fill="none" stroke="${clusterCol}" stroke-width="2" stroke-dasharray="3 2" opacity="0.8"><animateTransform attributeName="transform" type="rotate" from="0 ${p.x} ${p.y}" to="360 ${p.x} ${p.y}" dur="4s" repeatCount="indefinite"/></circle>` : ''}
-                                    <circle cx="${p.x}" cy="${p.y}" r="${isSelected ? '8' : '6.5'}" fill="${clusterCol}" stroke="#FFFFFF" stroke-width="2" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.12))" />
-                                    <text x="${p.x}" y="${p.y - 10}" font-size="9" font-weight="700" fill="#64748B" text-anchor="middle">P${idx + 1}</text>
+                            <!-- Точки вибірки даних (Draggable) -->
+                            ${kPoints.map((p, idx) => {
+                                const isSelected = idx === activeKPointIdx;
+                                const clusterCol = p.cluster === 0 ? '#7C3AED' : p.cluster === 1 ? '#10B981' : '#3B82F6';
+                                return `
+                                    <g class="ai-svg-node-draggable" data-type="point" data-idx="${idx}">
+                                        ${isSelected ? `<circle cx="${p.x}" cy="${p.y}" r="16" fill="none" stroke="${clusterCol}" stroke-width="2.5" stroke-dasharray="4 3" opacity="0.85"><animateTransform attributeName="transform" type="rotate" from="0 ${p.x} ${p.y}" to="360 ${p.x} ${p.y}" dur="4s" repeatCount="indefinite"/></circle>` : ''}
+                                        <circle cx="${p.x}" cy="${p.y}" r="${isSelected ? '9' : '7.5'}" fill="${clusterCol}" stroke="#FFFFFF" stroke-width="2.5" filter="drop-shadow(0 2px 5px rgba(0,0,0,0.15))" />
+                                        <text x="${p.x}" y="${p.y - 12}" font-size="11" font-weight="800" fill="#475569" text-anchor="middle">P${idx + 1}</text>
+                                    </g>
+                                `;
+                            }).join('')}
+
+                            <!-- Центроїди (Зірки, Draggable) -->
+                            ${kCentroids.map((c, cIdx) => `
+                                <g class="ai-svg-node-draggable" data-type="centroid" data-idx="${cIdx}">
+                                    <circle cx="${c.x}" cy="${c.y}" r="20" fill="${c.col}" stroke="#FFFFFF" stroke-width="3" filter="drop-shadow(0 4px 10px rgba(0,0,0,0.22))" />
+                                    <text x="${c.x}" y="${c.y + 5}" font-size="15" font-weight="900" fill="#FFFFFF" text-anchor="middle">★</text>
+                                    <text x="${c.x}" y="${c.y + 35}" font-size="11.5" font-weight="800" fill="${c.col}" text-anchor="middle">C${cIdx + 1} (R: ${Math.round(dynamicRadii[cIdx])}px)</text>
                                 </g>
-                            `;
-                        }).join('')}
-
-                        <!-- Центроїди (Зірки, Draggable) -->
-                        ${kCentroids.map((c, cIdx) => `
-                            <g class="ai-svg-node-draggable" data-type="centroid" data-idx="${cIdx}">
-                                <circle cx="${c.x}" cy="${c.y}" r="18" fill="${c.col}" stroke="#FFFFFF" stroke-width="3" filter="drop-shadow(0 3px 8px rgba(0,0,0,0.2))" />
-                                <text x="${c.x}" y="${c.y + 4}" font-size="13" font-weight="900" fill="#FFFFFF" text-anchor="middle">★</text>
-                                <text x="${c.x}" y="${c.y + 32}" font-size="10" font-weight="800" fill="${c.col}" text-anchor="middle">C${cIdx + 1} (R: ${Math.round(dynamicRadii[cIdx])}px)</text>
-                            </g>
-                        `).join('')}
-                    </svg>
+                            `).join('')}
+                        </svg>
+                    </div>
                 </div>
 
-                <!-- Права частина: Живий математичний аналізатор -->
-                <div class="ai-math-inspector-panel">
+                <!-- Права частина: Інженерний аналізатор ШІ та покрокові пояснення -->
+                <div class="ai-side-inspector">
                     <div class="ai-inspector-head">
-                        <span>📐 ОБЧИСЛЕННЯ ВІДСТАНЕЙ (EUCLIDEAN METRIC)</span>
-                        <span style="color: #7C3AED; font-weight: 800;">КРОК P${activeKPointIdx + 1} / ${kPoints.length}</span>
+                        <span class="ai-inspector-title">🧠 АНАЛІЗАТОР КЛАСТЕРИЗАЦІЇ K-MEANS</span>
+                        <span class="ai-inspector-badge">Unsupervised ML</span>
                     </div>
 
-                    <div class="ai-active-point-badge">
-                        <span>📍 Активна точка: <strong>P${activeKPointIdx + 1}</strong></span>
-                        <span style="font-family: ui-monospace, monospace; color: #64748B;">Координати: (${Math.round(activePt.x)}, ${Math.round(activePt.y)})</span>
+                    <!-- Результат обчислення -->
+                    <div class="algo-result-card">
+                        ${instantCalcDone ? `
+                            <div class="algo-result-label">Результат миттєвого прорахунку:</div>
+                            <div class="algo-result-val">✔ Усі 18 точок вибірки кластеризовано!</div>
+                            <div class="algo-result-sub">
+                                Кластер 1: <strong>${clusterCounts[0]}</strong> | Кластер 2: <strong>${clusterCounts[1]}</strong> | Кластер 3: <strong>${clusterCounts[2]}</strong> | Інерція: <strong>${inertia.toFixed(1)}</strong>
+                            </div>
+                        ` : `
+                            <div class="algo-result-label">Активна точка P${activeKPointIdx + 1} (${Math.round(activePt.x)}, ${Math.round(activePt.y)}):</div>
+                            <div class="algo-result-val">min(d₁, d₂, d₃) = <strong>${minD.toFixed(1)} px</strong></div>
+                            <div class="algo-result-sub">
+                                ➔ Закріплено за: <strong>${kCentroids[bestClusterIdx].name}</strong> (R: ${Math.round(dynamicRadii[bestClusterIdx])}px)
+                            </div>
+                        `}
                     </div>
 
-                    <div class="ai-formula-card">
-                        Формула Евклідової відстані до центроїда:
-                        <br><strong>d(P, C) = √((X_p - X_c)² + (Y_p - Y_c)²)</strong>
-                    </div>
-
-                    <div class="ai-dist-comparison-list">
-                        <div class="ai-dist-row ${bestClusterIdx === 0 ? 'is-winner' : ''}">
-                            <span>d₁ ➔ Центроїд 1:</span>
-                            <strong>${d1.toFixed(1)} px ${bestClusterIdx === 0 ? '✓ MIN' : ''}</strong>
+                    <!-- 3 Евклідові відстані (3-стовпчикова компактна сітка) -->
+                    <div class="ai-dist-comparison-grid">
+                        <div class="ai-dist-card ${bestClusterIdx === 0 ? 'is-winner' : ''}">
+                            <div class="ai-dist-card__header">
+                                <span>C₁ (Фіолет)</span>
+                                ${bestClusterIdx === 0 ? '<span>✔ MIN</span>' : ''}
+                            </div>
+                            <div class="ai-dist-card__val">${d1.toFixed(1)} px</div>
                         </div>
-                        <div class="ai-dist-row ${bestClusterIdx === 1 ? 'is-winner' : ''}">
-                            <span>d₂ ➔ Центроїд 2:</span>
-                            <strong>${d2.toFixed(1)} px ${bestClusterIdx === 1 ? '✓ MIN' : ''}</strong>
+                        <div class="ai-dist-card ${bestClusterIdx === 1 ? 'is-winner' : ''}">
+                            <div class="ai-dist-card__header">
+                                <span>C₂ (Зелений)</span>
+                                ${bestClusterIdx === 1 ? '<span>✔ MIN</span>' : ''}
+                            </div>
+                            <div class="ai-dist-card__val">${d2.toFixed(1)} px</div>
                         </div>
-                        <div class="ai-dist-row ${bestClusterIdx === 2 ? 'is-winner' : ''}">
-                            <span>d₃ ➔ Центроїд 3:</span>
-                            <strong>${d3.toFixed(1)} px ${bestClusterIdx === 2 ? '✓ MIN' : ''}</strong>
+                        <div class="ai-dist-card ${bestClusterIdx === 2 ? 'is-winner' : ''}">
+                            <div class="ai-dist-card__header">
+                                <span>C₃ (Синій)</span>
+                                ${bestClusterIdx === 2 ? '<span>✔ MIN</span>' : ''}
+                            </div>
+                            <div class="ai-dist-card__val">${d3.toFixed(1)} px</div>
                         </div>
                     </div>
 
-                    <div class="ai-decision-card">
-                        <span>ВИСНОВОК АЛГОРИТМУ ДЛЯ ТОЧКИ P${activeKPointIdx + 1}:</span>
-                        <span>min(d₁, d₂, d₃) = <strong>${minD.toFixed(1)} px</strong></span>
-                        <span>➔ Закріплено за <strong>${kCentroids[bestClusterIdx].name}</strong></span>
+                    <!-- Блок 1: Принцип роботи та розрахунок відстаней -->
+                    <div class="algo-guide-box">
+                        <div class="algo-guide-title">📖 Принцип роботи та розрахунок відстаней</div>
+                        <div class="algo-guide-text">
+                            <strong>Алгоритм K-Means</strong> групує нерозмічені вектори у <strong>K=3</strong> кластери. Кожна точка закріплюється за найближчим центроїдом за Евклідовою метрикою: <code>d = √((x - x_c)² + (y - y_c)²)</code>. Пунктирні кола охоплюють найвіддаленішу точку кожного кластера.
+                        </div>
+                        <div class="algo-legend-row">
+                            <span class="algo-legend-pill">★ <strong>Зірки (C₁..C₃):</strong> центроїди</span>
+                            <span class="algo-legend-pill">🟣 <strong>Точки (P₁..P₁₈):</strong> дані вибірки</span>
+                            <span class="algo-legend-pill">⭕ <strong>Пунктир:</strong> межі радіусів R</span>
+                        </div>
+                    </div>
+
+                    <!-- Блок 2: Керування та практика в IT -->
+                    <div class="algo-guide-box">
+                        <div class="algo-guide-title">🎮 Керування та практика в IT</div>
+                        <ul class="algo-guide-list">
+                            <li><strong>⚡ Прорахувати всі точки</strong> — миттєва кластеризація та розширення радіусів R.</li>
+                            <li><strong>▶ Авто-обчислення</strong> або <strong>👣 Наступна</strong> — покроковий розрахунок точок.</li>
+                            <li><strong>🎯 Оновити центри мас</strong> — перерахунок центроїдів у середнє арифметичне.</li>
+                            <li><strong>Перетягуйте мишкою</strong> зірки чи точки — живий розрахунок на сітці.</li>
+                        </ul>
+                        <div class="algo-it-callout">
+                            🚀 <strong>Застосування в IT:</strong> Сегментація аудиторії в CRM, рекомендаційні алгоритми (Spotify, Netflix), стиснення зображень, детекція аномалій (Fraud Detection).
+                        </div>
                     </div>
                 </div>
             </div>
         `;
 
-        if (metricsEl) {
-            const inertia = kPoints.reduce((sum, p) => {
-                const c = kCentroids[p.cluster];
-                return sum + Math.pow(p.x - c.x, 2) + Math.pow(p.y - c.y, 2);
-            }, 0) / 1000;
-
-            metricsEl.innerHTML = `
-                <div class="lab-metric-item">Оброблено точок: <strong class="highlight-purple">${activeKPointIdx + 1} з ${kPoints.length}</strong></div>
-                <div class="lab-metric-item">Радіуси охоплення: <strong>R₁=${Math.round(dynamicRadii[0])}px, R₂=${Math.round(dynamicRadii[1])}px, R₃=${Math.round(dynamicRadii[2])}px</strong></div>
-                <div class="lab-metric-item">Інерція втрат J = ∑ d²: <strong class="highlight-green">${inertia.toFixed(1)}</strong></div>
-            `;
-        }
-
-        container.querySelector('#btn-k-next-point')?.addEventListener('click', () => {
-            activeKPointIdx = (activeKPointIdx + 1) % kPoints.length;
-            renderKMeansAdvanced(container, metricsEl);
-        });
-
-        container.querySelector('#btn-k-autoscan')?.addEventListener('click', () => {
+        container.querySelector('#btn-k-instant-calc')?.addEventListener('click', () => {
             if (isKScanning) {
                 clearInterval(kScanTimer);
                 isKScanning = false;
-                renderKMeansAdvanced(container, metricsEl);
+            }
+            kPoints.forEach(p => {
+                const cd1 = Math.hypot(p.x - kCentroids[0].x, p.y - kCentroids[0].y);
+                const cd2 = Math.hypot(p.x - kCentroids[1].x, p.y - kCentroids[1].y);
+                const cd3 = Math.hypot(p.x - kCentroids[2].x, p.y - kCentroids[2].y);
+                const cminD = Math.min(cd1, cd2, cd3);
+                p.cluster = cminD === cd1 ? 0 : cminD === cd2 ? 1 : 2;
+            });
+            instantCalcDone = true;
+            renderKMeansAdvanced(container);
+        });
+
+        container.querySelector('#btn-k-next-point')?.addEventListener('click', () => {
+            instantCalcDone = false;
+            activeKPointIdx = (activeKPointIdx + 1) % kPoints.length;
+            renderKMeansAdvanced(container);
+        });
+
+        container.querySelector('#btn-k-autoscan')?.addEventListener('click', () => {
+            instantCalcDone = false;
+            if (isKScanning) {
+                clearInterval(kScanTimer);
+                isKScanning = false;
+                renderKMeansAdvanced(container);
             } else {
                 isKScanning = true;
-                renderKMeansAdvanced(container, metricsEl);
+                renderKMeansAdvanced(container);
                 kScanTimer = setInterval(() => {
                     activeKPointIdx = (activeKPointIdx + 1) % kPoints.length;
-                    renderKMeansAdvanced(container, metricsEl);
+                    renderKMeansAdvanced(container);
                 }, 550);
             }
         });
@@ -2026,35 +2128,36 @@
                     c.y = pts.reduce((sum, p) => sum + p.y, 0) / pts.length;
                 }
             });
-            renderKMeansAdvanced(container, metricsEl);
+            renderKMeansAdvanced(container);
         });
 
         container.querySelector('#btn-k-shuffle')?.addEventListener('click', () => {
             kPoints.forEach(p => {
-                p.x = 100 + Math.random() * 540;
-                p.y = 50 + Math.random() * 240;
+                p.x = 90 + Math.random() * 560;
+                p.y = 50 + Math.random() * 250;
             });
             activeKPointIdx = 0;
-            renderKMeansAdvanced(container, metricsEl);
+            instantCalcDone = false;
+            renderKMeansAdvanced(container);
         });
 
-        setupKMeansDragAndClick(container, metricsEl);
+        setupKMeansDragAndClick(container);
     }
 
     function renderDistRay(x1, y1, x2, y2, dist, isMin, col, label) {
         const mx = (x1 + x2) / 2;
         const my = (y1 + y2) / 2;
-        const strokeW = isMin ? '3' : '1.2';
-        const strokeOp = isMin ? '0.9' : '0.35';
+        const strokeW = isMin ? '3.5' : '1.5';
+        const strokeOp = isMin ? '0.95' : '0.4';
 
         return `
-            <line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width="${strokeW}" stroke-opacity="${strokeOp}" ${isMin ? '' : 'stroke-dasharray="4 3"'} />
-            <rect x="${mx - 18}" y="${my - 9}" width="36" height="18" rx="4" fill="#FFFFFF" stroke="${col}" stroke-width="${isMin ? '2' : '1'}" />
-            <text x="${mx}" y="${my + 4}" font-size="9.5" font-weight="700" fill="${col}" text-anchor="middle">${label}: ${Math.round(dist)}</text>
+            <line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width="${strokeW}" stroke-opacity="${strokeOp}" ${isMin ? '' : 'stroke-dasharray="5 4"'} />
+            <rect x="${mx - 24}" y="${my - 11}" width="48" height="22" rx="5" fill="#FFFFFF" stroke="${col}" stroke-width="${isMin ? '2' : '1.2'}" filter="drop-shadow(0 1px 3px rgba(0,0,0,0.1))" />
+            <text x="${mx}" y="${my + 4.5}" font-size="11" font-weight="800" fill="${col}" text-anchor="middle">${label}: ${Math.round(dist)}</text>
         `;
     }
 
-    function setupKMeansDragAndClick(container, metricsEl) {
+    function setupKMeansDragAndClick(container) {
         const svg = container.querySelector('#ai-kmeans-svg');
         if (!svg) return;
 
@@ -2064,7 +2167,10 @@
                 const type = node.getAttribute('data-type');
                 const idx = parseInt(node.getAttribute('data-idx'), 10);
                 draggedEntity = { type, idx };
-                if (type === 'point') activeKPointIdx = idx;
+                if (type === 'point') {
+                    activeKPointIdx = idx;
+                    instantCalcDone = false;
+                }
             });
 
             node.addEventListener('click', (e) => {
@@ -2072,7 +2178,8 @@
                 const idx = parseInt(node.getAttribute('data-idx'), 10);
                 if (type === 'point') {
                     activeKPointIdx = idx;
-                    renderKMeansAdvanced(container, metricsEl);
+                    instantCalcDone = false;
+                    renderKMeansAdvanced(container);
                 }
             });
         });
@@ -2083,13 +2190,13 @@
             if (draggedEntity.type === 'centroid') {
                 const c = kCentroids[draggedEntity.idx];
                 c.x = Math.max(40, Math.min(700, pt.x));
-                c.y = Math.max(30, Math.min(310, pt.y));
-                renderKMeansAdvanced(container, metricsEl);
+                c.y = Math.max(30, Math.min(320, pt.y));
+                renderKMeansAdvanced(container);
             } else if (draggedEntity.type === 'point') {
                 const p = kPoints[draggedEntity.idx];
                 p.x = Math.max(40, Math.min(700, pt.x));
-                p.y = Math.max(30, Math.min(310, pt.y));
-                renderKMeansAdvanced(container, metricsEl);
+                p.y = Math.max(30, Math.min(320, pt.y));
+                renderKMeansAdvanced(container);
             }
         });
 
@@ -2099,7 +2206,7 @@
     // ========================================================================
     // 3.2. ПРОДВИНУТА ПОЛІНОМІАЛЬНА РЕГРЕСІЯ: МОДЕЛЬ ПРОГНОЗУ ЗАРПЛАТИ IT
     // ========================================================================
-    function renderRegressionAdvanced(container, metricsEl) {
+    function renderRegressionAdvanced(container) {
         // Поліноміальна регресія за заданим ступенем regDegree (1, 2, 3, 5)
         const polyFit = fitPolynomial(regPoints, regDegree);
 
@@ -2109,9 +2216,9 @@
         const ribbonLower = [];
         for (let x = 60; x <= 680; x += 8) {
             const y = predictPoly(polyFit, x);
-            curvePoints.push({ x, y: Math.max(30, Math.min(310, y)) });
-            ribbonUpper.push({ x, y: Math.max(20, Math.min(320, y - 18)) });
-            ribbonLower.push({ x, y: Math.max(20, Math.min(320, y + 18)) });
+            curvePoints.push({ x, y: Math.max(30, Math.min(320, y)) });
+            ribbonUpper.push({ x, y: Math.max(20, Math.min(330, y - 18)) });
+            ribbonLower.push({ x, y: Math.max(20, Math.min(330, y + 18)) });
         }
 
         const pathData = 'M ' + curvePoints.map(p => `${p.x},${p.y}`).join(' L ');
@@ -2140,211 +2247,219 @@
         }
 
         container.innerHTML = `
-            <div class="algo-subnav">
-                <div style="display: flex; gap: 10px; align-items: center;">
-                    <span style="font-size: 11.5px; font-weight: 700; color: #475569;">Ступінь моделі:</span>
+            <div class="algo-subnav" style="width: 100%; box-sizing: border-box; margin-bottom: 8px;">
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <span style="font-size: 12px; font-weight: 700; color: #475569;">Ступінь:</span>
                     <div class="reg-degree-selector">
                         <button class="btn-reg-degree ${regDegree === 1 ? 'btn-reg-degree--active' : ''}" data-deg="1">1° Лінійна</button>
                         <button class="btn-reg-degree ${regDegree === 2 ? 'btn-reg-degree--active' : ''}" data-deg="2">2° Квадратична</button>
                         <button class="btn-reg-degree ${regDegree === 3 ? 'btn-reg-degree--active' : ''}" data-deg="3">3° Поліном (S-крива)</button>
                         <button class="btn-reg-degree btn-reg-degree--overfit ${regDegree === 5 ? 'btn-reg-degree--active' : ''}" data-deg="5">⚠️ 5° Overfitting</button>
                     </div>
-                    <button class="btn-lab-action ${isTrainingGradient ? 'btn-lab-action--active' : ''}" id="btn-reg-gradient">
-                        ⚡ ${isTrainingGradient ? 'Навчання епохи ' + gradientEpoch + '/20' : 'Градієнтний спуск'}
-                    </button>
                     <button class="btn-lab-action ${showResidualSquares ? 'btn-lab-action--active' : ''}" id="btn-reg-squares">
-                        📐 Квадрати (e²)
+                        📐 Квадрати помилок (e²)
                     </button>
-                    <button class="btn-lab-action" id="btn-reg-add">➕ Додати дані</button>
+                    <button class="btn-lab-action" id="btn-reg-add">➕ Додати фахівця</button>
+                    <button class="btn-lab-action" id="btn-reg-reset" title="Відновити початкову вибірку">🔄 Скинути вибірку</button>
                 </div>
-                <div style="font-size: 11px; color: #64748B;">
-                    🎯 <strong>Рухайте мишкою по графіку</strong> для живого прогнозу зарплати!
+                <div style="font-size: 11.5px; color: #475569; font-weight: 700;">
+                    R²: <strong>${r2}</strong> | MSE: <strong>${mse} px²</strong> | Фахівців: <strong>${regPoints.length}</strong>
                 </div>
             </div>
 
-            <div class="ai-lab-split-stage">
+            <div class="ai-split-container">
                 <!-- Ліва частина: Координатна сітка IT-ринку праці -->
-                <div class="ai-interactive-canvas-box" id="reg-canvas-box">
-                    ${probeResult ? `
-                        <div class="reg-probe-badge">
-                            <span>🔍 Досвід: <strong>${probeResult.expYears} р.</strong></span>
-                            <span>➔ Прогноз доходу: <strong style="color: #34D399;">$${probeResult.salaryEst} / міс</strong></span>
-                        </div>
-                    ` : ''}
-
-                    <svg id="ai-reg-svg" viewBox="0 0 740 340" style="width: 100%; height: 100%; max-height: 340px; cursor: crosshair;">
-                        ${renderSvgGrid(740, 340)}
-
-                        <!-- Довірчий коридор (Confidence Ribbon: 95% інтервал передбачення) -->
-                        <path d="${ribbonPath}" fill="#10B981" fill-opacity="0.08" />
-
-                        <!-- Квадрати похибок (якщо увімкнено) -->
-                        ${showResidualSquares ? regPoints.map(p => {
-                            const predY = predictPoly(polyFit, p.x);
-                            const diff = Math.abs(p.y - predY);
-                            const sqY = Math.min(p.y, predY);
-                            return `
-                                <rect x="${p.x}" y="${sqY}" width="${Math.min(diff, 50)}" height="${diff}" fill="#EF4444" fill-opacity="0.14" stroke="#EF4444" stroke-opacity="0.4" stroke-dasharray="2 2" />
-                            `;
-                        }).join('') : ''}
-
-                        <!-- Вертикальні відрізки похибок (Residuals) -->
-                        ${regPoints.map(p => {
-                            const predY = predictPoly(polyFit, p.x);
-                            return `<line x1="${p.x}" y1="${p.y}" x2="${p.x}" y2="${predY}" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="3 2" />`;
-                        }).join('')}
-
-                        <!-- Крива моделі регресії -->
-                        <path d="${pathData}" fill="none" stroke="${regDegree === 5 ? '#DC2626' : '#059669'}" stroke-width="3.5" filter="drop-shadow(0 2px 5px rgba(5, 150, 105, 0.25))" />
-
-                        <!-- Лазерний зонд прогнозу курсору -->
+                <div class="ai-canvas-panel">
+                    <div class="ai-interactive-canvas-box" id="reg-canvas-box">
                         ${probeResult ? `
-                            <line class="reg-probe-line" x1="${probeResult.x}" y1="20" x2="${probeResult.x}" y2="310" />
-                            <line class="reg-probe-line" x1="40" y1="${probeResult.y}" x2="700" y2="${probeResult.y}" />
-                            <circle class="reg-probe-circle" cx="${probeResult.x}" cy="${probeResult.y}" r="6" />
+                            <div class="reg-probe-badge">
+                                <span>🔍 Досвід: <strong>${probeResult.expYears} р.</strong></span>
+                                <span>➔ Прогноз доходу: <strong>$${probeResult.salaryEst} / міс</strong></span>
+                            </div>
                         ` : ''}
 
-                        <!-- Точки реальних спеціалістів (Draggable) -->
-                        ${regPoints.map((p, idx) => `
-                            <g class="ai-svg-node-draggable" data-type="reg_point" data-idx="${idx}">
-                                <circle cx="${p.x}" cy="${p.y}" r="7" fill="#7C3AED" stroke="#FFFFFF" stroke-width="2.5" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.15))" />
-                            </g>
-                        `).join('')}
+                        <svg id="ai-reg-svg" viewBox="0 0 740 350" style="width: 100%; height: 100%; max-height: 350px; cursor: crosshair;">
+                            ${renderSvgGrid(740, 350)}
 
-                        <!-- Підписи осей IT-ринку -->
-                        <text x="60" y="332" font-size="10" font-weight="700" fill="#64748B">0 р. (Trainee)</text>
-                        <text x="260" y="332" font-size="10" font-weight="700" fill="#64748B">2 роки (Middle)</text>
-                        <text x="500" y="332" font-size="10" font-weight="700" fill="#64748B">4.5 роки (Senior)</text>
-                        <text x="640" y="332" font-size="10" font-weight="700" fill="#64748B">6+ років (Lead)</text>
-                        <text x="45" y="45" font-size="10" font-weight="800" fill="#059669">$4,500+</text>
-                        <text x="45" y="160" font-size="10" font-weight="800" fill="#64748B">$2,500</text>
-                        <text x="45" y="285" font-size="10" font-weight="800" fill="#64748B">$800</text>
-                    </svg>
+                            <!-- Довірчий коридор (Confidence Ribbon: 95% інтервал передбачення) -->
+                            <path d="${ribbonPath}" fill="#10B981" fill-opacity="0.07" />
+
+                            <!-- Квадрати похибок (якщо увімкнено) -->
+                            ${showResidualSquares ? regPoints.map(p => {
+                                const predY = predictPoly(polyFit, p.x);
+                                const diff = Math.abs(p.y - predY);
+                                const sqY = Math.min(p.y, predY);
+                                return `
+                                    <rect x="${p.x}" y="${sqY}" width="${Math.min(diff, 50)}" height="${diff}" fill="#64748B" fill-opacity="0.08" stroke="#94A3B8" stroke-width="1" stroke-dasharray="2 2" />
+                                `;
+                            }).join('') : ''}
+
+                            <!-- Вертикальні відрізки похибок (Residuals) - спокійний графітовий колір -->
+                            ${regPoints.map(p => {
+                                const predY = predictPoly(polyFit, p.x);
+                                return `<line x1="${p.x}" y1="${p.y}" x2="${p.x}" y2="${predY}" stroke="#94A3B8" stroke-width="1.3" stroke-dasharray="3 2" />`;
+                            }).join('')}
+
+                            <!-- Крива моделі регресії -->
+                            <path d="${pathData}" fill="none" stroke="${regDegree === 5 ? '#E11D48' : '#059669'}" stroke-width="3.2" />
+
+                            <!-- Лазерний зонд прогнозу курсору: тонкі координатні штрихи + хрестик (+) -->
+                            ${probeResult ? `
+                                <line class="reg-probe-line" x1="${probeResult.x}" y1="20" x2="${probeResult.x}" y2="320" />
+                                <line class="reg-probe-line" x1="40" y1="${probeResult.y}" x2="700" y2="${probeResult.y}" />
+                                <g class="reg-probe-cross" transform="translate(${probeResult.x}, ${probeResult.y})">
+                                    <line x1="-8" y1="0" x2="8" y2="0" stroke="#1E293B" stroke-width="2.2" stroke-linecap="round" />
+                                    <line x1="0" y1="-8" x2="0" y2="8" stroke="#1E293B" stroke-width="2.2" stroke-linecap="round" />
+                                    <circle cx="0" cy="0" r="2.2" fill="#FFFFFF" stroke="#1E293B" stroke-width="1" />
+                                </g>
+                            ` : ''}
+
+                            <!-- Точки реальних спеціалістів (Draggable) -->
+                            ${regPoints.map((p, idx) => `
+                                <g class="ai-svg-node-draggable" data-type="reg_point" data-idx="${idx}">
+                                    <circle cx="${p.x}" cy="${p.y}" r="7.5" fill="#6366F1" stroke="#FFFFFF" stroke-width="2.5" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.12))" />
+                                </g>
+                            `).join('')}
+
+                            <!-- Підписи осей IT-ринку -->
+                            <text x="60" y="340" font-size="11.5" font-weight="700" fill="#64748B">0 р. (Trainee)</text>
+                            <text x="260" y="340" font-size="11.5" font-weight="700" fill="#64748B">2 роки (Middle)</text>
+                            <text x="500" y="340" font-size="11.5" font-weight="700" fill="#64748B">4.5 роки (Senior)</text>
+                            <text x="640" y="340" font-size="11.5" font-weight="700" fill="#64748B">6+ років (Lead)</text>
+                            <text x="45" y="45" font-size="11.5" font-weight="800" fill="#059669">$4,500+</text>
+                            <text x="45" y="165" font-size="11.5" font-weight="800" fill="#64748B">$2,500</text>
+                            <text x="45" y="295" font-size="11.5" font-weight="800" fill="#64748B">$800</text>
+                        </svg>
+                    </div>
                 </div>
 
-                <!-- Права частина: Аналізатор машинного навчання -->
-                <div class="ai-math-inspector-panel">
+                <!-- Права частина: Аналізатор машинного навчання та покрокові пояснення -->
+                <div class="ai-side-inspector">
                     <div class="ai-inspector-head">
-                        <span>📊 МОДЕЛЬ ПРОГНОЗУ ЗАРПЛАТИ (POLYNOMIAL ML)</span>
-                        <span style="color: ${regDegree === 5 ? '#DC2626' : '#059669'}; font-weight: 800;">СТУПІНЬ ${regDegree}°</span>
+                        <span class="ai-inspector-title">📈 АНАЛІЗАТОР РЕГРЕСІЇ ТА OVERFITTING</span>
+                        <span class="ai-inspector-badge">Supervised ML</span>
                     </div>
 
-                    <!-- Аналіз Underfitting / Optimal / Overfitting -->
-                    ${renderConceptAlert(regDegree, r2)}
-
-                    <div class="ai-formula-card">
-                        Рівняння поліному моделі:
-                        <br><strong>ŷ = c₀ + c₁·x ${regDegree >= 2 ? '+ c₂·x²' : ''} ${regDegree >= 3 ? '+ c₃·x³' : ''} ${regDegree >= 5 ? '+ ... + c₅·x⁵' : ''}</strong>
-                    </div>
-
-                    <div class="ai-dist-comparison-list">
-                        <div class="ai-dist-row is-winner">
-                            <span>Коефіцієнт детермінації R²:</span>
-                            <strong>${r2} (Точність пояснення ${(parseFloat(r2) * 100).toFixed(0)}%)</strong>
+                    <!-- Стан моделі та оцінка перенавчання (Чистий білий текст без токсичних кольорів) -->
+                    <div class="algo-result-card">
+                        <div class="algo-result-label">Якість апроксимації (Ступінь ${regDegree}°):</div>
+                        <div class="algo-result-val">
+                            ${regDegree === 1 ? '⚠️ Underfitting (Недонавчання)' : regDegree === 5 ? '🛑 Overfitting (Перенавчання)' : '✔ Optimal Fit (Оптимальний баланс)'}
                         </div>
-                        <div class="ai-dist-row">
-                            <span>Середньоквадратична похибка (MSE):</span>
-                            <strong>${mse} px²</strong>
-                        </div>
-                        <div class="ai-dist-row">
-                            <span>Ступенів свободи / Ваг (Weights):</span>
-                            <strong>${regDegree + 1} параметрів оптимізації</strong>
+                        <div class="algo-result-sub">
+                            R² = <strong>${r2} (${(parseFloat(r2) * 100).toFixed(0)}%)</strong> | MSE = <strong>${mse} px²</strong> | Ваг моделі: <strong>${regDegree + 1}</strong>
                         </div>
                     </div>
 
-                    <div class="ai-decision-card">
-                        <span>МЕТА ШТУЧНОГО ІНТЕЛЕКТУ В РЕГРЕСІЇ:</span>
-                        <span>Знайти баланс між недонавчанням (Bias) та перенавчанням (Variance), щоб модель не просто заучувала точки, а <strong>точно прогнозувала майбутній дохід на нових даних</strong>!</span>
+                    <!-- Формула та концепт (2-колонкова компактна сітка) -->
+                    <div class="ai-reg-metrics-grid">
+                        <div class="ai-reg-metric-box ${regDegree === 2 || regDegree === 3 ? 'is-optimal' : ''}">
+                            <span class="ai-reg-metric-box__title">Рівняння моделі:</span>
+                            <span class="ai-reg-metric-box__value">ŷ = c₀ + c₁·x ${regDegree >= 2 ? '+ c₂·x²' : ''} ${regDegree >= 3 ? '+ c₃·x³' : ''} ${regDegree >= 5 ? '+ ... + c₅·x⁵' : ''}</span>
+                        </div>
+                        <div class="ai-reg-metric-box ${regDegree === 2 || regDegree === 3 ? 'is-optimal' : ''}">
+                            <span class="ai-reg-metric-box__title">Bias vs Variance:</span>
+                            <span class="ai-reg-metric-box__value">${regDegree === 1 ? 'High Bias (Зміщення)' : regDegree === 5 ? 'High Variance (Дисперсія)' : 'Збалансовано (Оптимум)'}</span>
+                        </div>
+                    </div>
+
+                    <!-- Блок 1: Що це таке -->
+                    <div class="algo-guide-box">
+                        <div class="algo-guide-title">📖 Принцип регресії та аналіз IT-ринку</div>
+                        <div class="algo-guide-text">
+                            <strong>Поліноміальна регресія</strong> моделює нелінійну залежність доходу програміста від стажу. На 1° лінія занадто проста (Underfitting). На 2°–3° утворюється реалістична крива ринку. На 5° виникає <strong>Overfitting</strong> — модель заучує шум вибірки замість загального закону.
+                        </div>
+                        <div class="algo-legend-row">
+                            <span class="algo-legend-pill">🟣 <strong>Точки:</strong> IT-фахівці</span>
+                            <span class="algo-legend-pill">🟢 <strong>Крива:</strong> лінія прогнозу</span>
+                            <span class="algo-legend-pill">🟩 <strong>Коридор:</strong> 95% довіра</span>
+                            <span class="algo-legend-pill">📏 <strong>Штрихи:</strong> похибки e = y - ŷ</span>
+                        </div>
+                    </div>
+
+                    <!-- Блок 2: Керування та практика в IT -->
+                    <div class="algo-guide-box">
+                        <div class="algo-guide-title">🎮 Керування та практика в IT</div>
+                        <ul class="algo-guide-list">
+                            <li><strong>1. Обирайте ступінь (1°, 2°, 3°, 5°)</strong> для аналізу підбору моделі.</li>
+                            <li><strong>2. «📐 Квадрати помилок (e²)»</strong> — графічне відображення залишків MSE.</li>
+                            <li><strong>3. Рухайте мишкою по сітці</strong> — прицільний хрестик (+) розрахунку доходу.</li>
+                            <li><strong>4. Перетягуйте точки або додавайте фахівців</strong> — модель миттєво підлаштовується.</li>
+                        </ul>
+                        <div class="algo-it-callout">
+                            🚀 <strong>Застосування в IT:</strong> Прогнозування навантаження хмарних кластерів (AWS / K8s), фінансовий скоринг у FinTech, динамічне ціноутворення.
+                        </div>
                     </div>
                 </div>
             </div>
         `;
 
-        if (metricsEl) {
-            metricsEl.innerHTML = `
-                <div class="lab-metric-item">Вибірка фахівців: <strong>${regPoints.length}</strong></div>
-                <div class="lab-metric-item">Якість підгонки R²: <strong class="${regDegree === 5 ? 'highlight-purple' : 'highlight-green'}">${r2}</strong></div>
-                <div class="lab-metric-item">Стан генералізації: <strong>${regDegree === 1 ? 'Underfitting' : regDegree === 5 ? 'Overfitting 🛑' : 'Optimal Bias-Variance ✅'}</strong></div>
-            `;
-        }
-
         // Події ступенів
         container.querySelectorAll('.btn-reg-degree').forEach(btn => {
             btn.addEventListener('click', function () {
                 regDegree = parseInt(this.getAttribute('data-deg'), 10);
-                renderRegressionAdvanced(container, metricsEl);
+                renderRegressionAdvanced(container);
             });
         });
 
         container.querySelector('#btn-reg-squares')?.addEventListener('click', () => {
             showResidualSquares = !showResidualSquares;
-            renderRegressionAdvanced(container, metricsEl);
+            renderRegressionAdvanced(container);
         });
 
         container.querySelector('#btn-reg-add')?.addEventListener('click', () => {
             const rx = 100 + Math.random() * 540;
             const ry = predictPoly(polyFit, rx) + (Math.random() - 0.5) * 40;
             regPoints.push({ id: Date.now(), x: rx, y: ry });
-            renderRegressionAdvanced(container, metricsEl);
+            renderRegressionAdvanced(container);
         });
 
-        // Анімація Градієнтного спуску
-        container.querySelector('#btn-reg-gradient')?.addEventListener('click', () => {
-            if (isTrainingGradient) return;
-            isTrainingGradient = true;
-            gradientEpoch = 0;
-            // Зберігаємо справжні точки та додаємо тимчасовий зсув
-            const originalY = regPoints.map(p => p.y);
-            regPoints.forEach(p => { p.y = 260 + (Math.random() - 0.5) * 20; }); // Початковий неоптимальний стан
-
-            gradientTimer = setInterval(() => {
-                gradientEpoch++;
-                regPoints.forEach((p, idx) => {
-                    p.y += (originalY[idx] - p.y) * 0.22; // Крок градієнту alpha
-                });
-
-                if (gradientEpoch >= 15) {
-                    clearInterval(gradientTimer);
-                    isTrainingGradient = false;
-                    regPoints.forEach((p, idx) => { p.y = originalY[idx]; });
-                }
-                renderRegressionAdvanced(container, metricsEl);
-            }, 100);
+        container.querySelector('#btn-reg-reset')?.addEventListener('click', () => {
+            regPoints = [
+                { id: 1, x: 80, y: 285 },
+                { id: 2, x: 130, y: 260 },
+                { id: 3, x: 190, y: 235 },
+                { id: 4, x: 230, y: 250 },
+                { id: 5, x: 280, y: 200 },
+                { id: 6, x: 330, y: 185 },
+                { id: 7, x: 390, y: 165 },
+                { id: 8, x: 450, y: 175 },
+                { id: 9, x: 510, y: 130 },
+                { id: 10, x: 570, y: 145 },
+                { id: 11, x: 630, y: 95 }
+            ];
+            renderRegressionAdvanced(container);
         });
 
-        // Інтерактивний рух мишки для лазерного зонда (Probe)
+        // Інтерактивний рух мишки для лазерного зонда (Probe) та Drag точок
         const svg = container.querySelector('#ai-reg-svg');
         if (svg) {
             svg.addEventListener('mousemove', (e) => {
-                if (draggedEntity) return;
                 const pt = getSvgCoords(svg, e);
-                probeMouseX = pt.x;
-                renderRegressionAdvanced(container, metricsEl);
+                if (draggedEntity && draggedEntity.type === 'reg_point') {
+                    const p = regPoints[draggedEntity.idx];
+                    if (p) {
+                        p.x = Math.max(70, Math.min(670, pt.x));
+                        p.y = Math.max(30, Math.min(300, pt.y));
+                        renderRegressionAdvanced(container);
+                    }
+                } else {
+                    probeMouseX = pt.x;
+                    renderRegressionAdvanced(container);
+                }
             });
 
             svg.addEventListener('mouseleave', () => {
                 probeMouseX = null;
-                renderRegressionAdvanced(container, metricsEl);
+                renderRegressionAdvanced(container);
             });
 
-            // Drag точок
             svg.querySelectorAll('.ai-svg-node-draggable').forEach(node => {
                 node.addEventListener('mousedown', (e) => {
                     e.stopPropagation();
                     const idx = parseInt(node.getAttribute('data-idx'), 10);
                     draggedEntity = { type: 'reg_point', idx };
                 });
-            });
-
-            svg.addEventListener('mousemove', (e) => {
-                if (!draggedEntity || draggedEntity.type !== 'reg_point') return;
-                const pt = getSvgCoords(svg, e);
-                const p = regPoints[draggedEntity.idx];
-                if (p) {
-                    p.x = Math.max(70, Math.min(670, pt.x));
-                    p.y = Math.max(30, Math.min(300, pt.y));
-                    renderRegressionAdvanced(container, metricsEl);
-                }
             });
         }
     }

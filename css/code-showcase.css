@@ -124,7 +124,7 @@
    -------------------------------------------------------------------------- */
 .tech-lab-stage {
     width: 100%;
-    height: 608px;
+    height: 648px;
     background: #FFFFFF;
     border: 1px solid #E2E8F0;
     border-radius: 20px;
@@ -190,11 +190,11 @@
 
 /* Кнопки дій */
 .btn-lab-action {
-    height: 32px;
-    padding: 0 12px;
+    height: 34px;
+    padding: 0 14px;
     border-radius: 8px;
-    font-size: 11.5px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 700;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -202,6 +202,9 @@
     transition: all 0.2s ease;
     font-family: inherit;
     border: 1px solid #CBD5E1;
+    background: #FFFFFF;
+    color: #1E293B;
+}
     background: #FFFFFF;
     color: #334155;
     white-space: nowrap;
@@ -291,14 +294,92 @@
 }
 
 /* --------------------------------------------------------------------------
-   3. ЛАБОРАТОРІЯ 01: АЛГОРИТМИ & СТРУКТУРИ ДАНИХ (ПРОДВИНУТІ СИМУЛЯТОРИ)
+   3. ЛАБОРАТОРІЯ 01: АЛГОРИТМИ & СТРУКТУРИ ДАНИХ (ПОВНОФОРМАТНІ СИМУЛЯТОРИ)
    -------------------------------------------------------------------------- */
 .algo-workspace-layout {
     display: flex;
     flex-direction: column;
     height: 100%;
-    gap: 8px;
     min-height: 0;
+}
+
+/* Повноформатна верхня панель перемикання 4 алгоритмів (на всю ширину) */
+.algo-navbar-full {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    width: 100%;
+    height: 56px;
+    padding: 7px 16px;
+    background: #F8FAFC;
+    border-bottom: 1.5px solid #E2E8F0;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.algo-nav-card {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 0 16px;
+    background: #FFFFFF;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+}
+
+.algo-nav-card:hover {
+    background: #F1F5F9;
+    border-color: #CBD5E1;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+}
+
+.algo-nav-card--active {
+    background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%) !important;
+    border-color: #7C3AED !important;
+    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.28) !important;
+    transform: translateY(-1px);
+}
+
+.algo-nav-card__icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.algo-nav-card__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    overflow: hidden;
+}
+
+.algo-nav-card__title {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #1E293B;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+}
+
+.algo-nav-card--active .algo-nav-card__title {
+    color: #FFFFFF !important;
+}
+
+.algo-nav-card__desc {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #64748B;
+    white-space: nowrap;
+}
+
+.algo-nav-card--active .algo-nav-card__desc {
+    color: rgba(255, 255, 255, 0.85) !important;
 }
 
 .algo-subnav {
@@ -307,8 +388,9 @@
     justify-content: space-between;
     background: #FFFFFF;
     border: 1px solid #E2E8F0;
-    border-radius: 10px;
+    border-radius: 9px;
     padding: 6px 12px;
+    margin-bottom: 8px;
     flex-shrink: 0;
     gap: 8px;
 }
@@ -316,22 +398,19 @@
 .algo-stage-card {
     flex: 1;
     background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 14px;
+    border-radius: 0 0 18px 18px;
     padding: 10px 14px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     position: relative;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.01);
     overflow: hidden;
     min-height: 0;
 }
 
-/* Двопанельний спліт для складних алгоритмів (Граф Дейкстри та Дерево BST) */
+/* Двопанельний спліт для всіх 4 алгоритмів */
 .algo-split-container {
     display: flex;
-    gap: 12px;
+    gap: 14px;
     width: 100%;
     height: 100%;
     min-height: 0;
@@ -350,24 +429,27 @@
     border: 1.5px solid #E2E8F0;
     border-radius: 12px;
     overflow: hidden;
-    padding: 6px;
+    padding: 8px;
     user-select: none;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.02);
 }
 
 .algo-side-inspector {
-    width: 440px;
+    width: 530px;
     flex-shrink: 0;
     height: 100%;
     background: linear-gradient(135deg, #FAF5FF 0%, #F5F3FF 100%);
     border: 1.5px solid #DDD6FE;
     border-radius: 12px;
-    padding: 12px 14px;
+    padding: 10px 14px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 7px;
     box-shadow: 0 4px 14px rgba(124, 58, 237, 0.08);
     box-sizing: border-box;
-    overflow-y: auto;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 .algo-inspector-head {
@@ -375,114 +457,205 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #EDE9FE;
-    padding-bottom: 6px;
-    margin-bottom: 6px;
+    padding-bottom: 5px;
+    flex-shrink: 0;
 }
 
 .algo-inspector-title {
-    font-size: 11px;
+    font-size: 13.5px;
     font-weight: 800;
     color: #6D28D9;
     display: flex;
     align-items: center;
     gap: 6px;
+    letter-spacing: 0.02em;
 }
 
 .algo-inspector-badge {
-    font-size: 8.5px;
+    font-size: 10.5px;
     font-weight: 800;
-    padding: 1.5px 6px;
+    padding: 3px 8px;
     border-radius: 4px;
     background: #EDE9FE;
     color: #7C3AED;
     font-family: ui-monospace, monospace;
 }
 
-/* Таблиця черги пріоритетів Дейкстри (Min-Heap) */
-.dijkstra-pq-wrap {
-    flex: 1;
-    overflow-y: auto;
-    margin: 6px 0;
-    border: 1px solid #E9D5FF;
-    border-radius: 8px;
-    background: #FFFFFF;
+/* Блок результату в інспекторі */
+.algo-result-card {
+    background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+    border-radius: 9px;
+    padding: 7px 12px;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
+    flex-shrink: 0;
 }
 
-.dijkstra-pq-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 9.5px;
-}
-
-.dijkstra-pq-table th {
-    background: #EDE9FE;
-    color: #5B21B6;
-    padding: 4px 6px;
-    text-align: left;
-    font-weight: 800;
-    position: sticky;
-    top: 0;
-    border-bottom: 1.5px solid #DDD6FE;
-}
-
-.dijkstra-pq-table td {
-    padding: 3px 6px;
-    border-bottom: 1px solid #F1F5F9;
-    color: #334155;
-}
-
-.dijkstra-row--visited {
-    background: #F5F3FF;
-    color: #6D28D9 !important;
+.algo-result-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.82) !important;
     font-weight: 700;
 }
 
-.dijkstra-row--target {
-    background: #FEE2E2;
-    color: #DC2626 !important;
+.algo-result-val {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 15px;
     font-weight: 800;
+    margin: 2px 0;
+    letter-spacing: 0.01em;
+    word-break: break-word;
+    color: #FFFFFF !important;
 }
 
-.dijkstra-row--inpath {
-    background: #ECFDF5;
-    color: #059669 !important;
-    font-weight: 800;
+.algo-result-sub {
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.92) !important;
+    font-weight: 600;
 }
 
-/* Лог покрокових порівнянь BST */
-.bst-steps-log {
+.algo-result-sub strong {
+    color: #FFFFFF !important;
+}
+
+/* Секція пояснень в інспекторі */
+.algo-guide-box {
+    background: #FFFFFF;
+    border: 1px solid #E9D5FF;
+    border-radius: 8px;
+    padding: 8px 11px;
     display: flex;
     flex-direction: column;
     gap: 4px;
-    max-height: 110px;
-    overflow-y: auto;
-    font-family: ui-monospace, monospace;
-    font-size: 9.5px;
-    color: #334155;
-    background: #FFFFFF;
-    border: 1px solid #E9D5FF;
-    border-radius: 6px;
-    padding: 6px 8px;
-    margin: 4px 0;
+    flex-shrink: 0;
 }
 
-.bst-step-item {
+.algo-guide-title {
+    font-size: 12.5px;
+    font-weight: 800;
+    color: #6D28D9;
     display: flex;
     align-items: center;
     gap: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
 }
 
-.bst-step-num {
-    background: #EDE9FE;
-    color: #6D28D9;
+.algo-guide-text {
+    font-size: 14px;
+    color: #334155;
+    line-height: 1.45;
+}
+
+.algo-guide-list {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 14px;
+    color: #334155;
+    line-height: 1.45;
+}
+
+.algo-guide-list li {
+    margin-bottom: 2px;
+}
+
+.algo-guide-list li strong {
+    color: #0F172A;
+}
+
+/* Компактна стрічка легенди елементів */
+.algo-legend-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 3px;
+}
+
+.algo-legend-pill {
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 2.5px 8px;
+    border-radius: 6px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    color: #334155;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.algo-legend-pill strong {
+    color: #0F172A;
+}
+
+/* Блок практичного застосування в IT */
+.algo-it-callout {
+    margin-top: 3px;
+    font-size: 12.5px;
+    line-height: 1.4;
+    padding: 5px 9px;
+    border-radius: 6px;
+    background: #FAF5FF;
+    border: 1px solid #E9D5FF;
+    border-left: 3.5px solid #7C3AED;
+    color: #4338CA;
+}
+
+.algo-it-callout strong {
+    color: #1E1B4B;
+}
+
+/* Сортування QuickSort */
+.sorting-bars-container {
+    height: 250px;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 12px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #E2E8F0;
+}
+
+.sorting-bar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    height: 100%;
+    justify-content: flex-end;
+}
+
+.sorting-bar-val {
+    font-size: 12.5px;
     font-weight: 800;
-    padding: 1px 4px;
-    border-radius: 3px;
-    font-size: 8.5px;
+    color: #475569;
+    font-family: ui-monospace, monospace;
 }
 
-/* Стрічка обходу елементів дерева */
+.sorting-bar {
+    width: 28px;
+    border-radius: 5px 5px 0 0;
+    background: #818CF8;
+    transition: height 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease;
+}
+
+.sorting-bar.is-comparing {
+    background: #F59E0B !important;
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+}
+
+.sorting-bar.is-swapping {
+    background: #EC4899 !important;
+    box-shadow: 0 0 14px rgba(236, 72, 153, 0.6);
+}
+
+.sorting-bar.is-sorted {
+    background: #10B981 !important;
+}
+
+/* Стрічка обходу BST */
 .bst-traversal-bar {
     display: flex;
     align-items: center;
@@ -521,55 +694,6 @@
     background: #10B981 !important;
     border-color: #059669 !important;
     color: #FFFFFF !important;
-}
-
-/* Сортування QuickSort */
-.sorting-bars-container {
-    height: 280px;
-    width: 100%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 12px;
-    padding-bottom: 24px;
-    border-bottom: 2px solid #E2E8F0;
-}
-
-.sorting-bar-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    height: 100%;
-    justify-content: flex-end;
-}
-
-.sorting-bar-val {
-    font-size: 11px;
-    font-weight: 700;
-    color: #475569;
-    font-family: ui-monospace, monospace;
-}
-
-.sorting-bar {
-    width: 30px;
-    border-radius: 6px 6px 0 0;
-    background: #818CF8;
-    transition: height 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease;
-}
-
-.sorting-bar.is-comparing {
-    background: #F59E0B !important;
-    box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
-}
-
-.sorting-bar.is-swapping {
-    background: #EC4899 !important;
-    box-shadow: 0 0 14px rgba(236, 72, 153, 0.6);
-}
-
-.sorting-bar.is-sorted {
-    background: #10B981 !important;
 }
 
 /* Сітка лабіринту A* */
@@ -660,10 +784,10 @@
 /* Головна сцена ER-моделі */
 .db-er-stage {
     background: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    border: 1.5px solid #E2E8F0;
     border-radius: 14px;
     position: relative;
-    padding: 8px 14px;
+    padding: 10px 14px;
     display: flex;
     flex-direction: column;
     min-height: 0;
@@ -676,29 +800,60 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 6px;
-    border-bottom: 1px solid #F1F5F9;
+    padding-bottom: 8px;
+    border-bottom: 1.5px solid #F1F5F9;
     flex-shrink: 0;
 }
 
 .db-er-badge {
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 800;
     color: #4F46E5;
     display: flex;
     align-items: center;
     gap: 6px;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
+}
+
+.db-er-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .db-er-active-summary {
-    font-size: 10.5px;
+    font-size: 12px;
     color: #059669;
     font-weight: 700;
     background: #ECFDF5;
-    padding: 2.5px 9px;
+    padding: 3px 10px;
     border-radius: 6px;
     border: 1px solid #A7F3D0;
+}
+
+.btn-er-header-reset {
+    height: 28px;
+    padding: 0 12px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    border: 1px solid #DDD6FE;
+    background: #F5F3FF;
+    color: #7C3AED;
+    white-space: nowrap;
+}
+
+.btn-er-header-reset:hover {
+    background: #EDE9FE;
+    border-color: #C4B5FD;
+    color: #6D28D9;
+    transform: translateY(-1px);
 }
 
 /* Полотно ER: Єдиний масштабований векторний контейнер */
@@ -716,7 +871,7 @@
 .db-er-svg-canvas {
     width: 100%;
     height: 100%;
-    max-height: 425px;
+    max-height: none;
     overflow: visible;
     display: block;
 }
@@ -797,7 +952,7 @@
 
 .db-link-badge-text {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 8.5px;
+    font-size: 10px;
     font-weight: 800;
     fill: #FFFFFF;
     text-anchor: middle;
@@ -810,11 +965,11 @@
     height: 100%;
     box-sizing: border-box;
     background: #FFFFFF;
-    border: 1.5px solid #E2E8F0;
+    border: 1.5px solid #CBD5E1;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     user-select: none;
     cursor: pointer;
@@ -823,31 +978,31 @@
 
 .db-table-card:hover {
     border-color: #8B5CF6;
-    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.14);
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.16);
     transform: translateY(-1.5px);
 }
 
 .db-table-card.is-active {
     border-color: #7C3AED !important;
-    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.22) !important;
+    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.25) !important;
     transform: translateY(-1.5px);
 }
 
 .db-table-card.is-related {
-    border-color: #3B82F6 !important;
-    box-shadow: 0 6px 18px rgba(59, 130, 246, 0.18) !important;
+    border-color: #2563EB !important;
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.2) !important;
 }
 
 .db-table-card.is-dimmed {
     opacity: 0.22;
-    filter: grayscale(35%);
+    filter: grayscale(40%);
 }
 
 .db-card-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 5px 9px;
+    padding: 6px 10px;
     background: #F8FAFC;
     border-bottom: 1px solid #E2E8F0;
     transition: all 0.2s ease;
@@ -864,16 +1019,16 @@
 .db-card-title-wrap {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
 }
 
 .db-card-icon {
-    font-size: 11px;
+    font-size: 13px;
 }
 
 .db-card-name {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 10.5px;
+    font-size: 12.5px;
     font-weight: 800;
     color: #0F172A;
 }
@@ -884,13 +1039,13 @@
 }
 
 .db-card-badge {
-    font-size: 7.5px;
+    font-size: 9.5px;
     font-weight: 800;
-    font-family: ui-monospace, monospace;
-    padding: 1px 5px;
-    border-radius: 3px;
+    font-family: inherit;
+    padding: 2px 6px;
+    border-radius: 4px;
     background: #E2E8F0;
-    color: #64748B;
+    color: #475569;
 }
 
 .db-table-card.is-active .db-card-badge,
@@ -902,10 +1057,10 @@
 .db-card-cols {
     display: flex;
     flex-direction: column;
-    padding: 4px 8px;
+    padding: 5px 8px;
     flex: 1;
     justify-content: space-around;
-    gap: 1.5px;
+    gap: 1px;
 }
 
 .db-col-row {
@@ -913,10 +1068,10 @@
     align-items: center;
     justify-content: space-between;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 9px;
-    line-height: 1.25;
-    padding: 1px 3px;
-    border-radius: 3px;
+    font-size: 11.5px;
+    line-height: 1.3;
+    padding: 2px 4px;
+    border-radius: 4px;
     transition: background 0.15s ease;
 }
 
@@ -927,15 +1082,15 @@
 .db-col-left {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
 }
 
 .db-col-icon {
-    font-size: 8px;
+    font-size: 11px;
 }
 
 .db-col-name {
-    font-weight: 600;
+    font-weight: 700;
     color: #334155;
 }
 
@@ -946,24 +1101,26 @@
 
 .db-col-fk .db-col-name {
     color: #2563EB;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .db-col-type {
-    color: #94A3B8;
-    font-size: 8.5px;
+    color: #64748B;
+    font-size: 10.5px;
     font-weight: 600;
 }
 
 .db-col-pk .db-col-type {
     color: #8B5CF6;
+    font-weight: 700;
 }
 
 .db-col-fk .db-col-type {
     color: #3B82F6;
+    font-weight: 700;
 }
 
-/* Інспектор реляційної моделі (Колонка 4) */
+/* Інформаційне вікно опису структури та ролі таблиці */
 .db-info-panel-card {
     width: 100%;
     height: 100%;
@@ -971,205 +1128,239 @@
     background: linear-gradient(135deg, #FAF5FF 0%, #F5F3FF 100%);
     border: 1.5px solid #DDD6FE;
     border-radius: 10px;
-    padding: 10px 12px;
+    padding: 10px 14px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 4px 14px rgba(124, 58, 237, 0.08);
     user-select: none;
+    overflow: hidden;
 }
 
 .db-info-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #EDE9FE;
-    padding-bottom: 5px;
+    border-bottom: 1.5px solid #EDE9FE;
+    padding-bottom: 6px;
+    flex-shrink: 0;
 }
 
 .db-info-title {
-    font-size: 10.5px;
+    font-size: 13px;
     font-weight: 800;
     color: #6D28D9;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
+}
+
+.db-info-title code {
+    background: #EDE9FE;
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: #5B21B6;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 .db-info-badge {
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 800;
-    padding: 1.5px 6px;
-    border-radius: 3px;
+    padding: 2px 7px;
+    border-radius: 4px;
     background: #EDE9FE;
     color: #7C3AED;
+    letter-spacing: 0.02em;
 }
 
 .db-info-body {
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    font-size: 9.5px;
-    color: #475569;
-    margin: 4px 0;
+    gap: 6px;
+    font-size: 12px;
+    color: #334155;
+    flex: 1;
+    justify-content: space-between;
+    margin-top: 6px;
 }
 
 .db-info-desc {
+    font-size: 12.5px;
+    font-weight: 600;
     line-height: 1.35;
+    color: #334155;
+}
+
+.db-info-list {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 11.5px;
+    line-height: 1.4;
+    color: #475569;
+}
+
+.db-info-list li {
+    margin-bottom: 3px;
+}
+
+.db-info-list li strong {
+    color: #0F172A;
+}
+
+.db-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5px;
+}
+
+.db-info-section-title {
+    font-size: 11px;
+    font-weight: 800;
+    color: #6D28D9;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.db-info-text {
+    font-size: 11.5px;
+    line-height: 1.35;
+    color: #334155;
+}
+
+.db-info-rel-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 2px;
+}
+
+.db-info-rel-pill {
+    font-size: 11px;
+    font-weight: 700;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    padding: 1.5px 7px;
+    border-radius: 5px;
+    background: #FFFFFF;
+    border: 1px solid #DDD6FE;
+    color: #4338CA;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .db-info-highlight {
-    font-family: ui-monospace, monospace;
-    font-size: 9px;
-    font-weight: 600;
+    font-size: 11.5px;
+    line-height: 1.35;
     color: #1E293B;
     background: #FFFFFF;
     border: 1px solid #E9D5FF;
-    border-radius: 4px;
-    padding: 3px 6px;
-}
-
-.db-info-metrics {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px;
-    font-size: 8.5px;
-}
-
-.db-metric-pill {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 4px;
-    padding: 2.5px 4px;
-    font-family: ui-monospace, monospace;
-    font-weight: 700;
-    color: #334155;
-    text-align: center;
-}
-
-/* Нижній статус-бар */
-.db-er-footer-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 6px;
-    border-top: 1px solid #F1F5F9;
-    flex-shrink: 0;
-    font-size: 10px;
-    color: #64748B;
-}
-
-.db-er-footer-bar strong {
-    color: #1E293B;
+    border-left: 3.5px solid #7C3AED;
+    border-radius: 6px;
+    padding: 6px 10px;
 }
 
 /* --------------------------------------------------------------------------
-   5. ЛАБОРАТОРІЯ 03: ШТУЧНИЙ ІНТЕЛЕКТ (ПОКРОКОВЕ НАВЧАННЯ)
+   5. ЛАБОРАТОРІЯ 03: ШТУЧНИЙ ІНТЕЛЕКТ & МАШИННЕ НАВЧАННЯ (ПОВНОФОРМАТНІ СИМУЛЯТОРИ)
    -------------------------------------------------------------------------- */
 .ai-workspace-layout {
     display: flex;
     flex-direction: column;
     height: 100%;
-    gap: 10px;
+    min-height: 0;
 }
 
-/* Верхній покроковий таймлайн */
-.ai-stepper-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
-    padding: 8px 14px;
+/* Повноформатна верхня панель перемикання 2 режимів ШІ (на всю ширину) */
+.ai-navbar-full {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    width: 100%;
+    height: 50px;
+    padding: 5px 14px;
+    background: #F8FAFC;
+    border-bottom: 1.5px solid #E2E8F0;
+    box-sizing: border-box;
     flex-shrink: 0;
 }
 
-.ai-step-pills {
+.ai-nav-card {
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 0 18px;
+    background: #FFFFFF;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
 }
 
-.ai-step-pill {
-    padding: 5px 12px;
-    border-radius: 8px;
-    border: 1px solid #E2E8F0;
-    background: #F8FAFC;
-    color: #64748B;
+.ai-nav-card:hover {
+    background: #F1F5F9;
+    border-color: #CBD5E1;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+}
+
+.ai-nav-card--active {
+    background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%) !important;
+    border-color: #7C3AED !important;
+    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.28) !important;
+    transform: translateY(-1px);
+}
+
+.ai-nav-card__icon {
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.ai-nav-card__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    overflow: hidden;
+}
+
+.ai-nav-card__title {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #1E293B;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+}
+
+.ai-nav-card--active .ai-nav-card__title {
+    color: #FFFFFF !important;
+}
+
+.ai-nav-card__desc {
     font-size: 11.5px;
     font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.2s ease;
+    color: #64748B;
+    white-space: nowrap;
 }
 
-.ai-step-pill:hover {
-    background: #F1F5F9;
-    color: #0F172A;
+.ai-nav-card--active .ai-nav-card__desc {
+    color: rgba(255, 255, 255, 0.88) !important;
 }
 
-.ai-step-pill--active {
-    background: linear-gradient(135deg, #6453A3 0%, #7C3AED 100%) !important;
-    border-color: transparent !important;
-    color: #FFFFFF !important;
-    font-weight: 700;
-    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
-}
-
-.ai-step-pill--done {
-    background: #ECFDF5;
-    border-color: #A7F3D0;
-    color: #059669;
-}
-
-.ai-stepper-controls {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-/* Векторна сцена AI (SVG, висока чіткість) */
 .ai-stage-card {
     flex: 1;
     background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 14px;
+    border-radius: 0 0 18px 18px;
+    padding: 7px 12px;
+    display: flex;
+    flex-direction: column;
     position: relative;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.01);
-}
-
-.ai-svg-scene {
-    width: 100%;
-    height: 100%;
-    max-height: 380px;
-}
-
-.ai-stage-overlay-text {
-    position: absolute;
-    bottom: 14px;
-    left: 18px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(6px);
-    border: 1px solid #E2E8F0;
-    border-radius: 8px;
-    padding: 6px 14px;
-    font-size: 12px;
-    color: #334155;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-}
-
-.ai-stage-overlay-text strong {
-    color: #7C3AED;
+    min-height: 0;
 }
 
 /* --------------------------------------------------------------------------
@@ -1210,129 +1401,236 @@
 /* --------------------------------------------------------------------------
    5. ЛАБОРАТОРІЯ 03: ШТУЧНИЙ ІНТЕЛЕКТ (ПРОДВИНУТА МАТЕМАТИКА ТА DRAG & DROP)
    -------------------------------------------------------------------------- */
-.ai-lab-split-stage {
-    display: grid;
-    grid-template-columns: 1fr 420px;
+.ai-split-container {
+    display: flex;
     gap: 14px;
+    width: 100%;
     height: 100%;
+    min-height: 0;
     overflow: hidden;
+}
+
+.ai-canvas-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
 }
 
 .ai-interactive-canvas-box {
+    flex: 1;
     background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 14px;
-    position: relative;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 12px;
     overflow: hidden;
+    padding: 8px;
+    user-select: none;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.02);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.01);
-    user-select: none;
+    position: relative;
+    min-height: 0;
 }
 
-.ai-math-inspector-panel {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 14px;
-    padding: 14px;
+.ai-side-inspector {
+    width: 530px;
+    flex-shrink: 0;
+    height: 100%;
+    background: linear-gradient(135deg, #FAF5FF 0%, #F5F3FF 100%);
+    border: 1.5px solid #DDD6FE;
+    border-radius: 12px;
+    padding: 7px 11px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    overflow-y: auto;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    gap: 5px;
+    overflow-y: hidden;
+    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.06);
+    user-select: none;
+    box-sizing: border-box;
 }
 
 .ai-inspector-head {
-    font-size: 11.5px;
-    font-weight: 700;
-    color: #475569;
-    letter-spacing: 0.04em;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 6px;
-    border-bottom: 1px solid #F1F5F9;
+    border-bottom: 1.5px solid #EDE9FE;
+    padding-bottom: 4px;
+    flex-shrink: 0;
 }
 
-.ai-active-point-badge {
-    padding: 6px 10px;
-    border-radius: 8px;
-    background: #F8FAFC;
-    border: 1px solid #E2E8F0;
-    font-size: 12px;
-    font-weight: 700;
-    color: #0F172A;
+.ai-inspector-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: #6D28D9;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 6px;
+    letter-spacing: 0.02em;
 }
 
-.ai-formula-card {
-    background: #F1F5F9;
-    border-radius: 8px;
-    padding: 8px 10px;
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
-    font-size: 11px;
-    color: #334155;
-    line-height: 1.4;
-    border: 1px solid #E2E8F0;
+.ai-inspector-badge {
+    font-size: 10px;
+    font-weight: 800;
+    color: #7C3AED;
+    background: #EDE9FE;
+    border: 1px solid #DDD6FE;
+    padding: 2px 7px;
+    border-radius: 6px;
 }
 
-.ai-dist-comparison-list {
+/* K-Means 3-column distances grid */
+.ai-dist-comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.ai-dist-card {
+    padding: 4px 7px;
+    border-radius: 7px;
+    border: 1.5px solid #E2E8F0;
+    background: #FFFFFF;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-}
-
-.ai-dist-row {
-    padding: 6px 10px;
-    border-radius: 6px;
-    border: 1px solid #E2E8F0;
-    background: #F8FAFC;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 11px;
-    font-family: ui-monospace, monospace;
+    gap: 1px;
     transition: all 0.2s ease;
 }
 
-.ai-dist-row.is-winner {
+.ai-dist-card.is-winner {
     background: #ECFDF5 !important;
     border-color: #10B981 !important;
-    color: #065F46 !important;
-    font-weight: 700;
-    box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+    box-shadow: 0 1px 6px rgba(16, 185, 129, 0.15);
 }
 
-.ai-decision-card {
-    padding: 8px 10px;
-    border-radius: 8px;
-    background: #EDE9FE;
-    border: 1px solid #DDD6FE;
-    color: #6D28D9;
-    font-size: 11px;
+.ai-dist-card__header {
+    font-size: 10.5px;
     font-weight: 700;
+    color: #64748B;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ai-dist-card.is-winner .ai-dist-card__header {
+    color: #059669;
+}
+
+.ai-dist-card__val {
+    font-size: 13px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-weight: 800;
+    color: #1E293B;
+}
+
+.ai-dist-card.is-winner .ai-dist-card__val {
+    color: #065F46;
+}
+
+/* Regression 2-box metric grid */
+.ai-reg-metrics-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.ai-reg-metric-box {
+    padding: 4px 8px;
+    border-radius: 7px;
+    border: 1.5px solid #E2E8F0;
+    background: #FFFFFF;
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 1px;
+}
+
+.ai-reg-metric-box.is-optimal {
+    background: #ECFDF5;
+    border-color: #10B981;
+}
+
+.ai-reg-metric-box__title {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #64748B;
+}
+
+.ai-reg-metric-box.is-optimal .ai-reg-metric-box__title {
+    color: #059669;
+}
+
+.ai-reg-metric-box__value {
+    font-size: 12px;
+    font-weight: 800;
+    color: #0F172A;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ai-side-inspector .algo-guide-box {
+    padding: 6px 9px;
+    gap: 2px;
+}
+
+.ai-side-inspector .algo-guide-title {
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.ai-side-inspector .algo-guide-text {
+    font-size: 13.5px;
+    line-height: 1.34;
+    color: #334155;
+}
+
+.ai-side-inspector .algo-guide-list {
+    margin: 0;
+    padding-left: 15px;
+    font-size: 13px;
+    line-height: 1.34;
+    color: #334155;
+}
+
+.ai-side-inspector .algo-guide-list li {
+    margin-bottom: 1px;
+}
+
+.ai-side-inspector .algo-legend-row {
+    margin-top: 2px;
+    gap: 4px;
+}
+
+.ai-side-inspector .algo-legend-pill {
+    font-size: 11.5px;
+    padding: 2px 6px;
+}
+
+.ai-side-inspector .algo-it-callout {
+    font-size: 12px;
+    line-height: 1.32;
+    padding: 4px 8px;
+    margin-top: 2px;
 }
 
 .ai-drag-hint-badge {
     position: absolute;
     top: 12px;
     left: 14px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(4px);
-    border: 1px solid #E2E8F0;
+    border: 1.5px solid #E2E8F0;
     border-radius: 6px;
-    padding: 4px 10px;
-    font-size: 11px;
+    padding: 4px 12px;
+    font-size: 12px;
     color: #475569;
-    font-weight: 600;
+    font-weight: 700;
     pointer-events: none;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
 }
 
 .ai-svg-node-draggable {
@@ -1343,7 +1641,6 @@
     cursor: grabbing;
 }
 
-
 /* Регресія: ступені моделі та прогнозатор */
 .reg-degree-selector {
     display: flex;
@@ -1352,90 +1649,80 @@
 }
 
 .btn-reg-degree {
-    padding: 3px 9px;
-    border-radius: 6px;
-    border: 1px solid #CBD5E1;
+    height: 32px;
+    padding: 0 11px;
+    border-radius: 7px;
+    border: 1.5px solid #CBD5E1;
     background: #FFFFFF;
-    color: #475569;
-    font-size: 11px;
-    font-weight: 600;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
 }
 
 .btn-reg-degree:hover {
     background: #F1F5F9;
     border-color: #94A3B8;
+    color: #0F172A;
 }
 
 .btn-reg-degree--active {
-    background: #059669 !important;
-    border-color: #047857 !important;
+    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+    border-color: #059669 !important;
     color: #FFFFFF !important;
-    font-weight: 700;
-    box-shadow: 0 2px 6px rgba(5, 150, 105, 0.25);
+    box-shadow: 0 2px 8px rgba(5, 150, 105, 0.25);
 }
 
 .btn-reg-degree--overfit.btn-reg-degree--active {
-    background: #DC2626 !important;
-    border-color: #B91C1C !important;
-    box-shadow: 0 2px 6px rgba(220, 38, 38, 0.25);
-}
-
-.ai-ml-concept-alert {
-    padding: 8px 10px;
-    border-radius: 8px;
-    font-size: 11px;
-    line-height: 1.4;
-    border: 1px solid transparent;
-}
-
-.ai-ml-concept-alert--underfit {
-    background: #FEF3C7;
-    border-color: #FDE68A;
-    color: #92400E;
-}
-
-.ai-ml-concept-alert--optimal {
-    background: #ECFDF5;
-    border-color: #A7F3D0;
-    color: #065F46;
-}
-
-.ai-ml-concept-alert--overfit {
-    background: #FEE2E2;
-    border-color: #FECACA;
-    color: #991B1B;
+    background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%) !important;
+    border-color: #DC2626 !important;
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.25);
 }
 
 .reg-probe-line {
-    stroke: #7C3AED;
-    stroke-width: 1.5;
+    stroke: #64748B;
+    stroke-width: 1.2;
     stroke-dasharray: 3 3;
+    opacity: 0.75;
     pointer-events: none;
 }
 
-.reg-probe-circle {
-    fill: #7C3AED;
-    stroke: #FFFFFF;
-    stroke-width: 2.5;
+.reg-probe-cross {
     pointer-events: none;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.25));
+}
+
+.dijkstra-node-group {
+    cursor: grab;
+    user-select: none;
+    transition: transform 0.08s ease;
+}
+
+.dijkstra-node-group:active {
+    cursor: grabbing;
 }
 
 .reg-probe-badge {
     position: absolute;
-    top: 14px;
-    right: 18px;
-    background: rgba(15, 23, 42, 0.9);
-    backdrop-filter: blur(4px);
+    top: 12px;
+    right: 14px;
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(6px);
     color: #FFFFFF;
-    padding: 6px 12px;
+    padding: 6px 14px;
     border-radius: 8px;
-    font-size: 11.5px;
-    font-weight: 600;
+    font-size: 12.5px;
+    font-weight: 700;
     display: flex;
     align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
     pointer-events: none;
+    z-index: 10;
 }
