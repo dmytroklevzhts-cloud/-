@@ -12,7 +12,7 @@
 
 html {
     scroll-behavior: smooth;
-    background-color: #202622;
+    background-color: var(--color-bg-page);
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
 }

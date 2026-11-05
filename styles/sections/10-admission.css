@@ -115,3 +115,121 @@
     font-weight: 400;
 }
 
+/* ==========================================================================
+   Responsive Adaptations for Section 10 (Admission)
+   ========================================================================== */
+
+/* Laptop & Compact Desktop (<= 1440px) */
+@media (max-width: 1440px) {
+    .section10-edu-row {
+        gap: 40px;
+    }
+
+    .cta-banner-heading {
+        font-size: 34px;
+    }
+
+    .section10-cta-banner {
+        padding: 28px;
+        gap: 32px;
+    }
+}
+
+/* Tablet (<= 1024px) */
+@media (max-width: 1024px) {
+    .section10-edu-row {
+        gap: 32px;
+    }
+
+    .bachelor-desc {
+        font-size: 17px;
+    }
+
+    .speciality-code-name {
+        font-size: 18px;
+    }
+
+    .cta-banner-heading {
+        font-size: 28px;
+    }
+
+    .section10-cta-banner {
+        padding: 24px;
+        gap: 24px;
+    }
+}
+
+/* Mobile Devices (<= 768px) */
+@media (max-width: 768px) {
+    .section10-edu-row {
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .section10-col-bachelor {
+        gap: 16px;
+    }
+
+    .bachelor-desc {
+        font-size: 15px;
+    }
+
+    .speciality-code-name {
+        font-size: 16px;
+    }
+
+    .section10-col-specific {
+        gap: 20px;
+    }
+
+    .speciality-group-block {
+        padding-top: 14px;
+        gap: 12px;
+    }
+
+    .speciality-subtext {
+        font-size: 13.5px;
+    }
+
+    .section10-cta-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 18px;
+        gap: 18px;
+        border-radius: 12px;
+        min-height: auto;
+    }
+
+    .cta-banner-heading {
+        font-size: 22px;
+        line-height: 1.25;
+    }
+
+    .cta-banner-subheading {
+        font-size: 13.5px;
+        line-height: 1.45;
+    }
+
+    .section10-cta-banner .btn-header-cta {
+        width: 100%;
+        justify-content: center;
+        min-height: 48px;
+    }
+
+    .section10-disclaimer {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+}
+
+/* Small Mobile Screens (<= 480px) */
+@media (max-width: 480px) {
+    .cta-banner-heading {
+        font-size: 20px;
+    }
+
+    .speciality-code-name {
+        font-size: 15px;
+    }
+}
+

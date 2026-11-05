@@ -203,6 +203,11 @@ function applyActiveSection(index) {
         if (idx === index) {
             pill.classList.add('site-header__pill--active');
             pill.setAttribute('aria-current', 'page');
+            if (pill.scrollIntoView && window.innerWidth <= 1024) {
+                try {
+                    pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                } catch (_) {}
+            }
         } else {
             pill.classList.remove('site-header__pill--active');
             pill.removeAttribute('aria-current');

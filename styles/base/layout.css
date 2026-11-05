@@ -1,24 +1,26 @@
 /**
- * Базова система полотна 1920x1080 (Canvas System)
+ * Базова система полотна та адаптивний лейаут
  */
 
-body {
-    width: var(--frame-width);
-    margin: 0 auto;
-    position: relative;
-    background-color: var(--color-bg-page);
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
-    overflow-x: hidden;
+html {
+    overflow-x: clip;
 }
 
-/* Base fixed section 1920x1080 */
-.screen-section {
-    width: var(--frame-width);
-    height: var(--frame-height);
-    min-height: var(--frame-height);
-    max-height: var(--frame-height);
+body {
+    width: 100%;
+    min-width: 320px;
+    margin: 0;
     position: relative;
-    padding: 104px var(--container-padding-x) 40px var(--container-padding-x);
+    background-color: var(--color-bg-page);
+    overflow-x: clip;
+}
+
+/* Base section container */
+.screen-section {
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    padding: calc(var(--header-height) + 28px) var(--container-padding-x) 48px var(--container-padding-x);
     background-color: var(--color-bg-page);
     border-top: 1px solid var(--color-border);
     display: flex;
@@ -26,7 +28,36 @@ body {
     justify-content: flex-start;
     align-items: stretch;
     gap: 32px;
-    overflow: hidden;
+    overflow-x: clip;
+}
+
+/* Centered content boundary for all sections on ultra-wide / large displays */
+.screen-section > * {
+    width: 100%;
+    max-width: var(--content-width);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* На десктопах 1920x1080+ (Canvas System) зберігаємо гармонійну презентаційну геометрію на весь екран */
+@media (min-width: 1441px) and (min-height: 900px) {
+    .screen-section {
+        min-height: 100vh;
+        height: auto;
+        justify-content: space-between;
+    }
+}
+
+/* На екранах ноутбуків, планшетів та смартфонів — плавна гнучка висота */
+@media (max-width: 1440px), (max-height: 899px) {
+    .screen-section {
+        height: auto;
+        min-height: auto;
+        max-height: none;
+        overflow: visible;
+        overflow-x: clip;
+        padding-bottom: 56px;
+    }
 }
 
 /* Background alternates */
@@ -40,8 +71,51 @@ body {
 
 /* Section 1 Hero specific padding */
 .screen-section--hero {
-    padding: 104px var(--container-padding-x) 36px var(--container-padding-x);
-    gap: 40px;
+    padding-top: calc(var(--header-height) + 28px);
+    padding-bottom: 40px;
+    gap: 36px;
     border-top: none;
+}
+
+@media (max-width: 1024px) {
+    .screen-section {
+        gap: 24px;
+        padding-top: calc(var(--header-height) + 24px);
+        padding-bottom: 48px;
+    }
+
+    .screen-section--hero {
+        gap: 28px;
+        padding-top: calc(var(--header-height) + 20px);
+        padding-bottom: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .screen-section {
+        gap: 20px;
+        padding-top: calc(var(--header-height) + 20px);
+        padding-bottom: 40px;
+    }
+
+    .screen-section--hero {
+        gap: 24px;
+        padding-top: calc(var(--header-height) + 16px);
+        padding-bottom: 32px;
+    }
+}
+
+@media (max-width: 480px) {
+    .screen-section {
+        gap: 16px;
+        padding-top: calc(var(--header-height) + 16px);
+        padding-bottom: 36px;
+    }
+
+    .screen-section--hero {
+        gap: 20px;
+        padding-top: calc(var(--header-height) + 14px);
+        padding-bottom: 28px;
+    }
 }
 

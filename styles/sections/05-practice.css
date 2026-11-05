@@ -488,10 +488,9 @@
    ========================================================================== */
 .practice-modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     z-index: 999999;
     display: none;
     align-items: center;
@@ -839,4 +838,213 @@
     font-size: 14.5px;
     line-height: 1.45;
     color: #334155;
+}
+
+/* ==========================================================================
+   Responsive Adaptations for Section 05 (Practice)
+   ========================================================================== */
+
+/* Laptop & Compact Desktop (<= 1440px) */
+@media (max-width: 1440px) {
+    .practice-heading {
+        font-size: 38px;
+    }
+
+    .practice-nav-col {
+        width: 500px;
+    }
+}
+
+/* Tablet (<= 1024px) */
+@media (max-width: 1024px) {
+    .practice-top-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .practice-nav-col {
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .practice-subheading {
+        text-align: left;
+    }
+
+    .wave-slider-container {
+        height: 530px;
+    }
+
+    .wave-vignette {
+        width: 80px;
+    }
+
+    .wave-card {
+        width: 380px;
+        height: 500px;
+        left: -190px;
+    }
+
+    .wave-card__media {
+        height: 290px;
+    }
+
+    /* Practice Modal */
+    .practice-modal__container {
+        width: 92vw;
+        height: 90vh;
+        max-height: 90vh;
+        min-height: auto;
+        border-radius: 16px;
+    }
+
+    .practice-modal__body {
+        flex-direction: column;
+        gap: 24px;
+        padding: 24px;
+    }
+
+    .practice-modal__left {
+        width: 100%;
+    }
+
+    .practice-modal__image-wrap {
+        height: 260px;
+    }
+}
+
+/* Mobile Devices (<= 768px) */
+@media (max-width: 768px) {
+    .practice-heading {
+        font-size: 30px;
+    }
+
+    .practice-subheading {
+        font-size: 14.5px;
+    }
+
+    .wave-nav-controls {
+        padding: 4px 10px 4px 4px;
+    }
+
+    .btn-wave-nav {
+        width: 38px;
+        height: 38px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .wave-slider-container {
+        height: 460px;
+        margin-top: 4px;
+    }
+
+    .wave-vignette {
+        width: 30px;
+    }
+
+    .wave-card {
+        width: 320px;
+        height: 430px;
+        left: -160px;
+        border-radius: 14px;
+    }
+
+    .wave-card__media {
+        height: 235px;
+    }
+
+    .wave-card__content {
+        padding: 12px 14px;
+        gap: 4px;
+    }
+
+    .wave-card__title {
+        font-size: 16px;
+        line-height: 1.25;
+    }
+
+    .wave-card__desc {
+        font-size: 12.5px;
+        line-height: 1.35;
+    }
+
+    .wave-instruction {
+        display: none;
+    }
+
+    .wave-action-hint {
+        font-size: 12px;
+    }
+
+    /* Modal Fullscreen on Mobile */
+    .practice-modal__container {
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+        border-radius: 0;
+    }
+
+    .practice-modal__header {
+        height: 56px;
+        min-height: 56px;
+        padding: 0 16px;
+    }
+
+    .btn-modal-close {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .practice-modal__body {
+        padding: 16px;
+        gap: 20px;
+    }
+
+    .practice-modal__image-wrap {
+        height: 190px;
+    }
+
+    .practice-modal__specs-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .practice-modal__title {
+        font-size: 20px;
+    }
+}
+
+/* Small Mobile Screens (<= 480px) */
+@media (max-width: 480px) {
+    .practice-heading {
+        font-size: 24px;
+    }
+
+    .wave-slider-container {
+        height: 420px;
+    }
+
+    .wave-vignette {
+        width: 14px;
+    }
+
+    .wave-card {
+        width: 290px;
+        height: 390px;
+        left: -145px;
+    }
+
+    .wave-card__media {
+        height: 205px;
+    }
+
+    .wave-card__title {
+        font-size: 15px;
+    }
+
+    .practice-modal__title {
+        font-size: 18px;
+    }
 }

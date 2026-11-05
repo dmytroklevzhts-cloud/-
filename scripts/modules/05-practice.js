@@ -696,10 +696,18 @@
     ];
 
     // Геометричні та фізичні параметри слайдера (Рівний горизонт + Збільшений розмір 440px)
-    const CARD_WIDTH = 440; // Збільшена ширина картки (було 420)
-    const CARD_SPACING = 490; // 440px + 50px відступ між картками
+    function getCardMetrics() {
+        const w = window.innerWidth;
+        if (w <= 480) return { width: 290, spacing: 320 };
+        if (w <= 768) return { width: 320, spacing: 360 };
+        if (w <= 1024) return { width: 380, spacing: 430 };
+        return { width: 440, spacing: 490 };
+    }
+    let initialMetrics = getCardMetrics();
+    let CARD_WIDTH = initialMetrics.width;
+    let CARD_SPACING = initialMetrics.spacing;
     const TOTAL_CARDS = PRACTICE_ITEMS.length; // 20
-    const TOTAL_LENGTH = TOTAL_CARDS * CARD_SPACING; // 9800px
+    let TOTAL_LENGTH = TOTAL_CARDS * CARD_SPACING;
     const LERP_FACTOR = 0.09; // Плавність інерційного згладжування
 
     // Стан слайдера
@@ -752,6 +760,18 @@
         renderCards();
         initModal();
         bindEvents();
+
+        window.addEventListener('resize', () => {
+            const prevSpacing = CARD_SPACING;
+            const metrics = getCardMetrics();
+            CARD_WIDTH = metrics.width;
+            CARD_SPACING = metrics.spacing;
+            TOTAL_LENGTH = TOTAL_CARDS * CARD_SPACING;
+            if (prevSpacing !== CARD_SPACING) {
+                currentScroll = activeCardIndex * CARD_SPACING;
+                targetScroll = currentScroll;
+            }
+        });
 
         // Запуск анімаційного циклу
         requestAnimationFrame(updateLoop);

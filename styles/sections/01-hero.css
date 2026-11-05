@@ -147,7 +147,8 @@
 }
 
 .hero-description {
-    width: 920px;
+    width: 100%;
+    max-width: 920px;
     color: var(--color-text-muted);
     font-size: 22px;
     font-weight: 400;
@@ -308,7 +309,8 @@
 }
 
 .hero-program-title {
-    width: 1080px;
+    flex: 1 1 380px;
+    max-width: 1080px;
     color: var(--color-text-main);
     font-size: 31px;
     font-weight: 500;
@@ -375,3 +377,229 @@
     transform: translateY(2px);
 }
 
+/* ==========================================================================
+   Responsive Adaptations for Section 01 (Hero)
+   ========================================================================== */
+
+/* Laptop & Compact Desktop (<= 1440px) */
+@media (max-width: 1440px) {
+    .hero-body {
+        height: auto;
+        gap: 40px;
+    }
+
+    .hero-word {
+        font-size: 68px;
+    }
+
+    .hero-photo-card {
+        width: 480px;
+        height: 420px;
+    }
+
+    .hero-program-title {
+        font-size: 26px;
+    }
+
+    .hero-description {
+        font-size: 19px;
+    }
+}
+
+/* Tablet (<= 1024px) */
+@media (max-width: 1024px) {
+    .hero-body {
+        flex-direction: column;
+        height: auto;
+        gap: 32px;
+    }
+
+    .hero-main-col {
+        width: 100%;
+    }
+
+    .hero-word {
+        font-size: 56px;
+    }
+
+    .hero-photo-card {
+        width: 100%;
+        max-width: 640px;
+        height: 380px;
+        margin: 0 auto;
+    }
+
+    .hero-programs-block {
+        margin-top: 8px;
+    }
+
+    .hero-program-row {
+        height: auto;
+        min-height: 84px;
+        padding: 16px 0;
+        gap: 16px;
+    }
+
+    .hero-program-title {
+        font-size: 22px;
+        flex: 1 1 260px;
+    }
+
+    .hero-program-focus {
+        font-size: 14.5px;
+    }
+}
+
+/* Mobile Devices (<= 768px) */
+@media (max-width: 768px) {
+    .hero-badge {
+        font-size: 13px;
+        letter-spacing: 1.5px;
+    }
+
+    .hero-heading__row {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .hero-heading__row:hover {
+        transform: none;
+    }
+
+    .hero-word {
+        font-size: 44px;
+        line-height: 1.1;
+    }
+
+    .hero-subtag {
+        font-size: 12px;
+        padding: 4px 12px;
+    }
+
+    .hero-description {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .hero-photo-card {
+        height: 280px;
+        border-radius: 12px;
+    }
+
+    .hero-photo-card__title {
+        font-size: 17px;
+    }
+
+    .hero-photo-card__desc {
+        font-size: 12.5px;
+    }
+
+    .hero-program-row {
+        display: grid;
+        grid-template-columns: 4px 1fr auto;
+        grid-template-areas:
+            "indicator title arrow"
+            "indicator focus arrow";
+        align-items: center;
+        column-gap: 14px;
+        row-gap: 4px;
+        padding: 16px 0;
+        height: auto;
+        min-height: 44px;
+    }
+
+    .hero-program-indicator {
+        grid-area: indicator;
+        height: 100%;
+        min-height: 40px;
+        border-radius: 2px;
+    }
+
+    .hero-program-title {
+        grid-area: title;
+        font-size: 17.5px;
+        line-height: 1.25;
+        margin: 0;
+        max-width: none;
+    }
+
+    .hero-program-focus {
+        grid-area: focus;
+        font-size: 13.5px;
+        line-height: 1.35;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .hero-program-arrow {
+        grid-area: arrow;
+        font-size: 24px;
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-bottom-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding-top: 16px;
+    }
+
+    .hero-bottom-meta {
+        font-size: 13.5px;
+    }
+
+    .hero-bottom-next {
+        font-size: 14px;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+    }
+}
+
+/* Small Mobile Screens (<= 480px) */
+@media (max-width: 480px) {
+    .hero-word {
+        font-size: 34px;
+    }
+
+    .hero-photo-card {
+        height: 220px;
+    }
+
+    .hero-photo-card__bottom {
+        padding: 16px;
+    }
+
+    .hero-photo-card__title {
+        font-size: 15px;
+    }
+
+    .hero-photo-badge {
+        padding: 4px 10px;
+        font-size: 11px;
+    }
+
+    .hero-program-title {
+        font-size: 15.5px;
+    }
+
+    .hero-program-focus {
+        font-size: 12px;
+    }
+
+    .hero-program-row {
+        column-gap: 10px;
+        row-gap: 3px;
+        padding: 13px 0;
+    }
+
+    .hero-program-arrow {
+        font-size: 20px;
+        min-width: 40px;
+        min-height: 40px;
+    }
+}

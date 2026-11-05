@@ -295,6 +295,34 @@ export function initWebShowcase() {
         }
     });
 
+    // Touch swipe support for switching frames on touchscreens
+    const deckStage = document.getElementById("deck-stage");
+    if (deckStage) {
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        deckStage.addEventListener("touchstart", (e) => {
+            if (e.touches && e.touches[0]) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        deckStage.addEventListener("touchend", (e) => {
+            if (e.changedTouches && e.changedTouches[0]) {
+                const diffX = e.changedTouches[0].clientX - touchStartX;
+                const diffY = e.changedTouches[0].clientY - touchStartY;
+                if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+                    if (diffX > 0) {
+                        setFrame(currentFrameIndex - 1, true);
+                    } else {
+                        setFrame(currentFrameIndex + 1, true);
+                    }
+                }
+            }
+        }, { passive: true });
+    }
+
     setFrame(0, false);
 }
 

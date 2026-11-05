@@ -69,3 +69,96 @@
     line-height: 1.4;
 }
 
+/* ==========================================================================
+   Responsive Adaptations for Section 09 (Work Spheres)
+   ========================================================================== */
+
+/* Laptop & Compact Desktop (<= 1440px) */
+@media (max-width: 1440px) {
+    .spheres-header-row,
+    .spheres-row {
+        gap: 24px;
+    }
+
+    .spheres-header-title,
+    .sphere-name {
+        width: 240px;
+        font-size: 20px;
+    }
+
+    .sphere-item-desc {
+        font-size: 16px;
+    }
+}
+
+/* Tablet (<= 1024px) */
+@media (max-width: 1024px) {
+    .spheres-header-row,
+    .spheres-row {
+        gap: 20px;
+    }
+
+    .spheres-header-title,
+    .sphere-name {
+        width: 200px;
+        font-size: 18px;
+    }
+
+    .sphere-item-desc {
+        font-size: 14.5px;
+    }
+}
+
+/* Mobile Devices (<= 768px) */
+@media (max-width: 768px) {
+    .spheres-header-row {
+        display: none;
+    }
+
+    .spheres-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 16px 0;
+        min-height: auto;
+    }
+
+    .sphere-name {
+        width: 100%;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--color-text-main);
+        padding-bottom: 2px;
+    }
+
+    .sphere-item-desc {
+        width: 100%;
+        font-size: 14px;
+        line-height: 1.45;
+        padding-left: 2px;
+    }
+
+    .spheres-row .sphere-item-desc:nth-child(2)::before {
+        content: "КД (Дизайн): ";
+        font-weight: 600;
+        color: var(--color-design);
+    }
+
+    .spheres-row .sphere-item-desc:nth-child(3)::before {
+        content: "ПР (Програмування): ";
+        font-weight: 600;
+        color: var(--color-software);
+    }
+}
+
+/* Small Mobile Screens (<= 480px) */
+@media (max-width: 480px) {
+    .sphere-name {
+        font-size: 16.5px;
+    }
+
+    .sphere-item-desc {
+        font-size: 13px;
+    }
+}
+
