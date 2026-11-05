@@ -525,86 +525,42 @@
     <section id="section-4" class="screen-section screen-section--cream">
         <div class="screen-title-block">
             <h2 class="screen-title">Розуміти не лише «як», а й «чому».</h2>
-            <p class="screen-subtitle">Програмування, дані, мережі та якість — технологічна опора обох освітніх програм.
-            </p>
+            <p class="screen-subtitle">Інтерактивна лабораторія ОПП «ПР»: складні алгоритми, реляційні моделі баз даних та штучний інтелект наживо.</p>
         </div>
 
-        <div class="section4-content">
-            <div class="section4-grid">
-                <!-- Колонка 1: Комп'ютерний дизайн -->
-                <div class="section4-col">
-                    <div class="discipline-block">
-                        <div class="program-tag program-tag--purple">
-                            <span class="program-tag__dot"></span>
-                            <span class="program-tag__text">Комп’ютерний дизайн</span>
-                        </div>
-                        <div class="discipline-block__title">Програмування та бази даних</div>
-                        <p class="discipline-block__desc">C++, Python, C#. Об’єктно-орієнтоване програмування, SQL та
-                            проєктування баз даних.</p>
-                    </div>
-                    <div class="discipline-block">
-                        <div class="program-tag program-tag--purple">
-                            <span class="program-tag__dot"></span>
-                            <span class="program-tag__text">Комп’ютерний дизайн</span>
-                        </div>
-                        <div class="discipline-block__title">Інженерія ПЗ й архітектура мереж</div>
-                        <p class="discipline-block__desc">Agile/Scrum, Git, комп’ютерні мережі та основи інформаційної
-                            безпеки.</p>
-                    </div>
-                </div>
-
-                <!-- Колонка 2: Програмні системи й комплекси -->
-                <div class="section4-col">
-                    <div class="discipline-block">
-                        <div class="program-tag program-tag--green">
-                            <span class="program-tag__dot"></span>
-                            <span class="program-tag__text">Програмні системи й комплекси</span>
-                        </div>
-                        <div class="discipline-block__title">Програмування та архітектура</div>
-                        <p class="discipline-block__desc">«Алгоритмізація та програмування», «Об’єктно-орієнтоване
-                            програмування».</p>
-                    </div>
-                    <div class="discipline-block">
-                        <div class="program-tag program-tag--green">
-                            <span class="program-tag__dot"></span>
-                            <span class="program-tag__text">Програмні системи й комплекси</span>
-                        </div>
-                        <div class="discipline-block__title">Бази даних та операційні системи</div>
-                        <p class="discipline-block__desc">«Операційні системи», «Організація баз даних та знань»,
-                            «Адміністрування програмних систем».</p>
-                    </div>
-                </div>
-
-                <!-- Колонка 3: Програмні системи й комплекси -->
-                <div class="section4-col">
-                    <div class="discipline-block">
-                        <div class="program-tag program-tag--green">
-                            <span class="program-tag__dot"></span>
-                            <span class="program-tag__text">Програмні системи й комплекси</span>
-                        </div>
-                        <div class="discipline-block__title">Мережі та якість</div>
-                        <p class="discipline-block__desc">«Комп’ютерні мережі», «Тестування програмних систем і
-                            комплексів».</p>
-                    </div>
-                    <div class="discipline-block">
-                        <div class="program-tag program-tag--green">
-                            <span class="program-tag__dot"></span>
-                            <span class="program-tag__text">Програмні системи й комплекси</span>
-                        </div>
-                        <div class="discipline-block__title">Вибіркові дисципліни</div>
-                        <p class="discipline-block__desc">«Розробка Desktop-додатків», «Штучний інтелект», «Хмарні
-                            технології», «Технології Інтернет речей».</p>
-                    </div>
-                </div>
+        <div class="tech-lab-container">
+            <!-- Верхні таби перемикання 3 лабораторій -->
+            <div class="tech-lab-tabs" role="tablist">
+                <button class="tech-lab-tab tech-lab-tab--active" data-lab="algo" role="tab" aria-selected="true">
+                    <span class="lab-tab-num">01</span>
+                    <span class="lab-tab-icon">⚡</span>
+                    <span class="lab-tab-text">Алгоритми та структури</span>
+                    <span class="lab-tab-badge">4 алгоритми наживо</span>
+                </button>
+                <button class="tech-lab-tab" data-lab="db" role="tab" aria-selected="false">
+                    <span class="lab-tab-num">02</span>
+                    <span class="lab-tab-icon">🗄️</span>
+                    <span class="lab-tab-text">Бази даних &amp; ER-моделювання</span>
+                    <span class="lab-tab-badge">10 таблиць &amp; 10 зв'язків</span>
+                </button>
+                <button class="tech-lab-tab" data-lab="ai" role="tab" aria-selected="false">
+                    <span class="lab-tab-num">03</span>
+                    <span class="lab-tab-icon">🧠</span>
+                    <span class="lab-tab-text">Штучний інтелект &amp; ML</span>
+                    <span class="lab-tab-badge">Покрокове навчання</span>
+                </button>
             </div>
 
-            <div class="section4-bridge">
-                <span class="section4-bridge__icon">↔</span>
-                <div class="section4-bridge__text">Візуальна ідея стає продуктом завдяки коду. Код стає зручним завдяки
-                    продуманому дизайну.</div>
+            <!-- Головне вікно симулятора (Світла тема) -->
+            <div class="tech-lab-stage" id="tech-lab-stage">
+                <!-- Контент активної лабораторії динамічно рендериться JS -->
             </div>
         </div>
 
+        <div class="section4-bridge">
+            <span class="section4-bridge__icon">↔</span>
+            <div class="section4-bridge__text">Від математичної теорії до надійної архітектури: студенти ОПП «ПР» розуміють, як працюють внутрішні процеси цифрових систем.</div>
+        </div>
     </section>
 
 
@@ -1172,6 +1128,7 @@
     <script src="js/web-showcase.js?v=11"></script>
     <script src="js/practice-slider.js"></script>
     <script src="js/teachers.js"></script>
+    <script src="js/code-showcase.js"></script>
     <script src="js/site-header.js"></script>
 </body>
 
