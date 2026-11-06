@@ -283,10 +283,15 @@
    Responsive Adaptations for Header Navigation
    ========================================================================== */
 
-/* Laptop & Tablet Landscape (<= 1360px) */
-@media (max-width: 1360px) {
+/* 1. Desktop & Laptops (<= 1600px): Приховуємо довгий текст кнопки наступного розділу */
+@media (max-width: 1600px) {
+    .site-header__container {
+        padding: 0 40px;
+        gap: 10px;
+    }
+
     .site-header__next-btn #hdr-next-label {
-        display: none;
+        display: none !important;
     }
 
     .site-header__next-btn {
@@ -300,68 +305,83 @@
     }
 }
 
-/* Tablet (<= 1024px) */
-@media (max-width: 1024px) {
-    .site-header__nav {
-        flex: 1 1 auto;
-        min-width: 0;
-        display: flex;
-        justify-content: center;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
+/* 2. Medium Laptops (<= 1360px): Приховуємо стрілку наступного розділу */
+@media (max-width: 1360px) {
+    .site-header__container {
+        padding: 0 32px;
+        gap: 8px;
     }
 
-    .site-header__nav::-webkit-scrollbar {
-        display: none;
+    #hdr-next-btn {
+        display: none !important;
+    }
+
+    .site-header__current-title {
+        max-width: 120px;
+    }
+}
+
+/* 3. Small Laptops & Landscape Tablets (<= 1200px): Приховуємо поточний розділ, оптимізуємо пігулки */
+@media (max-width: 1200px) {
+    .site-header__container {
+        padding: 0 24px;
+        gap: 8px;
+    }
+
+    .site-header__current {
+        display: none !important;
     }
 
     .site-header__pills-bar {
         padding: 4px 6px;
         gap: 4px;
-        flex-shrink: 0;
     }
 
     .site-header__pill {
-        width: 36px;
+        width: 38px;
         height: 28px;
         font-size: 13px;
     }
 
-    /* Expand touch area for mobile/tablet */
-    .site-header__pill::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        min-width: 44px;
-        min-height: 44px;
-    }
-
-    .site-header__current {
-        display: none;
-    }
-
-    .site-header__actions {
-        gap: 10px;
+    .site-header__title {
+        font-size: 15px;
     }
 }
 
-/* Mobile Devices (<= 768px) */
-@media (max-width: 768px) {
-    .site-header__container {
-        gap: 8px;
+/* 4. Tablets & Mobile (<= 1024px): ДВОРІВНЕВА ШАПКА */
+@media (max-width: 1024px) {
+    .site-header {
+        height: auto;
+        min-height: var(--header-height);
     }
 
+    .site-header__container {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        align-items: center;
+        padding: 8px var(--container-padding-x) 7px;
+        row-gap: 8px;
+        column-gap: 12px;
+        height: auto;
+        box-sizing: border-box;
+    }
+
+    /* Рядок 1, Колонка 1: Бренд та назва коледжу */
     .site-header__brand {
-        gap: 8px;
+        grid-column: 1;
+        grid-row: 1;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
     }
 
     .site-header__logo-wrap {
         width: 38px;
         height: 38px;
         border-radius: 8px;
+        flex-shrink: 0;
     }
 
     .site-header__logo {
@@ -369,142 +389,222 @@
         height: 26px;
     }
 
+    .site-header__brand-text {
+        display: flex !important;
+        visibility: visible !important;
+        flex-direction: column;
+        gap: 1px;
+        min-width: 0;
+        overflow: hidden;
+    }
+
     .site-header__title {
-        font-size: 13px;
-        max-width: 140px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+
+    .site-header__subtitle {
+        display: block !important;
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--color-text-muted);
+        letter-spacing: 0.02em;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
-    .site-header__subtitle {
-        display: none;
-    }
-
-    .site-header__nav {
-        flex: 1 1 auto;
-        min-width: 0;
-        max-width: 100%;
-    }
-
-    .site-header__pills-bar {
-        padding: 3px 5px;
-        gap: 3px;
-    }
-
-    .site-header__pill {
-        width: 34px;
-        height: 28px;
-        font-size: 12px;
-    }
-
-    .site-header__next-btn {
-        min-height: 44px;
-        min-width: 44px;
-        padding: 0;
+    /* Рядок 1, Колонка 2: Дії (кнопка вступу) */
+    .site-header__actions {
+        grid-column: 2;
+        grid-row: 1;
         display: flex;
         align-items: center;
-        justify-content: center;
-        border-radius: 8px;
+        justify-content: flex-end;
+        gap: 8px;
     }
 
-    .btn-header-cta-fixed {
-        min-height: 44px;
-        height: 44px;
-        padding: 0 14px;
-        font-size: 13px;
-        gap: 6px;
-    }
-}
-
-/* Small Mobile Screens (<= 480px) */
-@media (max-width: 480px) {
-    .site-header__container {
-        padding: 0 10px;
-        gap: 6px;
-    }
-
-    .site-header__brand-text {
-        display: none;
-    }
-
-    .site-header__logo-wrap {
-        width: 36px;
-        height: 36px;
-    }
-
-    .site-header__logo {
-        width: 24px;
-        height: 24px;
-    }
-
-    /* На екранах мобільних приховуємо кнопку наступного розділу (↓), звільняючи простір */
-    .site-header__next-btn {
+    .site-header__current,
+    #hdr-next-btn {
         display: none !important;
     }
 
+    .btn-header-cta-fixed {
+        height: 38px;
+        min-height: 38px;
+        padding: 0 14px;
+        font-size: 13px;
+        font-weight: 600;
+        gap: 6px;
+        border-radius: 8px;
+        white-space: nowrap;
+    }
+
+    /* Рядок 2, Спан на всю ширину: Кнопки-пігулки 01-10 */
     .site-header__nav {
-        flex: 1 1 auto;
+        grid-column: 1 / -1;
+        grid-row: 2;
+        width: 100%;
         min-width: 0;
-        justify-content: flex-start;
+        display: flex;
+        justify-content: center;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        padding: 1px 0;
+    }
+
+    .site-header__nav::-webkit-scrollbar {
+        display: none;
     }
 
     .site-header__pills-bar {
-        padding: 2px 4px;
-        gap: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        padding: 3px 8px;
+        background: rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 999px;
+        margin: 0 auto;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .site-header__pill {
-        width: 30px;
-        height: 26px;
-        font-size: 11.5px;
+        width: 36px;
+        height: 28px;
+        font-size: 13px;
+        flex-shrink: 0;
     }
 
-    .btn-header-cta-fixed span:first-child {
-        font-size: 12px;
+    .site-header__pill-tooltip {
+        display: none !important;
     }
 
-    .btn-header-cta-fixed {
-        padding: 0 10px;
-        height: 38px;
-        min-height: 38px;
+    .site-header__pill::after {
+        min-width: auto !important;
+        min-height: auto !important;
+        width: 100% !important;
+        height: 38px !important;
     }
 }
 
-/* Extra Small Screens (<= 360px, наприклад 320px - 325px) */
-@media (max-width: 360px) {
-    .site-header__container {
-        padding: 0 6px;
-        gap: 5px;
-    }
-
-    .site-header__logo-wrap {
-        width: 32px;
-        height: 32px;
-        border-radius: 6px;
-    }
-
-    .site-header__logo {
-        width: 20px;
-        height: 20px;
+/* 5. Phones (<= 768px) */
+@media (max-width: 768px) {
+    .site-header__title {
+        font-size: 13px;
     }
 
     .site-header__pill {
-        width: 27px;
-        height: 24px;
-        font-size: 11px;
+        width: 32px;
+        height: 28px;
+        font-size: 12.5px;
+    }
+
+    .site-header__pills-bar {
+        gap: 4px;
+        padding: 3px 6px;
+    }
+}
+
+/* 6. Small Mobile Screens (<= 480px) */
+@media (max-width: 480px) {
+    .site-header__container {
+        padding: 6px 12px 6px;
+        row-gap: 6px;
+        column-gap: 8px;
+    }
+
+    .site-header__logo-wrap {
+        width: 34px;
+        height: 34px;
+    }
+
+    .site-header__logo {
+        width: 22px;
+        height: 22px;
+    }
+
+    .site-header__title {
+        font-size: 12px;
+    }
+
+    .site-header__subtitle {
+        font-size: 10px;
     }
 
     .btn-header-cta-fixed {
-        padding: 0 8px;
         height: 34px;
         min-height: 34px;
+        padding: 0 11px;
+        font-size: 12px;
+    }
+
+    .site-header__pills-bar {
+        gap: 3px;
+        padding: 2px 4px;
+    }
+
+    .site-header__pill {
+        width: 29px;
+        height: 26px;
         font-size: 11.5px;
+    }
+}
+
+/* 7. Extra Small Screens (<= 360px) */
+@media (max-width: 360px) {
+    .site-header__container {
+        padding: 5px 8px 5px;
+        row-gap: 5px;
+        column-gap: 6px;
+    }
+
+    .site-header__logo-wrap {
+        width: 30px;
+        height: 30px;
+    }
+
+    .site-header__logo {
+        width: 18px;
+        height: 18px;
+    }
+
+    .site-header__title {
+        font-size: 11px;
+    }
+
+    .site-header__subtitle {
+        font-size: 9.5px;
+    }
+
+    .btn-header-cta-fixed {
+        height: 30px;
+        min-height: 30px;
+        padding: 0 8px;
+        font-size: 11px;
         gap: 4px;
     }
 
     .btn-header-cta-fixed .arrow {
-        font-size: 12px;
+        font-size: 11px;
+    }
+
+    .site-header__pill {
+        width: 26px;
+        height: 24px;
+        font-size: 10.5px;
+    }
+
+    .site-header__pills-bar {
+        gap: 2px;
+        padding: 2px 3px;
     }
 }
-

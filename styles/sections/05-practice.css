@@ -916,6 +916,12 @@
 
 /* Mobile Devices (<= 768px) */
 @media (max-width: 768px) {
+
+    .wave-slider-container {
+        height: 420px;
+        mask-image: none;
+    }
+
     .practice-heading {
         font-size: 30px;
     }
@@ -1022,9 +1028,7 @@
         font-size: 24px;
     }
 
-    .wave-slider-container {
-        height: 420px;
-    }
+
 
     .wave-vignette {
         width: 14px;
