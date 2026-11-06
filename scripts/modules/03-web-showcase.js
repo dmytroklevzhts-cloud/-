@@ -47,15 +47,15 @@ const webProjects = [
     },
     {
         id: "04",
-        name: "Lingo",
-        title: "Lingo — Language Learning Dashboard",
+        name: "GAME WIKI",
+        title: "Go! Go! Hamster Chef! — Game Wiki & Guide",
         badge: "МАКЕТ 04 · UI/UX ДИЗАЙН",
         tags: ["Figma", "SaaS UI", "HTML5", "CSS3", "UX Flow"],
-        desc: "Сучасний освітній веб-сервіс для вивчення мов. Продуманий особистий кабінет учня, трекер щоденного прогресу, картки практичних завдань та інтерактивні тести вибору правильних відповідей.",
+        desc: "Тематичний веб-довідник аркадної гри про пригоди хом'яка-шефа. Огляд ігрового процесу, рецептурні механіки, інтерактивна медіагалерея зі скриншотами та вбудований відеоплеєр.",
         frames: [
-            { src: "img/Figma/frames/4_1.webp", title: "Дашборд учня та прогрес" },
-            { src: "img/Figma/frames/4_2.webp", title: "Картки курсів та тем" },
-            { src: "img/Figma/frames/4_3.webp", title: "Інтерактивний тест знань" }
+            { src: "img/Figma/frames/4_1.webp", title: "Заголовок та опис гри" },
+            { src: "img/Figma/frames/4_2.webp", title: "Геймплей та скріни гри" },
+            { src: "img/Figma/frames/4_3.webp", title: "Посилання на відеозапис геймплею" }
         ]
     },
     {
@@ -177,7 +177,7 @@ export function initWebShowcase() {
 
         const isForward = (index > prevProjIndex) || (prevProjIndex === webProjects.length - 1 && index === 0);
         const inStart = isForward ? "100%" : "-100%";
-        const outEnd  = isForward ? "-100%" : "100%";
+        const outEnd = isForward ? "-100%" : "100%";
 
         if (titleEl) titleEl.textContent = proj.title;
         if (descEl) descEl.textContent = proj.desc;
